@@ -1,0 +1,116 @@
+.detail-box {
+    .scroll-box {
+        .top-contents {
+            .img-box {
+                height: 220;
+                width: 100%;
+                background-color: #eee;
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
+            .top-btns {
+                width: 100%;
+                color: #333;
+                .back-btn {
+                    width: 30;
+                    height: 30;
+                    border-radius: 15;
+                    background-color: rgba(255, 255, 255, 0.9);
+                    text-align: center;
+                    Image {
+                        width: 60%;
+                    }
+                }
+                .sign-up-users {
+                    font-size: 14;
+                    font-weight: 500;
+                    padding: 8 10;
+                    border-top-left-radius: 6;
+                    border-bottom-left-radius: 6;
+                    background-color: rgba(255, 255, 255, 0.8);
+                }
+            }
+            .brand-img {
+                width: 70;
+                height: 70;
+                left: 20;
+                top: 180;
+                border-radius: 35;
+                background-color: #fff;
+                border-width: 1;
+                border-color: #eee;
+                Image {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+        }
+
+        .brand-product {
+            .brand-name,
+            .product-name {
+                font-size: 20;
+                font-weight: 600;
+                color: #0d053c;
+            }
+        }
+
+        .commission-box {
+            .title {
+                font-size: 20;
+                font-weight: 600;
+                color: #0d053c;
+            }
+            .prices {
+                .price-item {
+                    Image {
+                        margin-right: 8;
+                    }
+                    margin-right: 10;
+                    .commission {
+                        font-size: 12;
+                        color: #0d053c;
+                    }
+                    .extra-bonus {
+                        font-size: 10;
+                        color: #bdbdbd;
+                    }
+                }
+            }
+            .left-time-box {
+                height: 50;
+                padding: 4 0;
+                background-color: #f4f7fa;
+                color: #414bb2;
+                border-top-left-radius: 20;
+                border-bottom-left-radius: 20;
+                .due-date {
+                    text-align: center;
+                    font-size: 14;
+                    font-weight: 600;
+                }
+                .time {
+                    text-align: center;
+                    font-size: 12;
+                }
+            }
+        }
+    }
+
+    .bottom-btns {
+        padding: 0 20;
+        border-top-width: 1;
+        border-top-color: #ccc;
+        .total-amount {
+            color: #414bb2;
+            font-size: 20;
+        }
+        .accept-btn {
+            padding: 15 30;
+            margin: 0;
+            background-color: #414bb2;
+            color: #fff;
+            border-radius: 6;
+        }
+    }
+}

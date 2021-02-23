@@ -1,0 +1,70 @@
+.account-info {
+    color: #333;
+
+    .pad-20 {
+        padding: 20;
+    }
+    .divider {
+        height: 1;
+        width: 100%;
+        background-color: #eaeff4;
+    }
+
+    .setting-help {
+        image {
+            width: 20;
+            height: 20;
+        }
+    }
+
+    .name-portrait {
+        Image {
+            width: 50;
+            height: 50;
+            border-radius: 25;
+            background-color: #ddd;
+        }
+    }
+
+    .section-title {
+        font-weight: 600;
+        margin-bottom: 20;
+    }
+
+    .invitation {
+        .invitation-desc {
+            font-weight: 500;
+            margin-bottom: 8;
+        }
+        .invitation-count {
+            color: #27ae60;
+            margin-bottom: 12;
+        }
+    }
+
+    .email-ins {
+        .section-title {
+            margin-bottom: 0;
+        }
+        .email-account {
+            color: #2f80ed;
+        }
+    }
+
+    .contact-info {
+        .field-key {
+            margin-bottom: 6;
+            font-weight: 500;
+        }
+        .field-value {
+            margin-bottom: 20;
+        }
+    }
+
+    .payment-info {
+        .change-paypal-btn {
+            color: #2f80ed;
+            font-weight: 500;
+        }
+    }
+}

@@ -1,0 +1,38 @@
+<div class="shop-container">
+    <div class="header-container">
+        <div class="external-store-header">
+            <div class="back" (click)="backToDashboard()">
+                <img src="assets/png/left-arrow.png" class="navigation-icon" />
+            </div>
+            <div class="admin">Influencer Shop</div>
+            <div class="back"></div>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="hi-message">Hi there,</div>
+        <div calss="welcom-message">Welcome to Lifo Shop</div>
+
+        <div class="shop-message">Lifo Shop enables influencers to open a social commerce shop by themselves in one click. You can earn a commission from every item sold from your shop.</div>
+
+        <div class="current-shop"><b>357+</b> influencers open their shop already</div>
+        <div class="images">
+            <img src="assets/images/shop_entrance_1.jpg" />
+            <img src="assets/images/shop_entrance_2.jpg" />
+            <img src="assets/images/shop_entrance_3.jpg" />
+            <img src="assets/images/shop_entrance_4.jpg" />
+            <img src="assets/images/shop_entrance_5.jpg" />
+            <img src="assets/images/shop_entrance_6.jpg" />
+        </div>
+
+        <div class="apply-message">
+            Sorry, Lifo Shop is only available for influencers with >10k followers now. Apply if you’re interested.
+        </div>
+        <div id="bottom-button" class="bottom-button">
+            <button class="apply-button" (click)="applyShop()">
+                {{ applied ? 'Applied!' : 'Apply' }}
+            </button>
+        </div>
+    </div>
+    
+</div>

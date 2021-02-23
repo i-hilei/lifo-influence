@@ -1,0 +1,30 @@
+<section class="welcome-section">
+    <div class="header">
+        <div class="header-logo">
+            <img class="panel-image" src="../../../assets/svg/brand_logo_2.svg" />
+        </div>
+    </div>
+    <div class="content-text">What industries do you best associate with? Choose Top 3 categories</div>
+    <div class="flex-container">
+        <Flex [justify]="'between'" [wrap]="'wrap'">
+            <div
+                (click)="select_industry(item, key)"
+                *ngFor="let item of imagesAll; let key = index"
+                [ngClass]="item.checked ? 'checkedImage' : ''"
+                class="placeholder inline"
+            >
+                <div *ngIf="item.checked" class="checked-industry"><img src="assets/svg/checked-icon.svg"></div>
+                <img *ngIf="item.title !== 'Other'" class="panel-image" src="../../../assets/png/{{ item.src }}" width="100%" />
+                <span *ngIf="item.title !== 'Other'">{{ item.title }}</span>
+                <p *ngIf="item.title === 'Other'">Other</p>
+            </div>
+        </Flex>
+        <div class="buttons">
+            <div (click)="confirmBtn()" Button [disabled]="num == 0" [type]="'primary'" class="sign-in-button">Submit</div>
+            <p (click)="goNextPage()" class="skipBtn">Skip</p>
+        </div>
+    </div>
+    <!-- <div class="get-started-img">
+        <img class="panel-image" src="../../../assets/svg/welcome.svg">
+    </div> -->
+</section>

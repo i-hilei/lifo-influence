@@ -1,0 +1,75 @@
+.shop-container {
+    padding-bottom: 30px;
+
+    .discount-message-block {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+
+        .discount-message {
+            position: relative;
+            padding: 3px 13px 3px 24px;
+            background: linear-gradient(90.06deg, #F2D59E 0.06%, #EEB567 99.96%);
+            border-radius: 4px;
+            font-size: 14px;
+            line-height: 16px;
+            color: #492200;
+            z-index: 100;
+
+            > img {
+                width: 24px;
+                height: 24px;
+                position: absolute;
+                left: 2px;
+            }
+        }
+    }
+}
+
+.how_look_like {
+    text-align: center;
+    position: relative;
+    z-index: 3;
+    span {
+        color: #bdbdbd;
+        background: #f2f2f2;
+        border-radius: 4px;
+        padding: 3px 4px 0px 4px;
+    }
+}
+.how_look_like::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    top: 50%;
+    left: 0;
+    border: 1px dashed #ccc;
+    transform: translateY(-50%);
+    z-index: -1;
+}
+.social_icon {
+    display: flex;
+    justify-content: space-around;
+    padding: 8px 0px;
+    .social_icon_box {
+        text-align: center;
+        p {
+            margin: 0;
+        }
+        .icon_box {
+            border: 0.6px solid #e0e0e0;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            border-radius: 10px;
+            margin: auto;
+            cursor: pointer;
+            img {
+                width: 24px;
+            }
+        }
+    }
+}

@@ -1,0 +1,102 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~ng-zorro-antd/ng-zorro-antd.min.css";
+@import "scss/antd-customize.scss";
+@import "scss/lifo-css-class.scss";
+@import "scss/other-lib.scss";
+@import "~ngx-ui-switch/ui-switch.component.scss";
+
+body {
+    background-color: #ffffff;
+    font-family: Montserrat;
+
+    .button {
+        cursor: pointer;
+    }
+
+    // Avoid auto scale when input/select/textarea focus
+    input,
+    select:focus,
+    textarea {
+        font-size: 16px !important;
+    }
+
+    ul {
+        list-style: inside !important;
+    }
+    .url_radio {
+        .switch.checked small {
+            right: 1px !important;
+        }
+        .switch {
+            background: rgb(147, 157, 162);
+            width: 45px;
+            height: 23px;
+            min-width: 45px;
+            min-height: 23px;
+            small {
+                background: #fff;
+                height: 21px;
+                width: 21px;
+                right: calc(100% - 23px);
+                top: 1px;
+            }
+            &.checked {
+                background: #000;
+            }
+        }
+    }
+    .ant-btn-primary {
+        color: #fff;
+        background-color: #000000;
+        border-color: #ffffff;
+        text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
+        box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
+    }
+    .anticon svg {
+        display: none;
+    }
+    .ant-popover-message-title {
+        color: #000000;
+    }
+    .ant-popover-inner-content .ant-popover-buttons {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        padding: 4px 0px 12px 0px;
+    }
+    .ant-popover-inner-content {
+        width:249px;
+        text-align: center;
+    }
+    .ant-popover-inner-content .ant-popover-buttons button {
+        margin: 0;
+        padding: 2px 17px;
+        font-size: 14px;
+        border-radius: 4px;
+        height: auto;
+    }
+    .ant-popover-inner-content .ant-popover-buttons button:nth-child(1) {
+        margin-right: 18px;
+        border: 0.5px solid #E0E0E0;
+        color: rgba(0, 0, 0, 1);
+
+    }
+    .ant-popover-inner-content .ant-popover-message {
+        text-align: left;
+    }
+    .ant-popover-inner-content .ant-popover-message .ant-popover-message-title {
+        padding-left: 0;
+        font-weight: 500;
+        font-size: 16px;
+        padding-top: 5px;
+    }
+    .ant-popover-inner-content .ant-popover-buttons button:nth-child(1):hover {
+        border: 0.5px solid #E0E0E0;
+        color: #000;
+    }
+    .ant-popover-inner-content .ant-popover-buttons button:nth-child(2):hover {
+        background: #000;
+        border-color: #d9d9d9;
+    }
+}

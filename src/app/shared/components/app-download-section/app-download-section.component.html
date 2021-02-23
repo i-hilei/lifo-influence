@@ -1,0 +1,10 @@
+<section *ngIf="isDownloadSectionShow" class="app-download-box">
+    <section class="title">Lifo app is available for iOS now</section>
+    <section class="desc">Download Lifo app to unlock more new features!</section>
+    <section class="btns">
+        <section class="maybe-later-btn" (click)="hidden()">Maybe Later</section>
+        <section class="download-app-store" (click)="openAppStore()">
+            <img src="assets/svg/download_app_store.svg" />
+        </section>
+    </section>
+</section>

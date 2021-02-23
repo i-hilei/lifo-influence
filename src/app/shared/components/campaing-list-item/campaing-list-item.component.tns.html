@@ -1,0 +1,40 @@
+<StackLayout borderWidth="1" borderColor="#ccc" class="item-container" (tap)="redirectToTimeline()">
+    <AbsoluteLayout class="img-container">
+        <image left="0" top="0" stretch="aspectFill" src="{{getImage}}"></image>
+        <FlexboxLayout *ngIf="showStatuses" left="0" top="10" class="status-banner" justifyContent="space-between" alienItems="center">
+            <label text="{{campaign?.offerStatus?.status}}" class="status {{campaign.offerStatus.colorClass}}"></label>
+            <label
+                text="{{campaign?.offerStatus?.statusMessage}}"
+                class="status-message {{campaign.offerStatus.statusMessageColorClass}}"
+            ></label>
+        </FlexboxLayout>
+    </AbsoluteLayout>
+    <StackLayout orientation="horizontal" padding="0 10">
+        <image *ngIf="campaign?.platform==='tiktok'" src="res://images/tiktok-logo" width="20" height="20" stretch="aspectFit"></image>
+        <image
+            *ngIf="campaign?.platform==='instagram'"
+            src="res://images/instagram-logo"
+            width="20"
+            height="20"
+            stretch="aspectFit"
+        ></image>
+        <label text="{{campaign.brand}} · {{campaign.product_name}}" class="product-title h3"></label>
+    </StackLayout>
+    <FlexboxLayout class="prices" justifyContent="flex-start" flexWrap="wrap">
+        <GridLayout class="price-item" rows="15, 15" columns="20, auto">
+            <image src="res://images/product" width="20" row="0" col="0" rowSpan="2"></image>
+            <label class="commission" text="${{productPrice}}" textWrap="true" row="0" col="1"></label>
+            <label class="extra-bonus" text="Product" textWrap="true" row="1" col="1"></label>
+        </GridLayout>
+        <GridLayout class="price-item" rows="15, 15" columns="20, auto" *ngIf="commissionAmount">
+            <image src="res://images/commission" width="20" row="0" col="0" rowSpan="2"></image>
+            <label class="commission" text="${{commissionAmount}}" textWrap="true" row="0" col="1"></label>
+            <label class="extra-bonus" text="Commission" textWrap="true" row="1" col="1"></label>
+        </GridLayout>
+        <GridLayout class="price-item" rows="15, 15" columns="20, auto" *ngIf="bonusAmount">
+            <image src="res://images/bonus" width="20" row="0" col="0" rowSpan="2"></image>
+            <label class="commission" text="${{bonusAmount}}" textWrap="true" row="0" col="1"></label>
+            <label class="extra-bonus" text="Extra Bonus" textWrap="true" row="1" col="1"></label>
+        </GridLayout>
+    </FlexboxLayout>
+</StackLayout>

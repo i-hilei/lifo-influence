@@ -1,0 +1,72 @@
+.welcome-sections {
+    padding: 0;
+    height: 100%;
+
+    .list {
+        padding: 5px 15px;
+        display: inline-block;
+        border: 1px solid #BDBDBD;
+        background: #fff;
+        color: #BDBDBD;
+        font-size: 12px;
+        border-radius: 20px;
+        cursor: pointer;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        font-weight: 600;
+    }
+
+    .selectBtn {
+        background: #414BB2;
+        border: 1px solid #414BB2;
+        color: #fff;
+    }
+
+    .btnList {
+        margin: 20px 0;
+    }
+
+    .content-text {
+        > h3 {
+            font-weight: bold;
+            font-size: 22px;
+            line-height: 24px;
+            color: #414BB2;
+            text-align: center;
+            padding: 50px 0;
+            background: #f7f8fc;
+        }
+
+        .topQuestion {
+            padding: 25px;
+        }
+    }
+
+    .filterList ::ng-deep .am-accordion .am-accordion-item .am-accordion-header {
+        font-size: 14px;
+        // font-weight: bold;
+        text-overflow: initial;
+        white-space: initial;
+        height: inherit;
+    }
+
+    .filterList ::ng-deep {
+
+        .am-accordion-header {
+            padding: 10px 15px;
+            font-weight: 600;
+            font-size: 12px;
+            line-height: 15px;
+
+            div {
+                width: calc(100% - 30px);
+            }
+        }
+
+        .am-list-body {
+            padding: 10px 15px;
+            font-size: 12px;
+            line-height: 15px;
+        }
+    }
+}

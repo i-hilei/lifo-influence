@@ -1,0 +1,60 @@
+.page-container {
+    .main-content {
+        padding: 20;
+        .welcome {
+            margin-top: 45;
+            font-weight: bold;
+            Label {
+                font-size: 20;
+                color: #414bb2;
+            }
+        }
+        .middle {
+            margin-top: 30;
+            .sign-up-text {
+                font-weight: bold;
+                margin-bottom: 8;
+            }
+            .form-item {
+                margin-bottom: 5;
+                TextField {
+                    padding: 10;
+                    border-width: 1;
+                    border-color: #ccc;
+                    border-radius: 4;
+                    width: 100%;
+                }
+
+                .error-msg {
+                    font-size: 10;
+                    color: red;
+                    margin-top: 2;
+                }
+            }
+
+            .terms-of-use {
+                Image {
+                    width: 20;
+                    height: 20;
+                }
+            }
+
+            .sign-in-btn {
+                width: 100%;
+                height: 47;
+                text-align: center;
+                line-height: 47;
+                background-color: #108ee9;
+                color: #fff;
+                margin-top: 40;
+                border-radius: 4;
+                font-size: 18;
+            }
+
+            .validation {
+                background-color: #a94442;
+                color: #ffffff;
+            }
+        }
+    }
+}

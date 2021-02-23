@@ -1,0 +1,12 @@
+BottomNavigation {
+    TabStrip {
+        selected-item-color: #414bb2;
+        un-selected-item-color: #828282;
+        TabStripItem {
+            background-color: #fff;
+            Label {
+                font-size: 10;
+            }
+        }
+    }
+}

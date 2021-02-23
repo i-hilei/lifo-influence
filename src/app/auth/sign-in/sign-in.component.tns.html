@@ -1,0 +1,47 @@
+<AbsoluteLayout>
+    <StackLayout class="page-container" left="0" top="0" width="100%">
+        <app-auth-header leftText="Sign In"></app-auth-header>
+
+        <StackLayout class="middle">
+            <TextField hint="Email Address" keyboardType="email" returnKeyType="next" [(ngModel)]="email"></TextField>
+            <TextField hint="Password" secure="true" returnKeyType="done" [(ngModel)]="password"></TextField>
+            <button text="Forgot password?" class="forgot-pwd" horizontalAlignment="left" (tap)="goRestorePwd()"></button>
+            <button text="Log In" class="sign-in-btn" [isEnabled]="enableSignIn" (tap)="submitForm()"></button>
+        </StackLayout>
+
+        <!-- Or -->
+        <GridLayout class="or" rows="*" columns="*, auto, *" width="100%">
+            <StackLayout row="0" column="0" class="line"> </StackLayout>
+            <StackLayout row="0" column="1">
+                <label text="Or" margin="0 20"></label>
+            </StackLayout>
+            <StackLayout row="0" column="2" class="line"> </StackLayout>
+        </GridLayout>
+
+        <!-- Sign in with apple -->
+        <button text="Log in with Apple" class="sign-in-apple-btn" (tap)="signInWithApple()"></button>
+
+        <!-- Sign up -->
+        <label textWrap="true" (tap)="goSignUpPage()">
+            <FormattedString class="terms-of-use-desc">
+                <span text="Not register yet? "></span>
+                <span class="terms-of-use-btn" text="Sign up"></span>
+            </FormattedString>
+        </label>
+    </StackLayout>
+
+    <FlexboxLayout
+        *ngIf="signing"
+        top="0"
+        left="0"
+        width="100%"
+        height="100%"
+        justifyContent="center"
+        alignItems="center"
+        backgroundColor="rgba(255,255,255,0.5)"
+    >
+        <StackLayout width="auto" height="auto" backgroundColor="#fff" borderRadius="10" padding="50" borderWidth="1" borderColor="#eee">
+            <ActivityIndicator busy="true" color="#ccc"></ActivityIndicator>
+        </StackLayout>
+    </FlexboxLayout>
+</AbsoluteLayout>

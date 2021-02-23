@@ -1,0 +1,88 @@
+<ModalStack dismissEnabled="true" verticalPosition="bottom">
+    <StackLayout backgroundColor="#fff" height="90%" class="modal-box">
+        <image src="res://images/close_black" width="20" horizontalAlignment="right" margin="20 20 10 10" (tap)="close()"></image>
+
+        <ScrollView width="100%" class="scroll-box">
+            <GridLayout class="modal-box" rows="*, *, *" columns="*" width="100%" padding="20">
+                <!-- Top section -->
+                <StackLayout row="0" col="0" class="top">
+                    <!-- Gift -->
+                    <image src="res://images/gift" width="60%" horizontalAlignment="center"></image>
+                    <label
+                        class="bonus-title"
+                        text="Get up to $500 bonus!"
+                        margin="20 0"
+                        fontSize="20"
+                        fontWeight="600"
+                        color="#0D053C"
+                        horizontalAlignment="center"
+                    ></label>
+                    <label
+                        horizontalAlignment="center"
+                        class="bonus-desc"
+                        text="For each eligible referral, you and your friend will both get an $20 bonus after they complete their first campaign"
+                        color="#4F4F4F"
+                        lineHeight="1.2"
+                        textWrap="true"
+                    ></label>
+                </StackLayout>
+
+                <!-- Middle Button -->
+                <StackLayout row="1" col="0" orientation="horizontal">
+                    <button
+                        verticalAlignment="bottom"
+                        class="lifo-btn"
+                        text="Share Your Link"
+                        margin="20 0"
+                        (tap)="copyToClipboard()"
+                    ></button>
+                </StackLayout>
+
+                <StackLayout *ngIf="isLoading" row="2" col="0">
+                    <ActivityIndicator color="#ccc" [busy]="true"></ActivityIndicator>
+                </StackLayout>
+
+                <!-- Bottom List -->
+                <StackLayout *ngIf="!isLoading && availableReferrals?.length>0" row="2" col="0">
+                    <GridLayout
+                        *ngFor="let availableReferral of availableReferrals; let index = index"
+                        class="referral-item"
+                        width="100%"
+                        rows="auto"
+                        columns="auto, *, auto"
+                        borderBottomWidth="1"
+                        borderColor="#E0E0E0"
+                        (tap)="changeInviteReferralsList(availableReferral)"
+                    >
+                        <StackLayout padding="10">
+                            <image row="0" col="0" src="{{availableReferral.picture}}" width="50" height="50" borderRadius="25"></image>
+                        </StackLayout>
+                        <FlexboxLayout padding="0" row="0" col="1" flexDirection="column" justifyContent="center" alignItems="flex-start">
+                            <label text="@{{availableReferral.fullname}}"></label>
+                            <label text="{{availableReferral.followers }} Followers"></label>
+                        </FlexboxLayout>
+                        <StackLayout orientation="horizontal" verticalAlignment="center" row="0" col="2">
+                            <ng-container *ngIf="!availableReferral.is_registered && !availableReferral.invited">
+                                <image *ngIf="availableReferral.invite" src="res://images/check_box" width="20"></image>
+                                <image *ngIf="!availableReferral.invite" src="res://images/check_box_outline" width="20"></image>
+                            </ng-container>
+
+                            <label *ngIf="availableReferral.is_registered" text="Registered"></label>
+                            <label *ngIf="availableReferral.invited" text="Invited"></label>
+                        </StackLayout>
+                    </GridLayout>
+
+                    <!-- Invite btn -->
+                    <StackLayout marginTop="20">
+                        <button
+                            class="lifo-btn"
+                            text="{{inviteBtnText}}"
+                            (tap)="inviteReferrals()"
+                            [isEnabled]="referralToInviteCount>0"
+                        ></button>
+                    </StackLayout>
+                </StackLayout>
+            </GridLayout>
+        </ScrollView>
+    </StackLayout>
+</ModalStack>

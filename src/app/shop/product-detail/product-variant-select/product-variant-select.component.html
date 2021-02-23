@@ -1,0 +1,39 @@
+<section class="product-variant-select-box">
+    <!-- Variant Preview -->
+    <section class="selected-preview">
+        <section class="img-preview">
+            <img *ngIf="selectedVariant" [src]="selectedVariant?.image?.src" />
+        </section>
+        <section class="right">
+            <section class="close-btn">
+                <!-- <Icon [type]="'cross'"></Icon> -->
+            </section>
+            <section class="price">${{ selectedVariant?.price }}</section>
+            <section class="selected-variant">Selected: {{ selectedVariant?.title }}</section>
+            <section class="product-title">{{ product?.vendor }} {{ product?.title }}</section>
+        </section>
+    </section>
+
+    <!-- Variant options -->
+    <app-variant-selector *ngIf="product" [product]="product" (onUpdateSelection)="updateSelectVariant($event)"></app-variant-selector>
+
+    <!-- Count select -->
+    <section *ngIf="showCountButton" class="count-select">
+        <span class="item-title">Count</span>
+        <section class="count-select-box">
+            <button class="reduce" nz-button [disabled]="quantity === 1" (click)="handleQuantity('reduce')">—</button>
+            <input type="number" class="num" [(ngModel)]="quantity" (blur)="checkQuantity()" />
+            <button class="add" nz-button (click)="handleQuantity('add')">+</button>
+        </section>
+    </section>
+
+    <!-- Pay buttons -->
+    <section *ngIf="shopDetail" class="pay-buttons">
+        <button *ngIf="!shopDetail?.enable_shoping_cart" nz-button nzType="primary" class="lifo-btn" (click)="pay()">
+            Pay ${{ discountPrice | number: "1.2-2" }}
+        </button>
+        <button *ngIf="shopDetail?.enable_shoping_cart" nz-button nzType="primary" class="lifo-btn" (click)="addToCartHandle()">
+            Add To Cart
+        </button>
+    </section>
+</section>

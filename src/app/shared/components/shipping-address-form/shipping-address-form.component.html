@@ -1,0 +1,58 @@
+<section class="shipping-address-form-box">
+    <!-- Name -->
+    <section class="row name-row">
+        <div class="input-field first-name">
+            <input nz-input placeholder="First Name" [(ngModel)]="influencer.inf_name" />
+        </div>
+
+        <div class="input-field last-name">
+            <input nz-input placeholder="Last Name" [(ngModel)]="influencer.inf_last_name" />
+        </div>
+    </section>
+
+    <!-- Phone -->
+    <section class="row">
+        <div class="input-field">
+            <input [(ngModel)]="influencer.inf_phone" nz-input placeholder="Phone Number" />
+        </div>
+    </section>
+
+    <!-- Street -->
+    <section class="row">
+        <div class="input-field">
+            <input #addressText [(ngModel)]="influencer.influencer_address1" nz-input placeholder="Street" />
+        </div>
+    </section>
+
+    <!-- Address2 -->
+    <section class="row">
+        <div class="input-field">
+            <input [(ngModel)]="influencer.influencer_address2" nz-input placeholder="Unit, Suite, Apt (Optional)" />
+        </div>
+    </section>
+
+    <!-- City / Zip Code -->
+    <section class="row city-zip-row">
+        <div class="input-field city">
+            <input [(ngModel)]="influencer.influencer_city" nz-input placeholder="City" />
+        </div>
+
+        <div class="input-field zip">
+            <input [(ngModel)]="influencer.influencer_zip" nz-input placeholder="Zip Code" />
+        </div>
+    </section>
+
+    <!-- State -->
+    <section class="row">
+        <div class="input-field">
+            <input [(ngModel)]="influencer.influencer_province" nz-input placeholder="State / Province" />
+        </div>
+    </section>
+
+    <!-- Country -->
+    <section class="row">
+        <div class="input-field">
+            <input [(ngModel)]="influencer.influencer_country" nz-input placeholder="Country" disabled />
+        </div>
+    </section>
+</section>

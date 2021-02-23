@@ -1,0 +1,14 @@
+<StackLayout>
+    <image src="res://images/connect-account" width="50"></image>
+
+    <ng-container>
+        <label text="Connect Your"></label>
+        <label text="PayPal Account"></label>
+    </ng-container>
+
+    <StackLayout class="connect-box">
+        <image src="res://images/paypal" height="70" stretch="aspectFill"></image>
+        <label text="PayPal"></label>
+        <button text="Connect to PayPal" (tap)="connectWithPaypal()"></button>
+    </StackLayout>
+</StackLayout>

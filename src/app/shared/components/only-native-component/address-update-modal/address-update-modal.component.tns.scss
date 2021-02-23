@@ -1,0 +1,32 @@
+.address-box {
+    padding: 20;
+    .top {
+        margin-bottom: 30;
+        .title {
+            color: #45515e;
+            font-weight: 600;
+            font-size: 16;
+        }
+    }
+
+    .form-box {
+        TextField {
+            margin: 10 0;
+            padding: 15;
+            border-width: 1;
+            border-color: rgba(13, 5, 59, 0.1);
+            border-radius: 8;
+        }
+
+        .save-btn {
+            margin: 0;
+            margin-top: 20;
+            height: 48;
+            border-radius: 8;
+            background-color: #414bb2;
+            color: #fff;
+            font-weight: 600;
+            font-size: 16;
+        }
+    }
+}

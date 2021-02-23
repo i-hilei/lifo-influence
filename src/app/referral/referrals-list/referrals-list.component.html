@@ -1,0 +1,79 @@
+<section class="referrals-list">
+    <div class="page-header">
+        <div (click)="back()">
+            <img src="assets/svg/left_arrow.svg">
+            <label>Back</label>
+        </div>
+    </div>
+    <div class="referral-message">
+        <div class="message-title">
+            <label>Refer friends, get $5 gift card</label>
+            <img src="assets/svg/cash.svg">
+        </div>
+        <div class="message-description">
+            <label>
+                Get $5 Lifo Shop gift card when someone signs up using your referral link. We will email the gift card to your registraction email.
+            </label>
+        </div>
+    </div>
+
+    <div class="referral-link-block" *ngIf="referralLink">
+        <div class="referral-link">
+            {{referralLink}}
+        </div>
+        <div class="button referral-copy-button" (click)="copyToClipboard()">
+            Copy
+        </div>
+    </div>
+
+    <div class="available-referrals-list">
+        <div class="header" *ngIf="isLoading || availableReferrals.length">
+            Influencers you may know
+        </div>
+
+        <div
+            *ngIf="isLoading"
+            class="loading available-referral"
+        >
+            <app-loading></app-loading>
+        </div>
+
+        <ng-container *ngIf="!isLoading && availableReferrals.length">
+            <div class="button available-referral"
+                 *ngFor="let availableReferral of availableReferrals; let index = index"
+                 (click)="changeInviteReferralsList(availableReferral.username)">
+                <div class="referral-image">
+                    <img [src]="availableReferral.picture">
+                </div>
+                <div class="referral-info">
+                    <div class="referral-name">
+                        @ {{availableReferral.fullname}}
+                    </div>
+                    <div class="referral-followers-number">
+                        {{availableReferral.followers | shortNumber}} Followers
+                    </div>
+                </div>
+                <div class="checkbox-container">
+                    <label class="select-referral" nz-checkbox
+                           [ngModel]="availableReferral.invite"
+                           (ngModelChange)="changeInviteReferralsList(availableReferral.username)"
+                           *ngIf="!availableReferral.is_registered && !availableReferral.invited"></label>
+                    <label class="is-invited" *ngIf="availableReferral.is_registered">Registered</label>
+                    <label class="is-invited" *ngIf="availableReferral.invited">Invited</label>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+
+    <!--    <a class="button invite-button" (click)="inviteReferrals()" [href]="'mailto:person1@domain.com,person2@domain.com?subject=Invite to Lifo&body=' + profileService.currentProfile.referral_link + ''">-->
+    <!--        <label *ngIf="getReferralsToInviteCount() > 0">Email Invite {{getReferralsToInviteCount()}} Influencers</label>-->
+    <!--        <label *ngIf="getReferralsToInviteCount() === 0">Select Influencers To Invite</label>-->
+    <!--    </a>-->
+</section>
+
+<div class="bottom-container">
+    <div class="button invite-button" (click)="inviteReferrals()">
+        <label *ngIf="getReferralsToInviteCount() > 0">Email Invite {{getReferralsToInviteCount()}} Influencers</label>
+        <label *ngIf="getReferralsToInviteCount() === 0">Select Influencers To Invite</label>
+    </div>
+</div>

@@ -1,0 +1,98 @@
+<div *ngIf="offerDetail" class="mobile-panel">
+    <div class="sub-title">Product Introduction</div>
+    <div class="content">
+        <div class="big-image">
+            <div class="image-holder">
+                <img *ngIf="offerDetail.product_image_list?.length > 0" class="image" src="{{ offerDetail.product_image_list[0] }}" />
+            </div>
+        </div>
+        <div class="product-content">
+            <div [innerHTML]="offerDetail.product_message | safeHtml"></div>
+            <div class="links">
+                <div
+                    (click)="open(offerDetail.product_image_list[1])"
+                    *ngIf="offerDetail.product_image_list?.length > 2 && offerDetail.product_image_list[1]"
+                    class="link-item"
+                >
+                    <div class="img-holder">
+                        <img src="assets/images/shopify.png" />
+                    </div>
+                </div>
+                <div
+                    (click)="open(offerDetail.product_image_list[2])"
+                    *ngIf="offerDetail.product_image_list?.length > 2 && offerDetail.product_image_list[2]"
+                    class="link-item"
+                >
+                    <div class="img-holder">
+                        <img src="assets/images/amazon.png" />
+                    </div>
+                </div>
+                <div
+                    (click)="open(offerDetail.product_image_list[3])"
+                    *ngIf="offerDetail.product_image_list?.length > 3 && offerDetail.product_image_list[3]"
+                    class="link-item"
+                >
+                    <div class="img-holder">
+                        <section class="text">View website</section>
+                        <!-- <img src="assets/images/amazon.png" /> -->
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="small-image-set">
+                <div class="small-image"></div>
+            </div> -->
+        </div>
+    </div>
+</div>
+
+<div class="mobile-panel" *ngIf="offerDetail">
+    <div class="sub-title">Collaboration Details</div>
+    <div class="content">
+        <li>
+            <b>We are looking for: </b> <br />
+            <span class="detail">{{ offerDetail.content_format }}</span>
+        </li>
+        <li *ngIf="offerDetail.post_tags && !isArray(offerDetail.post_tags)">
+            <b>You should tag the following accounts:</b> <br />
+            <span class="detail">{{ offerDetail.post_tags }}</span>
+        </li>
+        <li>
+            <b>The visual content should follow the following guideline(s): </b> <br />
+            <span class="detail">{{ offerDetail.visual_content_guideline }}</span>
+        </li>
+        <li>
+            <b>The texts content should follow the following guideline(s): </b> <br />
+            <span class="detail">{{ offerDetail.text_post_guideline }}</span>
+        </li>
+        <li *ngIf="offerDetail.post_hastags && !isArray(offerDetail.post_hastags)">
+            <b>You should also use the following hashtags:</b> <br />
+            <span class="detail">{{ offerDetail.post_hastags }}</span>
+        </li>
+    </div>
+</div>
+
+<div class="mobile-panel" *ngIf="offerDetail">
+    <div class="sub-title">Compensation Details</div>
+    <div class="content">
+        <li>
+            <b>We will pay you: </b> <br />
+            <span class="detail">{{ offerDetail.compensate_method }}</span>
+        </li>
+        <li>
+            <b>We will pay you through:</b> <br />
+            <span class="detail">{{ offerDetail.payment_platform }}</span>
+        </li>
+    </div>
+</div>
+
+<div class="mobile-panel" *ngIf="offerDetail && (isArray(offerDetail.post_tags) || isArray(offerDetail.post_hastags))">
+    <div class="sub-title">Tags Required</div>
+    <div class="content">
+        <div class="tags-container">
+            <div class="tag" *ngFor="let tag of offerDetail.post_tags">@{{ tag }}</div>
+        </div>
+        <div class="tags-container">
+            <div class="tag" *ngFor="let hashtag of offerDetail.post_hastags">#{{ hashtag }}</div>
+        </div>
+    </div>
+</div>

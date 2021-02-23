@@ -1,0 +1,80 @@
+.file-picker {
+    .file-picker-content {
+        overflow: hidden;
+
+        .media {
+            position: relative;
+            width: 33.333%;
+            height: 0;
+            padding-bottom: 33.333%;
+            float: left;
+            border: 2px solid transparent;
+            border-left: none;
+            border-bottom: none;
+
+            .file-preview-item {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            .close-btn {
+                position: absolute;
+                width: 20px;
+                height: 20px;
+                top: 1px;
+                right: 1px;
+                background: rgba(0, 0, 0, 0.5);
+                text-align: center;
+                line-height: 20px;
+
+                i {
+                    color: rgba(255, 255, 255, 0.8);
+                }
+            }
+
+            .progress-bar {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: rgba(255, 255, 255, 0.5);
+                padding: 0 10px;
+                box-sizing: border-box;
+
+                nz-progress {
+                    width: 100%;
+                }
+            }
+        }
+
+        .add-file {
+            float: left;
+            width: 33.333%;
+            border: 2px solid transparent;
+            border-left: none;
+            border-bottom: none;
+
+            .border {
+                position: relative;
+                border: 1px dashed #bdbdbd;
+                border-radius: 4px;
+                width: 100%;
+                height: 0;
+                padding-bottom: calc(100% - 2px);
+
+                .anticon {
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    transform: translate(-50%, -50%);
+                    font-size: 30px;
+                }
+            }
+        }
+    }
+}

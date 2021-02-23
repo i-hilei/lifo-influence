@@ -1,0 +1,58 @@
+<AbsoluteLayout class="page-container">
+    <StackLayout class="main-content" left="0" top="0" width="100%">
+        <app-auth-header rightText="Sign In" rightLink='/auth/sign-in'></app-auth-header>
+
+        <StackLayout class="welcome">
+            <Label text="Welcome To Lifo!"></Label>
+        </StackLayout>
+
+        <StackLayout class="middle">
+            <Label class="sign-up-text" text="Create Account" textWrap="true"></Label>
+
+            <!-- Email -->
+            <StackLayout class="form-item">
+                <TextField required hint="Email Address" [(ngModel)]="email" #emailModel="ngModel"
+                    style="margin-bottom: 0">
+                </TextField>
+                <Label
+                    visibility="{{ emailModel.valid || !emailModel.dirty || emailModel.untouched ? 'hidden' : 'visible' }}"
+                    text="Mandatory Field" textWrap="true" class="error-msg"></Label>
+            </StackLayout>
+
+            <!-- Password -->
+            <StackLayout class="form-item">
+                <TextField required hint="Password 8+ characters" secure="true" [(ngModel)]="password"
+                    #pwdModel="ngModel" style="margin-bottom: 0">
+                </TextField>
+                <Label
+                    visibility="{{ (pwdModel.valid &&  isPasswordValid) || !pwdModel.dirty || pwdModel.untouched ? 'hidden' : 'visible' }}"
+                    text="Password 8+ characters" textWrap="true" class="error-msg"></Label>
+            </StackLayout>
+
+            <!-- Confirm Password -->
+            <StackLayout class="form-item">
+                <TextField required hint="Confirm your password" secure="true" [(ngModel)]="confirmPassword"
+                    #confirmPwdModel="ngModel" style="margin-bottom: 0">
+                </TextField>
+                <Label
+                    visibility="{{ (confirmPwdModel.valid && isConfirmPwdValid )|| !confirmPwdModel.dirty || confirmPwdModel.untouched  ? 'hidden' : 'visible' }}"
+                    text="New password and confirm password do not match!" textWrap="true" class="error-msg"></Label>
+            </StackLayout>
+
+            <FlexboxLayout class="terms-of-use" justifyContent="flex-start" alignItems="center">
+                <Image *ngIf="termsOfUseStatus" src="res://images/check_box" (tap)="switchTermsOfUse(false)"></Image>
+                <Image *ngIf="!termsOfUseStatus" src="res://images/check_box_outline" (tap)="switchTermsOfUse(true)">
+                </Image>
+                <Label text="I agree to the "></Label>
+                <Label text="Terms of Service" color="#108ee9" (tap)="toggleTermsOfUseDialog()"></Label>
+            </FlexboxLayout>
+            <Button text="Sign Up" class="sign-in-btn" [isEnabled]="enableSignUpBtn" (tap)="submitForm()"></Button>
+        </StackLayout>
+    </StackLayout>
+
+    <FlexboxLayout *ngIf="submitting" margin="0" left="0" top="0" justifyContent="center" alignItems="center"
+        width="100%" height="100%" background="rgba(255,255,255,0.5)">
+        <ActivityIndicator busy="true"></ActivityIndicator>
+    </FlexboxLayout>
+
+</AbsoluteLayout>

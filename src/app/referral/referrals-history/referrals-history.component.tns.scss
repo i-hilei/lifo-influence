@@ -1,0 +1,39 @@
+.list-box {
+    .list-item {
+        margin-bottom: 16;
+        border-width: 1;
+        border-radius: 8;
+        border-color: #eaeff4;
+        padding: 18;
+
+        .name {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .ticket-status {
+            .extra-tickets {
+                Image {
+                    width: 18;
+                    margin-right: 4;
+                }
+                label {
+                    font-size: 12;
+                    color: #6fcf97;
+                }
+            }
+            .raffle-label {
+                height: 16;
+                margin-left: 6;
+            }
+        }
+        .referral-status,
+        .date {
+            font-size: 12;
+            color: #828282;
+        }
+        .date {
+            text-align: right;
+        }
+    }
+}

@@ -1,0 +1,44 @@
+<ModalStack dismissEnabled="true" verticalPosition="bottom" class="modal-container">
+    <ScrollView height="60%" backgroundColor="#fff" borderRadius="10">
+        <StackLayout class="address-box">
+            <FlexboxLayout class="top" justifyContent="space-between" alignItems="center">
+                <label class="title" text="Edit Your Contact Information"></label>
+                <image
+                    class="close-icon"
+                    src="res://images/close_black"
+                    width="20"
+                    height="20"
+                    stretch="aspectFill"
+                    (tap)="closeModal()"
+                ></image>
+            </FlexboxLayout>
+
+            <StackLayout class="form-box">
+                <TextField hint="First Name" [(ngModel)]="influencer.inf_name"></TextField>
+                <TextField hint="Last Name" [(ngModel)]="influencer.inf_last_name"></TextField>
+                <TextField hint="Phone number" [(ngModel)]="influencer.inf_phone"></TextField>
+                <TextField hint="Street Address" [(ngModel)]="influencer.influencer_address1"></TextField>
+
+                <GridLayout rows="auto" columns="2*, *">
+                    <TextField hint="Unit/Suite/Apt(Optional)" row="0" column="0" [(ngModel)]="influencer.influencer_address2"></TextField>
+                    <TextField hint="Zip code" row="0" column="1" marginLeft="10" [(ngModel)]="influencer.zip"></TextField>
+                </GridLayout>
+
+                <GridLayout rows="auto" columns="*, *, *">
+                    <TextField hint="City" row="0" column="0" [(ngModel)]="influencer.city"></TextField>
+                    <TextField
+                        hint="State"
+                        row="0"
+                        column="1"
+                        marginLeft="10"
+                        marginRight="10"
+                        [(ngModel)]="influencer.province"
+                    ></TextField>
+                    <TextField hint="Country" row="0" column="2" [(ngModel)]="influencer.country"></TextField>
+                </GridLayout>
+
+                <button class="save-btn" text="Save" (tap)="saveInformation()"></button>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</ModalStack>

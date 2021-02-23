@@ -1,0 +1,7 @@
+<div class="lottery-card" *ngIf="lotteryService.activeLottery" (click)="redirectToInformation()">
+    <div class="status">
+        <img src="assets/svg/lottery_status_icon.svg">
+        <label>{{getStatus()}}</label>
+    </div>
+    <img [src]="lotteryService.activeLottery?.img_src">
+</div>

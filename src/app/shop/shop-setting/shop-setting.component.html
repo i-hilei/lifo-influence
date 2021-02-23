@@ -1,0 +1,177 @@
+<section *ngIf="shopDetail" class="shop-setting-box">
+    <!-- Upload shop image -->
+    <section class="shop-img">
+        <section class="title">Upload Store Cover</section>
+        <section class="img-upload-box">
+            <section *ngIf="!shopDetail.shop_image_url" class="left-no-img" (click)="uploadImg()">
+                <img src="assets/png/add.png" />
+            </section>
+
+            <section
+                *ngIf="shopDetail.shop_image_url"
+                [ngStyle]="{ 'background-image': 'url(' + shopDetail.shop_image_url + ')' }"
+                class="left-exist-img"
+            ></section>
+
+            <section class="right">
+                <section *ngIf="shopDetail.shop_image_url" class="re-upload-btn" (click)="uploadImg()">
+                    <img src="assets/png/upload-black.png" />
+                    <span>Re-Upload</span>
+                </section>
+            </section>
+        </section>
+    </section>
+
+    <!-- Shop info update -->
+    <section class="shop-info">
+        <section class="shop-info-item" (click)="showNameModal()">
+            <span class="key">Shop Name</span>
+            <section class="value">
+                <span>{{ shopDetail.shop_name }}</span>
+                <img src="assets/png/right-arrow.png" />
+            </section>
+        </section>
+
+        <nz-divider></nz-divider>
+
+        <section class="shop-info-item" (click)="showUrlModal()">
+            <span class="key">Unique Store URL</span>
+            <section class="value">
+                <span>{{ shopDetail.shop_url }}</span>
+                <img src="assets/png/right-arrow.png" />
+            </section>
+        </section>
+    </section>
+
+    <!-- Post control -->
+    <section class="post-control">
+        <section class="title-operation">
+            <section class="title">Show My Post In Product Detail</section>
+            <section class="toggle-btn">
+                <Switch [checked]="!!shopDetail.show_campaign_post" [color]="'#000'" (onChange)="updateCampaignPost($event)"></Switch>
+            </section>
+        </section>
+
+        <section class="desc">Show my photos and videos from the relevant campaign in the product detail page</section>
+    </section>
+
+    <!-- Cart control -->
+    <section class="post-control">
+        <section class="title-operation">
+            <section class="title">Enable Shopping Cart</section>
+            <section class="toggle-btn">
+                <Switch [checked]="!!shopDetail.enable_shoping_cart" [color]="'#000'" (onChange)="updateShoppingCart($event)"></Switch>
+            </section>
+        </section>
+    </section>
+
+    <!-- Bottom blank -->
+    <section class="bottom-blank"></section>
+
+    <section class="file-upload" [hidden]="true">
+        <app-file-picker
+            class="upload-button"
+            #imgFilePicker
+            (onFileChange)="fileChange($event, 'image')"
+            [type]="'button'"
+            [buttonLabel]="'Choose Photo'"
+            [accept]="imageUploadConfig.accept"
+            [fileProgressMap]="fileProgressMap"
+            [files]="imageUploadConfig.files"
+            [multiple]="imageUploadConfig.multiple"
+            [selectable]="imageUploadConfig.selectable"
+        ></app-file-picker>
+    </section>
+
+    <!-- Modal -->
+    <Modal
+        #customization
+        (ngModelChange)="customizationModal.display = $event"
+        [popup]="true"
+        [closable]="false"
+        [ngModel]="customizationModal.display"
+        [transparent]="true"
+    >
+        <section class="customization-container">
+            <!-- Change name modal -->
+            <div class="change-name-container" *ngIf="customizationModal.views.name">
+                <div class="form">
+                    <div class="title">Give your store a great name!</div>
+                    <div class="input">
+                        <nz-form-control [nzErrorTip]="errorTpl" [nzSuccessTip]="successTpl">
+                            <input [formControl]="nameControl" [placeholder]="shopDetail.shop_name + '\'s Store'" />
+                            <span class="input-message input-error" *ngIf="duplicateName">Store name taken!</span>
+                            <ng-template #errorTpl let-control>
+                                <ng-container *ngIf="control.hasError('required')">
+                                    <span class="input-message input-error">Mandatory Field</span>
+                                </ng-container>
+                                <ng-container *ngIf="control.hasError('maxlength')">
+                                    <span class="input-message input-error"
+                                        >Max {{ control.errors["maxlength"]["requiredLength"] }} characters</span
+                                    >
+                                </ng-container>
+                            </ng-template>
+                            <ng-template #successTpl>
+                                <span class="input-message input-success" *ngIf="!duplicateName">✓ Verified successfully</span>
+                            </ng-template>
+                        </nz-form-control>
+                    </div>
+                    <div class="button-row">
+                        <button class="button" (click)="closeModal()">Cancel</button>
+                        <button
+                            class="button save-button"
+                            [class.black]="nameControl.valid"
+                            [disabled]="!nameControl.valid"
+                            (click)="save('nameControl')"
+                        >
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Change URL modal -->
+            <div class="change-url-container" *ngIf="customizationModal.views.url">
+                <div class="form">
+                    <div class="title">Customize your store url</div>
+                    <div class="sub-title"><span class="general-url-part">{{ environment.shopHost }}/</span><span>your_unique_url</span></div>
+                    <div class="input">
+                        <nz-form-control [nzErrorTip]="errorTpl" [nzSuccessTip]="successTpl">
+                            <input [formControl]="urlControl" [placeholder]="urlPlaceholder" />
+                            <span class="input-message input-error" *ngIf="duplicateUrl">Url taken!</span>
+                            <ng-template #errorTpl let-control>
+                                <ng-container *ngIf="control.hasError('required')">
+                                    <span class="input-message input-error">Mandatory Field</span>
+                                </ng-container>
+                                <ng-container *ngIf="control.hasError('maxlength')">
+                                    <span class="input-message input-error"
+                                        >Max {{ control.errors["maxlength"]["requiredLength"] }} characters</span
+                                    >
+                                </ng-container>
+                                <ng-container *ngIf="control.hasError('pattern')">
+                                    <span class="input-message input-error"
+                                        >Only alphabetical letters, numbers and underscores can be used.</span
+                                    >
+                                </ng-container>
+                            </ng-template>
+                            <ng-template #successTpl>
+                                <span class="input-message input-success" *ngIf="!duplicateUrl">✓ Verified successfully</span>
+                            </ng-template>
+                        </nz-form-control>
+                    </div>
+                    <div class="button-row">
+                        <button class="button" (click)="closeModal()">Cancel</button>
+                        <button
+                            class="button save-button"
+                            [class.black]="urlControl.valid"
+                            [disabled]="!urlControl.valid"
+                            (click)="save('urlControl')"
+                        >
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </Modal>
+</section>

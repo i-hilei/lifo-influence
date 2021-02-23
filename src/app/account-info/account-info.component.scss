@@ -1,0 +1,264 @@
+.account-information {
+    ::ng-deep {
+        .am-modal {
+            width: 100%;
+            height: calc(100% - 40px);
+        }
+    }
+
+    display: flex;
+    flex-direction: column;
+
+    nz-divider {
+        margin: 0;
+    }
+
+    .page-header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+
+        > div {
+            padding: 5px;
+            margin: 0 10px;
+
+            i {
+                font-size: 16px;
+            }
+        }
+
+        > div.logout-button {
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 17px;
+            text-align: center;
+            text-transform: capitalize;
+            color: #2F80ED;
+        }
+
+        label {
+            flex: 1;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 17px;
+            text-align: center;
+            color: #0D053C;
+        }
+    }
+
+    .block {
+        display: flex;
+        flex-direction: column;
+        padding: 42px 21px;
+
+        .block-title {
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 17px;
+            color: #333333;
+            margin-bottom: 20px;
+        }
+
+        .sub-block {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin: 10px 0;
+
+            > div.button {
+                width: 24px;
+                height: 24px;
+            }
+
+            .sub-block-content {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+
+                .title {
+                    font-weight: 500;
+                    font-size: 14px;
+                    line-height: 17px;
+                    color: #333333;
+                }
+
+                .editable-block {
+                    margin-top: 7px;
+
+                    .value-to-display {
+                        font-size: 14px;
+                        line-height: 17px;
+                        color: #828282;
+                    }
+
+                    input {
+                        padding: 15px;
+                        font-size: 14px;
+                        line-height: 17px;
+                        color: #828282;
+                        background: rgba(255, 255, 255, 0.4);
+                        border: 1px solid #414BB2;
+                        box-sizing: border-box;
+                        border-radius: 4px;
+                        margin-top: 5px;
+                    }
+                }
+            }
+        }
+    }
+
+    .block.buttons {
+        margin: 12px 0;
+        padding: 0 21px;
+    }
+
+    .block.class-main-information {
+        padding-top: 8px;
+
+
+        .social-media-accounts {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 22px;
+
+            .title {
+                margin: 18px 0;
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 17px;
+                color: #333333;
+            }
+
+            .social-media-account {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+
+                img {
+                    margin-right: 10px;
+                    border-radius: 50%;
+                    width: 18px;
+                    height: 18px;
+                }
+            }
+        }
+    }
+
+    .referral-page-link {
+        display: flex;
+        padding: 8px 21px;
+
+        .referral-link-content {
+            display: flex;
+            flex: 1;
+            flex-direction: row;
+            align-items: center;
+            border-radius: 8px;
+            padding: 5px 10px;
+
+            background-size: cover;
+
+            img {
+                margin-left: 9px;
+            }
+
+            label {
+                margin-left: 10px;
+                width: 100%;
+                font-size: 12px;
+                line-height: 15px;
+            }
+        }
+    }
+
+    .invitation-history {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 21px;
+
+        > label {
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 17px;
+            color: #333333;
+        }
+
+        .details-button {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            > label {
+                font-weight: 600;
+                font-size: 12px;
+                line-height: 15px;
+                color: #4F4F4F;
+                align-items: center;
+            }
+        }
+    }
+
+    .referrals-count {
+        display: flex;
+        flex-direction: column;
+        padding: 8px 21px;
+        margin-top: 5px;
+
+        .referrals-info-row {
+            display: flex;
+            flex-direction: column;
+
+            label {
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 17px;
+                color: #333333;
+            }
+
+            .count{
+                margin-top: 8px;
+                font-weight: 600;
+                font-size: 14px;
+                line-height: 17px;
+                color: #27AE60;
+            }
+        }
+
+        > :first-child {
+            margin-bottom: 12px;
+        }
+    }
+
+    .block.links {
+        display: flex;
+        justify-content: center;
+        padding: 0 21px 21px;
+
+        a {
+            color: #2F80ED;
+            margin: 14px 0;
+        }
+
+
+    }
+
+    .payment {
+        .connect-paypal {
+            display: flex;
+            flex-direction: column;
+            .sub-message {
+                margin: 15px 0;
+                font-size: 14px;
+                line-height: 20px;
+                color: #828282;
+            }
+        }
+    }
+
+    .blue {
+        color: #2F80ED;
+    }
+}

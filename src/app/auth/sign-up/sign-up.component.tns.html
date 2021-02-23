@@ -1,0 +1,133 @@
+<AbsoluteLayout class="page-container">
+    <ScrollView left="0" top="0" width="100%" height="100%">
+        <StackLayout class="main-content" width="100%">
+            <app-auth-header leftText="Sign Up"></app-auth-header>
+
+            <StackLayout class="middle">
+                <!-- Email -->
+                <StackLayout class="form-item">
+                    <TextField
+                        required
+                        hint="Email Address"
+                        keyboardType="email"
+                        returnKeyType="next"
+                        [(ngModel)]="email"
+                        #emailModel="ngModel"
+                    >
+                    </TextField>
+
+                    <label
+                        visibility="{{ emailModel.valid || !emailModel.dirty || emailModel.untouched ? 'hidden' : 'visible' }}"
+                        text="Mandatory Field"
+                        textWrap="true"
+                        class="error-msg"
+                    ></label>
+                </StackLayout>
+
+                <!-- Password -->
+                <StackLayout class="form-item">
+                    <TextField
+                        required
+                        hint="Password 8+ characters"
+                        secure="true"
+                        returnKeyType="next"
+                        [(ngModel)]="password"
+                        #pwdModel="ngModel"
+                    >
+                    </TextField>
+                    <label
+                        visibility="{{ (pwdModel.valid &&  isPasswordValid) || !pwdModel.dirty || pwdModel.untouched ? 'hidden' : 'visible' }}"
+                        text="Password 8+ characters"
+                        textWrap="true"
+                        class="error-msg"
+                    ></label>
+                </StackLayout>
+
+                <!-- Confirm Password -->
+                <StackLayout class="form-item">
+                    <TextField
+                        required
+                        hint="Confirm your password"
+                        secure="true"
+                        returnKeyType="done"
+                        [(ngModel)]="confirmPassword"
+                        #confirmPwdModel="ngModel"
+                    >
+                    </TextField>
+                    <label
+                        visibility="{{ (confirmPwdModel.valid && isConfirmPwdValid )|| !confirmPwdModel.dirty || confirmPwdModel.untouched  ? 'hidden' : 'visible' }}"
+                        text="New password and confirm password do not match!"
+                        textWrap="true"
+                        class="error-msg"
+                    ></label>
+                </StackLayout>
+
+                <!-- Instagram -->
+                <StackLayout *ngIf="selectedSignUpType==='Instagram'" class="social-account">
+                    <StackLayout class="social-account-input" orientation="horizontal">
+                        <image src="res://images/instagram-logo" stretch="aspectFit"></image>
+                        <TextField hint="Instagram" [(ngModel)]="instagramId" #instagramModel="ngModel"></TextField>
+                    </StackLayout>
+
+                    <label
+                        visibility="{{ instagramModel.valid || !instagramModel.dirty || instagramModel.untouched  ? 'hidden' : 'visible' }}"
+                        text="Instagram / TikTok is necessary"
+                        textWrap="true"
+                        class="error-msg"
+                    ></label>
+                </StackLayout>
+
+                <!-- Tiktok -->
+                <StackLayout *ngIf="selectedSignUpType==='TikTok'" class="social-account">
+                    <StackLayout class="social-account-input" orientation="horizontal">
+                        <image src="res://images/tiktok-logo" stretch="aspectFit"></image>
+                        <TextField hint="TikTok" [(ngModel)]="tiktokId" #tiktokModel="ngModel"></TextField>
+                    </StackLayout>
+
+                    <label
+                        visibility="{{ tiktokModel.valid || !tiktokModel.dirty || tiktokModel.untouched  ? 'hidden' : 'visible' }}"
+                        text="Instagram / TikTok is necessary"
+                        textWrap="true"
+                        class="error-msg"
+                    ></label>
+                </StackLayout>
+
+                <label
+                    class="toggle-sign-up-text"
+                    text="Or sign up with {{toggledSelectedSignUpType}}"
+                    horizontalAlignment="right"
+                    (tap)="toggleSignUpType()"
+                ></label>
+
+                <button text="Sign Up" class="sign-up-btn" [isEnabled]="enableSignUpBtn" (tap)="submitForm()"></button>
+
+                <label textWrap="true" (tap)="showTermsOfUseModal()">
+                    <FormattedString class="terms-of-use-desc">
+                        <span text="By signing up with email or Apple account below, you agree to our "></span>
+                        <span class="terms-of-use-btn" text="Terms of Use"></span>
+                    </FormattedString>
+                </label>
+            </StackLayout>
+
+            <!-- Or -->
+            <GridLayout class="or" rows="*" columns="*, auto, *" width="100%">
+                <StackLayout row="0" column="0" class="line"> </StackLayout>
+                <StackLayout row="0" column="1">
+                    <label text="Or" margin="0 20"></label>
+                </StackLayout>
+                <StackLayout row="0" column="2" class="line"> </StackLayout>
+            </GridLayout>
+
+            <!-- Sign in with apple -->
+            <button text="Sign in with Apple" class="sign-in-apple-btn"></button>
+
+            <!-- Sign in -->
+            <label textWrap="true" (tap)="goSignInPage()">
+                <FormattedString class="terms-of-use-desc">
+                    <span text="Already have an account? "></span>
+                    <span class="terms-of-use-btn" text="Log in"></span>
+                </FormattedString>
+            </label>
+        </StackLayout>
+    </ScrollView>
+</AbsoluteLayout>

@@ -1,0 +1,38 @@
+// Lifo class
+
+body {
+    .lifo-btn {
+        padding: 8px 30px;
+        width: 100%;
+        height: auto;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 22px;
+        border-radius: 5px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        background: #fff;
+        color: #000;
+        &:disabled {
+            opacity: 0.5;
+        }
+    }
+
+    // Used for antd
+    .radius-modal {
+        .am-modal-content {
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+    }
+    .bg-transparent-modal {
+        .am-modal-content {
+            background-color: transparent;
+        }
+    }
+    .no-padding-modal {
+        .am-modal-content {
+            padding: 0;
+        }
+    }
+}

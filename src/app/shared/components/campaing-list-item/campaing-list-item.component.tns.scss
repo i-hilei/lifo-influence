@@ -1,0 +1,82 @@
+.item-container {
+    padding: 0;
+    border-radius: 20;
+    .img-container {
+        Image {
+            height: 180;
+            width: 100%;
+        }
+        .status-banner {
+            width: 100%;
+            padding: 0 10;
+            font-size: 12;
+
+            .status,
+            .status-message {
+                font-size: 12;
+                border-radius: 6;
+                padding: 4 10;
+            }
+
+            .status {
+                color: #4f4f4f;
+                background: #eaeff4;
+            }
+            .status.red {
+                color: #fff;
+                background: #eb5757;
+            }
+            .status.blue {
+                color: #fff;
+                background: #7aa2d8;
+            }
+            .status.green {
+                color: #fff;
+                background: #78b3a6;
+            }
+            .status.orange {
+                color: #fff;
+                background: #f2994a;
+            }
+
+            .status-message {
+                background: #fff;
+                color: #aaa;
+            }
+            .status-message.red {
+                color: #eb5757;
+            }
+            .status-message.blue {
+                color: #7aa2d8;
+            }
+            .status-message.green {
+                color: #78b3a6;
+            }
+            .status-message.orange {
+                color: #f2994a;
+            }
+        }
+    }
+
+    .product-title {
+        padding: 10;
+    }
+
+    .prices {
+        padding: 10;
+        .price-item {
+            Image {
+                margin-right: 8;
+            }
+            margin-right: 10;
+            .commission {
+                font-size: 12;
+                color: #0d053c;
+            }
+            .extra-bonus {
+                font-size: 10;
+                color: #bdbdbd;
+            }
+        }
+    }
+}

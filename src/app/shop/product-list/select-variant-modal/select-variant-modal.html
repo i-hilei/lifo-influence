@@ -1,0 +1,16 @@
+<div class="variant-selector">
+    <div class="item-detail" *ngIf="selectProduct && selectProductVariant">
+        <div> <img class="image" src="{{selectProduct.image}}"> </div>
+        <div>
+            <div class="price">${{selectProductVariant?.price}}</div>
+            <div class="variant">Selected: {{selectProductVariant?.title}} </div>
+            <div class="title">{{selectProduct?.title}}</div>
+        </div>
+    </div>
+    <app-variant-selector 
+        *ngIf="selectProductDetail" 
+        [product]="selectProductDetail"
+        (onUpdateSelection)="updateSelectVariant($event)">
+    </app-variant-selector>
+    <div class="buy-button" (click)="realCheckout(selectProductDetail, selectProduct)"> Buy Now </div>
+</div>

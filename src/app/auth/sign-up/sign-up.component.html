@@ -1,0 +1,123 @@
+<section class="sign-up-section">
+    <div class="header">
+        <div class="header-logo">
+            <img class="panel-image" src="../../../assets/svg/brand_logo_2.svg" />
+        </div>
+        <div class="central"></div>
+        <div>
+            <div (click)="navigate('/sign-in')" class="button sign-in-button">Sign In</div>
+        </div>
+    </div>
+
+    <div class="sign-up-message">
+        <label *ngIf="!invitedByName">Welcome To Lifo!</label>
+        <label *ngIf="invitedByName">{{invitedByName}} invites you to join Lifo</label>
+    </div>
+
+    <div class="sign-up-form">
+        <h3><strong>Create Account</strong></h3>
+        <form [formGroup]="signUpForm" nz-form>
+            <nz-form-item>
+                <nz-form-control [nzErrorTip]="emailErrorTpl">
+                    <input
+                        formControlName="email"
+                        id="email"
+                        name="email"
+                        nz-input
+                        nzSize="large"
+                        placeholder="Email Address"
+                        type="email"
+                    />
+                    <ng-template #emailErrorTpl let-control>
+                        <ng-container *ngIf="control.hasError('email')">
+                            <span class="input-tip">Email is not valid</span>
+                        </ng-container>
+                        <ng-container *ngIf="control.hasError('required')">
+                            <span class="input-tip">Mandatory Field</span>
+                        </ng-container>
+                    </ng-template>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-control [nzErrorTip]="passwordEmptyErrorTpl">
+                    <input
+                        formControlName="password"
+                        id="password"
+                        name="password"
+                        nz-input
+                        nzSize="large"
+                        placeholder="Password 8+ characters"
+                        type="password"
+                    />
+                    <ng-template #passwordEmptyErrorTpl let-control>
+                        <ng-container *ngIf="control.hasError('minlength')">
+                            <span class="input-tip">Short password!</span>
+                        </ng-container>
+                        <ng-container *ngIf="control.hasError('required')">
+                            <span class="input-tip">Please input your password!</span>
+                        </ng-container>
+                    </ng-template>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-control>
+                    <input
+                        formControlName="confirmPassword"
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        nz-input
+                        nzSize="large"
+                        placeholder="Confirm your password"
+                        type="password"
+                    />
+                    <ng-container *ngIf="signUpForm.hasError('notSame')">
+                        <span class="input-tip">New password and confirm password do not match!</span>
+                    </ng-container>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item *ngIf="!showBetaFeature">
+                <div>
+                    <img class="panel-image" src="assets/svg/instagram-logo.svg" />
+                </div>
+                <nz-form-control [nzErrorTip]="instagramEmptyErrorTpl">
+                    <input
+                        formControlName="instagramId"
+                        id="instagram"
+                        name="instagram"
+                        nz-input
+                        nzSize="large" 
+                        placeholder="Enter instagram account"
+                        type="text"
+                        (input)="checkinstaUsers($event)"
+                    />
+                    <ng-template #instagramEmptyErrorTpl>
+                        <span class="input-tip">Mandatory Field</span>
+                    </ng-template>
+                    <ng-container *ngIf="instaerrorMessage===true">
+                        <span class="input-tip">Social account in used. Please try with another one.</span>
+                    </ng-container>
+                </nz-form-control>
+            </nz-form-item>
+            <label class="agree-tou" formControlName="agreeWithTermsOfService" nz-checkbox
+                >I agree to the <a (click)="modalShow = true">Terms of Service</a></label
+            >
+        </form>
+
+        <Modal (ngModelChange)="modalShow = $event" [closable]="true" [ngModel]="modalShow" [title]="'Terms of Use'" [transparent]="true">
+            <app-terms-of-use (isAgree)="signUpForm.get('agreeWithTermsOfService').setValue($event); modalShow = false"></app-terms-of-use>
+        </Modal>
+    </div>
+
+    <div class="buttons">
+        <div (click)="submitForm()"
+             Button
+             [disabled]="disableSignUpBtn"
+             [loading]="submitting"
+             [type]="'primary'"
+             class="sign-in-button">
+            Sign Up
+        </div>
+    </div>
+</section>
+
+<ng-template #message> </ng-template>

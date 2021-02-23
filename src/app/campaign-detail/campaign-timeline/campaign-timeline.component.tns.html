@@ -1,0 +1,524 @@
+<ActionBar title="Campaign" backgroundColor="#fff" borderWidth="1" borderColor="#ccc" color="#333">
+    <NavigationButton></NavigationButton>
+</ActionBar>
+
+<ScrollView>
+    <StackLayout class="timeline-scroll-box">
+        <image src="{{campaign.product_image}}" width="100%" height="200" stretch="aspectFill" background="#eee"></image>
+
+        <StackLayout class="padding-box">
+            <label class="title" text="{{campaign.brand}} · {{campaign.product_name}}"></label>
+            <WrapLayout orientation="horizontal">
+                <button class="detail-btn" text="Campaign Details" (tap)="viewDetail()"></button>
+            </WrapLayout>
+
+            <StackLayout class="divider"></StackLayout>
+
+            <label text="Status" class="title" textWrap="true"></label>
+
+            <StackLayout *ngIf="stepsPresets" class="steps">
+                <!-- Shipping -->
+                <GridLayout *ngIf="!campaign.has_initial_payment" rows="30, *" columns="30, *" class="step">
+                    <AbsoluteLayout row="0" col="0">
+                        <StackLayout class="line" left="5" top="6" height="100%"> </StackLayout>
+                        <StackLayout class="icon {{stepsPresets.steps.shipping.status}}" left="0" top="6"> </StackLayout>
+                    </AbsoluteLayout>
+
+                    <FlexboxLayout class="step-header" row="0" col="1" justifyContent="space-between" alignItems="flex-start">
+                        <label class="step-name" text="{{stepsPresets.steps.shipping.title[stepsPresets.steps.shipping.status]}}"></label>
+                        <label
+                            *ngIf="stepsPresets.steps.shipping.status === StepStatuses.COMPLETED"
+                            class="step-time"
+                            text="{{campaign.influencer_info.getFormattedDate('product_received_time')}}"
+                            textWrap="true"
+                        ></label>
+                    </FlexboxLayout>
+
+                    <StackLayout row="1" col="0" orientation="horizontal">
+                        <StackLayout class="line" verticalAlignment="stretch" marginLeft="5"></StackLayout>
+                    </StackLayout>
+                    <StackLayout
+                        *ngIf="stepsPresets.steps.draft_under_review.status === StepStatuses.WAITING"
+                        class="step-content"
+                        row="1"
+                        col="1"
+                    >
+                        <!-- Shipping / ACTIVE -->
+                        <StackLayout *ngIf="stepsPresets.steps.shipping.status === StepStatuses.ACTIVE">
+                            <!-- Not ship -->
+                            <label *ngIf="!campaign.influencer_info.product_ship_time" text="To be shipped" textWrap="true"></label>
+
+                            <!-- Shipped, no shipping info -->
+                            <label
+                                *ngIf="campaign.influencer_info.product_ship_time && !shippingInfo"
+                                text="On the way"
+                                textWrap="true"
+                            ></label>
+                            <label
+                                *ngIf="shippingInfo?.est_delivery_date"
+                                text="Arrive by {{formatTime(shippingInfo.est_delivery_date)}}"
+                                textWrap="true"
+                            ></label>
+
+                            <!-- Current shipping info -->
+                            <FlexboxLayout
+                                *ngIf="shippingInfo?.tracking_details?.length"
+                                class="current-shipping"
+                                justifyContent="flex-start"
+                                alignItems="flex-start"
+                            >
+                                <image width="20" height="20" stretch="aspectFill" marginRight="10" src="res://images/location"></image>
+                                <label
+                                    text="{{shippingInfo.tracking_details[shippingInfo.tracking_details.length - 1].description}}"
+                                    textWrap="true"
+                                ></label>
+                            </FlexboxLayout>
+                            <FlexboxLayout
+                                *ngIf="shippingInfo?.tracking_code || shippingInfo?.carrier"
+                                class="tracking-carrier"
+                                justifyContent="flex-start"
+                                alignItems="flex-start"
+                                marginTop="5"
+                            >
+                                <image width="50" height="20" marginRight="10" stretch="aspectFill" src="res://images/car"></image>
+                                <StackLayout>
+                                    <label *ngIf="shippingInfo?.carrier" text="By {{shippingInfo.carrier}}" textWrap="true"></label>
+                                    <GridLayout *ngIf="shippingInfo?.tracking_code" rows="*" columns="auto, *">
+                                        <label text="{{shippingInfo.tracking_code}}" textWrap="true" row="0" column="0"></label>
+
+                                        <StackLayout row="0" column="1">
+                                            <image
+                                                horizontalAlignment="left"
+                                                width="20"
+                                                height="20"
+                                                src="res://images/copy"
+                                                stretch="aspectFill"
+                                                marginLeft="5"
+                                                (tap)="copyShippingCode()"
+                                            ></image>
+                                        </StackLayout>
+                                    </GridLayout>
+                                </StackLayout>
+                            </FlexboxLayout>
+
+                            <!-- Mark as deliverd button -->
+                            <button class="mark-delivered-btn" text="Mark as Delivered" (tap)="markAsDelivered()"></button>
+                        </StackLayout>
+
+                        <!-- Shipping / Delivered (COMPLETED) -->
+                        <StackLayout *ngIf="stepsPresets.steps.shipping.status === StepStatuses.COMPLETED">
+                            <label
+                                text="Arrived on {{formatTime(campaign.influencer_info.product_received_time * 1000)}}"
+                                textWrap="true"
+                            ></label>
+                            <label *ngIf="shippingInfo?.carrier" text="By {{shippingInfo.carrier}}" textWrap="true"></label>
+                            <GridLayout *ngIf="shippingInfo?.tracking_code" rows="*" columns="*, 50">
+                                <label row="0" column="0" text="{{shippingInfo?.tracking_code}}" fontWeight="bold" textWrap="true"></label>
+                                <StackLayout row="0" column="1"> </StackLayout>
+                            </GridLayout>
+                        </StackLayout>
+                    </StackLayout>
+                </GridLayout>
+
+                <!-- Initial Commission Paid -->
+                <GridLayout *ngIf="campaign.has_initial_payment" rows="30, *" columns="30, *" class="step">
+                    <AbsoluteLayout row="0" col="0">
+                        <StackLayout class="line" left="5" top="6" height="100%"> </StackLayout>
+                        <StackLayout class="icon {{stepsPresets.steps.initial_commission_paid.status}}" left="0" top="6"> </StackLayout>
+                    </AbsoluteLayout>
+
+                    <FlexboxLayout class="step-header" row="0" col="1" justifyContent="space-between" alignItems="flex-start">
+                        <label
+                            class="step-name"
+                            text="{{stepsPresets.steps.initial_commission_paid.title[stepsPresets.steps.initial_commission_paid.status]}}"
+                        ></label>
+                        <label
+                            class="step-time"
+                            text="{{campaign.influencer_info.getFormattedDate('product_received_time')}}"
+                            textWrap="true"
+                        ></label>
+                    </FlexboxLayout>
+
+                    <StackLayout row="1" col="0" orientation="horizontal">
+                        <StackLayout class="line" verticalAlignment="stretch" marginLeft="5"></StackLayout>
+                    </StackLayout>
+
+                    <StackLayout *ngIf="false" row="1" column="1"> </StackLayout>
+                </GridLayout>
+
+                <!-- Try out the product -->
+                <GridLayout
+                    *ngIf="campaign.has_initial_payment"
+                    rows="50, *"
+                    columns="30, *"
+                    class="step {{stepsPresets.steps.try_out_prodcut.status === StepStatuses.WAITING ? 'disabled' : ''}}"
+                >
+                    <AbsoluteLayout row="0" col="0">
+                        <StackLayout class="line" left="5" top="0" height="100%"> </StackLayout>
+                        <StackLayout class="icon {{stepsPresets.steps.try_out_prodcut.status}}" left="0" top="34"> </StackLayout>
+                    </AbsoluteLayout>
+
+                    <FlexboxLayout class="step-header" row="0" col="1" justifyContent="space-between" alignItems="flex-end">
+                        <label
+                            class="step-name"
+                            text="{{ stepsPresets.steps.try_out_prodcut.title[stepsPresets.steps.try_out_prodcut.status]}}"
+                        ></label>
+
+                        <label
+                            *ngIf="stepsPresets.steps.try_out_prodcut.status === StepStatuses.COMPLETED"
+                            class="step-time"
+                            text="{{campaign.influencer_info.getFormattedDate('product_received_time')}}"
+                            textWrap="true"
+                        ></label>
+                    </FlexboxLayout>
+
+                    <StackLayout row="1" col="0" orientation="horizontal">
+                        <StackLayout class="line" verticalAlignment="stretch" marginLeft="5"></StackLayout>
+                    </StackLayout>
+                    <StackLayout
+                        *ngIf="stepsPresets.steps.try_out_prodcut.status === StepStatuses.ACTIVE"
+                        class="step-content"
+                        row="1"
+                        col="1"
+                    >
+                        <label
+                            class="campaign-status-information"
+                            text="Use the paid commission to complete your purchase on the brand’s website and copy the order number below."
+                            textWrap="true"
+                        ></label>
+                        <StackLayout orientation="horizontal" margin="10 0" (tap)="openUrl(campaign.product_url)">
+                            <image width="15" marginRight="4" src="res://images/link"></image>
+                            <label text="{{campaign.product_url}}" textWrap="true" color="#1890ff"></label>
+                        </StackLayout>
+                        <GridLayout rows="*" columns="*,auto">
+                            <TextField
+                                hint="Paste order number here"
+                                row="0"
+                                column="0"
+                                class="post-input"
+                                [(ngModel)]="productOrderNumber"
+                            ></TextField>
+                            <button
+                                class="post-submit"
+                                marginTop="4"
+                                text="Submit"
+                                row="0"
+                                column="1"
+                                verticalAlignment="top"
+                                [isEnabled]="productOrderNumber?.length>0"
+                                (tap)="addProductOrderNumber()"
+                            ></button>
+                        </GridLayout>
+                    </StackLayout>
+                </GridLayout>
+
+                <!-- Draft Pending -->
+                <GridLayout
+                    rows="50, *, *"
+                    columns="30, *"
+                    class="step  {{stepsPresets.steps.draft_pending.status === StepStatuses.WAITING ? 'disabled' : ''}}"
+                >
+                    <AbsoluteLayout row="0" col="0">
+                        <StackLayout class="line" left="5" top="0" height="100%"> </StackLayout>
+                        <StackLayout class="icon {{stepsPresets.steps.draft_pending.status}}" left="0" top="34"> </StackLayout>
+                    </AbsoluteLayout>
+
+                    <FlexboxLayout class="step-header" row="0" col="1" justifyContent="space-between" alignItems="flex-end">
+                        <label
+                            class="step-name"
+                            text="{{ stepsPresets.steps.draft_pending.title[stepsPresets.steps.draft_pending.status]}}"
+                        ></label>
+
+                        <label
+                            *ngIf="stepsPresets.steps.draft_pending.status === StepStatuses.COMPLETED"
+                            class="step-time"
+                            text="{{campaign.influencer_info.getFormattedDate('content_submit_time')}}"
+                            textWrap="true"
+                        ></label>
+
+                        <!-- Waiting -->
+                        <FlexboxLayout
+                            *ngIf="stepsPresets.steps.draft_pending.status === StepStatuses.WAITING"
+                            class="badge orange"
+                            justifyContent="center"
+                            alignItems="center"
+                        >
+                            <ng-container *ngIf="stepsPresets.steps.draft_pending.badge.waiting.text">
+                                <image src="res://images/alarm" width="18"></image>
+                                <label text="{{stepsPresets.steps.draft_pending.badge.waiting.text}}" textWrap="true"></label>
+                            </ng-container>
+                        </FlexboxLayout>
+
+                        <!-- Active -->
+                        <FlexboxLayout
+                            *ngIf="stepsPresets.steps.draft_pending.status === StepStatuses.ACTIVE"
+                            class="badge {{stepsPresets.steps.draft_pending.badge.active.colorClass}}"
+                            justifyContent="center"
+                            alignItems="center"
+                        >
+                            <ng-container *ngIf="stepsPresets.steps.draft_pending.badge.active.text">
+                                <image src="res://images/alarm" width="18"></image>
+                                <label text="{{stepsPresets.steps.draft_pending.badge.active.text}}" textWrap="true"></label>
+                            </ng-container>
+                        </FlexboxLayout>
+                    </FlexboxLayout>
+
+                    <StackLayout row="1" col="0" rowSpan="2" orientation="horizontal">
+                        <StackLayout class="line" verticalAlignment="stretch" marginLeft="5"></StackLayout>
+                    </StackLayout>
+
+                    <!-- Warning Message -->
+                    <StackLayout
+                        *ngIf="
+                                stepsPresets.steps.draft_pending.status !== StepStatuses.WAITING &&
+                                stepsPresets.steps.draft_reviewed.status === StepStatuses.WAITING &&
+                                stepsPresets.steps.draft_pending.warningMessage[stepsPresets.steps.draft_pending.status].text
+                            "
+                        row="1"
+                        col="1"
+                        paddingBottom="10"
+                    >
+                        <label
+                            text="{{stepsPresets.steps.draft_pending.warningMessage[stepsPresets.steps.draft_pending.status].text}}"
+                            class="{{stepsPresets.steps.draft_pending.warningMessage[stepsPresets.steps.draft_pending.status].colorClass}}"
+                            textWrap="true"
+                        ></label>
+                    </StackLayout>
+                    <StackLayout
+                        *ngIf="stepsPresets.steps.draft_pending.status !== StepStatuses.WAITING"
+                        class="step-content"
+                        row="2"
+                        col="1"
+                    >
+                        <label
+                            text="{{ stepsPresets.steps.draft_pending.description[stepsPresets.steps.draft_pending.status].text }}"
+                            class="{{stepsPresets.steps.draft_pending.description[stepsPresets.steps.draft_pending.status].colorClass}}"
+                            textWrap="true"
+                        ></label>
+
+                        <button
+                            *ngIf="!campaign.influencer_info.isContentSubmitted"
+                            class="upload-content-btn"
+                            text="Upload Content"
+                            (tap)="uploadFile()"
+                        ></button>
+                        <GridLayout *ngIf="campaign.influencer_info.isContentSubmitted" rows="*" columns="50, *" (tap)="viewDraft()">
+                            <StackLayout row="0" column="0">
+                                <image width="20" src="res://images/draft"></image>
+                            </StackLayout>
+
+                            <label row="0" column="1" text="View Content Draft" color="#2F80ED"></label>
+                        </GridLayout>
+                    </StackLayout>
+                </GridLayout>
+
+                <!-- Draft Reviewing -->
+                <GridLayout
+                    rows="50, *"
+                    columns="30, *"
+                    class="step  {{stepsPresets.steps.draft_under_review.status === StepStatuses.WAITING ? 'disabled' : ''}}"
+                >
+                    <AbsoluteLayout row="0" col="0">
+                        <StackLayout class="line" left="5" top="0" height="100%"> </StackLayout>
+                        <StackLayout class="icon {{stepsPresets.steps.draft_under_review.status}}" left="0" top="34"> </StackLayout>
+                    </AbsoluteLayout>
+
+                    <FlexboxLayout class="step-header" row="0" col="1" justifyContent="space-between" alignItems="flex-end">
+                        <label
+                            class="step-name"
+                            text="{{ stepsPresets.steps.draft_under_review.title[stepsPresets.steps.draft_under_review.status]}}"
+                        ></label>
+
+                        <label
+                            *ngIf="stepsPresets.steps.draft_under_review.status === StepStatuses.COMPLETED"
+                            class="step-time"
+                            text="{{campaign.influencer_info.getFormattedDate('content_approve_time')}}"
+                            textWrap="true"
+                        ></label>
+                    </FlexboxLayout>
+
+                    <StackLayout row="1" col="0" rowSpan="2" orientation="horizontal">
+                        <StackLayout class="line" verticalAlignment="stretch" marginLeft="5"></StackLayout>
+                    </StackLayout>
+
+                    <StackLayout
+                        class="step-content"
+                        *ngIf="
+                                stepsPresets.steps.draft_under_review.status !== StepStatuses.WAITING &&
+                                stepsPresets.steps.pending_commission.status === StepStatuses.WAITING
+                            "
+                        row="1"
+                        col="1"
+                    >
+                        <label
+                            *ngIf="stepsPresets.steps.draft_under_review.status === StepStatuses.ACTIVE"
+                            text="{{stepsPresets.steps.draft_under_review.description.active.text}}"
+                            textWrap="true"
+                        ></label>
+                        <label
+                            *ngIf="stepsPresets.steps.draft_under_review.status === StepStatuses.COMPLETED"
+                            text="{{stepsPresets.steps.draft_under_review.description.completed.text}}"
+                            textWrap="true"
+                        ></label>
+                    </StackLayout>
+                </GridLayout>
+
+                <!-- Draft Reviewed -->
+                <GridLayout
+                    rows="50, *, *"
+                    columns="30, *"
+                    class="step  {{stepsPresets.steps.draft_reviewed.status === StepStatuses.WAITING ? 'disabled' : ''}}"
+                >
+                    <AbsoluteLayout row="0" col="0">
+                        <StackLayout class="line" left="5" top="0" height="100%"> </StackLayout>
+                        <StackLayout class="icon {{stepsPresets.steps.draft_reviewed.status}}" left="0" top="34"> </StackLayout>
+                    </AbsoluteLayout>
+
+                    <FlexboxLayout class="step-header" row="0" col="1" justifyContent="space-between" alignItems="flex-end">
+                        <label
+                            class="step-name"
+                            text="{{ stepsPresets.steps.draft_reviewed.title[stepsPresets.steps.draft_reviewed.status]}}"
+                        ></label>
+
+                        <label
+                            *ngIf="stepsPresets.steps.draft_reviewed.status === StepStatuses.COMPLETED"
+                            class="step-time"
+                            text="{{campaign.influencer_info.getFormattedDate('content_submit_time')}}"
+                            textWrap="true"
+                        ></label>
+
+                        <!-- Waiting -->
+                        <FlexboxLayout
+                            *ngIf="stepsPresets.steps.draft_reviewed.status === StepStatuses.WAITING"
+                            class="badge orange"
+                            justifyContent="center"
+                            alignItems="center"
+                        >
+                            <ng-container *ngIf="stepsPresets.steps.draft_reviewed.badge.waiting.text">
+                                <image src="res://images/alarm" width="18"></image>
+                                <label text="{{stepsPresets.steps.draft_reviewed.badge.waiting.text}}" textWrap="true"></label>
+                            </ng-container>
+                        </FlexboxLayout>
+
+                        <!-- Active -->
+                        <FlexboxLayout
+                            *ngIf="stepsPresets.steps.draft_reviewed.status === StepStatuses.ACTIVE"
+                            class="badge {{stepsPresets.steps.draft_reviewed.badge.active.colorClass}}"
+                            justifyContent="center"
+                            alignItems="center"
+                        >
+                            <ng-container *ngIf="stepsPresets.steps.draft_reviewed.badge.active.text">
+                                <image src="res://images/alarm" width="18"></image>
+                                <label text="{{stepsPresets.steps.draft_reviewed.badge.active.text}}" textWrap="true"></label>
+                            </ng-container>
+                        </FlexboxLayout>
+                    </FlexboxLayout>
+
+                    <StackLayout row="1" col="0" rowSpan="2" orientation="horizontal">
+                        <StackLayout class="line" verticalAlignment="stretch" marginLeft="5"></StackLayout>
+                    </StackLayout>
+
+                    <!-- Warning Message -->
+                    <StackLayout
+                        *ngIf="
+                                stepsPresets.steps.draft_reviewed.status !== StepStatuses.WAITING &&
+                                stepsPresets.steps.draft_reviewed.warningMessage[stepsPresets.steps.draft_reviewed.status].text
+                            "
+                        row="1"
+                        col="1"
+                        paddingBottom="20"
+                    >
+                        <label
+                            text="{{stepsPresets.steps.draft_reviewed.warningMessage[stepsPresets.steps.draft_reviewed.status].text}}"
+                            class="{{stepsPresets.steps.draft_reviewed.warningMessage[stepsPresets.steps.draft_reviewed.status].colorClass}}"
+                            textWrap="true"
+                        ></label>
+                    </StackLayout>
+
+                    <StackLayout
+                        *ngIf="stepsPresets.steps.draft_reviewed.status === StepStatuses.ACTIVE && !campaign.influencer_info.isContentPosted"
+                        class="step-content"
+                        row="2"
+                        col="1"
+                    >
+                        <!-- Active -->
+                        <StackLayout>
+                            <label text="Post content to {{campaign?.platform}} and provide link below." textWrap="true"></label>
+                            <GridLayout rows="*" columns="*,auto">
+                                <TextField
+                                    hint="Post link"
+                                    borderWidth="1"
+                                    borderRadius="6"
+                                    row="0"
+                                    column="0"
+                                    class="post-input"
+                                    [(ngModel)]="postLink"
+                                ></TextField>
+                                <button
+                                    class="post-submit"
+                                    text="Submit"
+                                    marginTop="4"
+                                    row="0"
+                                    column="1"
+                                    verticalAlignment="top"
+                                    [isEnabled]="!!postLink"
+                                    (tap)="addContentLink()"
+                                ></button>
+                            </GridLayout>
+                            <label *ngIf="false" class="error-message" text="Invalid link" textWrap="true"></label>
+                        </StackLayout>
+                    </StackLayout>
+                    <StackLayout *ngIf="campaign.influencer_info.isContentPosted" class="step-content" row="2" col="1">
+                        <!-- Completed -->
+                        <GridLayout rows="*" columns="50, *" (tap)="openUrl(campaign.influencer_info.post_url)">
+                            <StackLayout row="0" column="0">
+                                <image src="res://images/link" width="20"></image>
+                            </StackLayout>
+                            <label row="0" column="1" text="Check the Link" color="#2F80ED"></label>
+                        </GridLayout>
+                    </StackLayout>
+                </GridLayout>
+
+                <!-- Pending Commission -->
+                <GridLayout
+                    rows="50, *"
+                    columns="30, *"
+                    class="step  {{stepsPresets.steps.pending_commission.status === StepStatuses.WAITING ? 'disabled' : ''}}"
+                >
+                    <AbsoluteLayout row="0" col="0" height="100%" width="100%">
+                        <StackLayout class="line" left="5" top="0" height="100%"> </StackLayout>
+                        <StackLayout class="icon {{stepsPresets.steps.pending_commission.status}}" left="0" top="34"> </StackLayout>
+                    </AbsoluteLayout>
+
+                    <FlexboxLayout class="step-header" row="0" col="1" justifyContent="space-between" alignItems="flex-end">
+                        <label
+                            class="step-name"
+                            text="{{ stepsPresets.steps.pending_commission.title[stepsPresets.steps.pending_commission.status]}}"
+                        ></label>
+
+                        <label
+                            *ngIf="stepsPresets.steps.pending_commission.status === StepStatuses.COMPLETED"
+                            class="step-time"
+                            text="{{campaign.influencer_info.getFormattedDate('content_submit_time')}}"
+                            textWrap="true"
+                        ></label>
+                    </FlexboxLayout>
+
+                    <StackLayout row="1" col="0" orientation="horizontal"> </StackLayout>
+
+                    <StackLayout
+                        *ngIf="stepsPresets.steps.pending_commission.status === StepStatuses.ACTIVE"
+                        class="step-content"
+                        row="1"
+                        col="1"
+                    >
+                        <label text="{{stepsPresets.steps.pending_commission.description.active.text}}" textWrap="true"></label>
+                    </StackLayout>
+                    <StackLayout *ngIf="campaign.influencer_info.isCommissionPaid" class="step-content" row="1" col="1">
+                        <label text="{{stepsPresets.steps.pending_commission.description.completed.text}}" textWrap="true"></label>
+                    </StackLayout>
+                </GridLayout>
+            </StackLayout>
+        </StackLayout>
+    </StackLayout>
+</ScrollView>

@@ -1,0 +1,26 @@
+<BottomNavigation [selectedIndex]="selectedIndex">
+    <!-- The bottom tab UI is created via TabStrip (the containier) and TabStripItem (for each tab)-->
+    <TabStrip>
+        <TabStripItem *ngFor="let tab of tabs; let i = index" (tap)="onItemTap(i)">
+            <image src="{{tab.iconUnActiveUrl}}"></image>
+            <label text="{{tab.title}}"></label>
+        </TabStripItem>
+    </TabStrip>
+
+    <!-- The number of TabContentItem components should corespond to the number of TabStripItem components -->
+    <TabContentItem>
+        <page-router-outlet name="discover"></page-router-outlet>
+    </TabContentItem>
+    <TabContentItem>
+        <page-router-outlet name="shop"></page-router-outlet>
+    </TabContentItem>
+    <TabContentItem>
+        <page-router-outlet name="myEarnings"></page-router-outlet>
+    </TabContentItem>
+    <TabContentItem>
+        <page-router-outlet name="inbox"></page-router-outlet>
+    </TabContentItem>
+    <TabContentItem>
+        <page-router-outlet name="accountInfo"></page-router-outlet>
+    </TabContentItem>
+</BottomNavigation>

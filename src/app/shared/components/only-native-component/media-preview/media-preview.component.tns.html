@@ -1,0 +1,61 @@
+<GridLayout rows="{{rowFormat}}" columns="{{columnFormat}}">
+    <AbsoluteLayout
+        *ngFor="let file of files;let i = index"
+        class="file-item"
+        margin="{{styleConfig.ITEM_MARGIN}}"
+        row="{{getRow(i)}}"
+        column="{{getCol(i)}}"
+        width="{{itemSize}}"
+        height="{{itemSize}}"
+    >
+        <image
+            *ngIf="file.type === 'image'"
+            left="0"
+            top="0"
+            width="100%"
+            height="100%"
+            src="{{file.file}}"
+            stretch="aspectFill"
+            backgroundColor="#eee"
+        ></image>
+        <VideoPlayer
+            *ngIf="file.type === 'video'"
+            left="0"
+            top="0"
+            width="100%"
+            height="100%"
+            src="{{file.file}}"
+            fill="true"
+            backgroundColor="#eee"
+        ></VideoPlayer>
+        <StackLayout left="0" top="0" width="100%" orientation="horizontal" horizontalAlignment="right">
+            <StackLayout padding="4" backgroundColor="rgba(0, 0, 0, 0.5)" (tap)="removeFile(file)">
+                <image src="res://images/close" width="12" height="12" stretch="aspectFill"></image>
+            </StackLayout>
+        </StackLayout>
+        <FlexboxLayout
+            *ngIf="isUploading"
+            left="0"
+            top="0"
+            width="100%"
+            height="100%"
+            backgroundColor="rgba(255,255,255,0.8)"
+            justifyContent="center"
+            fontSize="12"
+            alignItems="center"
+        >
+            <!-- If no corresponding progress in fileProgressMap, it means the file is uploaded file -->
+            <label text="{{fileProgressMap[file.file] || 0}}%" horizontalAlignment="center" verticalAlignment="center"></label>
+        </FlexboxLayout>
+    </AbsoluteLayout>
+
+    <StackLayout
+        *ngIf="enableAddBtn"
+        margin="{{styleConfig.ITEM_MARGIN}}"
+        row="{{getRow(files.length)}}"
+        column="{{getCol(files.length)}}"
+        (tap)="addFile()"
+    >
+        <image height="{{itemSize}}" width="{{itemSize}}" src="res://images/add" stretch="fill"></image>
+    </StackLayout>
+</GridLayout>

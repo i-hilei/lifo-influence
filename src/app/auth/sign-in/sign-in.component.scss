@@ -1,0 +1,43 @@
+.sign-in-section {
+    padding: 20px;
+
+    > div {
+        display: flex;
+        flex: 1;
+    }
+
+    .header {
+        flex: 0;
+        flex-direction: row;
+        justify-content: space-between;
+
+        div.sign-in-button {
+            display: inline-block;
+            color: #358FFF;;
+        }
+    }
+
+    .sign-in-form {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        justify-content: center;
+        margin-top: 30px;
+
+        form {
+            width: 100%;
+
+            .remember-me {
+                margin-top: 60px;
+            }
+        }
+    }
+
+    .buttons {
+        margin-top: 40px;
+
+        div[Button] {
+            width: 100%;
+        }
+    }
+}

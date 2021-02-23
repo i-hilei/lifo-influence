@@ -1,0 +1,141 @@
+.file-upload {
+    position: relative;
+
+    .content {
+        padding: 0 20px 40px;
+        height: 100%;
+        box-sizing: border-box;
+
+        .post-banner {
+            margin-top: 10px;
+            background: #ffebec;
+            border-radius: 6px;
+            padding: 5px 15px;
+            font-weight: 600;
+            color: #eb5757;
+            vertical-align: top;
+        }
+
+        .upload-desc {
+            margin-top: 20px;
+        }
+
+        .content-container {
+            overflow-y: auto;
+            height: 100%;
+
+            .photos,
+            .stories,
+            .caption {
+                margin-top: 24px;
+
+                .title {
+                    margin-bottom: 10px;
+                    font-size: 12px;
+                    font-weight: 600;
+                }
+            }
+
+            .caption {
+                .title {
+                    margin-bottom: 0;
+                }
+
+                .caption-text {
+                    padding: 0;
+                    border-bottom: 1px solid #eaeff4;
+                    max-height: 150px;
+                    overflow-y: auto;
+
+                    ::ng-deep .am-textarea-control textarea {
+                        font-size: 12px;
+                        line-height: 16px;
+                        letter-spacing: 0.1px;
+                        color: #45515d;
+                        font-weight: normal;
+                    }
+                }
+
+                .requirements {
+                    display: flex;
+                    flex-direction: column;
+                    margin-top: 5px;
+
+                    .requirements-title {
+                        font-size: 12px;
+                        line-height: 20px;
+                        color: rgba(13, 5, 60, 0.9);
+                        margin-right: 3px;
+                    }
+
+                    .requirements-block {
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        margin-bottom: 5px;
+
+                        .indicator {
+                            margin-right: 8px;
+                        }
+
+                        .indicator.red svg path {
+                            fill: #eb5757;
+                        }
+
+                        .indicator.green svg path {
+                            fill: #78b3a6;
+                        }
+
+                        .tags-container {
+                            display: flex;
+                            flex-direction: row;
+                            flex-wrap: wrap;
+                            align-items: center;
+
+                            .tag {
+                                background: #eaeff4;
+                                border-radius: 4px;
+                                padding: 1px 3px;
+                                margin-right: 2px;
+                                font-size: 12px;
+                                line-height: 14px;
+                                letter-spacing: 0.5px;
+                                color: #4f4f4f;
+                            }
+
+                            .tag.red {
+                                color: #eb5757;
+                                background: #ffebec;
+                            }
+
+                            .tag.green {
+                                background-color: #dcefeb;
+                                color: #78b3a6;
+                            }
+                        }
+
+                        .coupon_tag {
+                            background: #eaeff4;
+                            border-radius: 4px;
+                            padding: 1px 3px;
+                            margin-right: 2px;
+                            font-size: 12px;
+                            line-height: 14px;
+                            letter-spacing: 0.5px;
+                            color: #4f4f4f;
+                        }
+                        .coupon_tag.red {
+                            color: #eb5757;
+                            background: #ffebec;
+                        }
+
+                        .coupon_tag.green {
+                            background-color: #dcefeb;
+                            color: #78b3a6;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

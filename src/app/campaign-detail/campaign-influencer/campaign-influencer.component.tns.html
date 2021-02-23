@@ -1,0 +1,95 @@
+<GridLayout rows="*, 60" columns="*" class="detail-box">
+    <ScrollView row="0" col="0">
+        <StackLayout class="scroll-box">
+            <!-- Top Image -->
+            <AbsoluteLayout class="top-contents" height="250" width="100%">
+                <StackLayout
+                    class="img-box"
+                    left="0"
+                    top="0"
+                    backgroundImage="{{campaignDetail?.product_image}}"
+                    backgroundPosition="center"
+                >
+                </StackLayout>
+                <FlexboxLayout class="top-btns" left="0" top="10" width="100%" justifyContent="space-between" alignItems="center">
+                    <StackLayout class="back-btn" marginLeft="20" verticalAlignment="center" (tap)="back()">
+                        <image src="res://images/left"></image>
+                    </StackLayout>
+                    <label
+                        *ngIf="campaignInvitation && !expired && quota !== undefined"
+                        class="sign-up-users"
+                        text="{{appliedUser}} Influencers have signed up!"
+                    ></label>
+                </FlexboxLayout>
+
+                <StackLayout class="brand-img" verticalAlignment="center">
+                    <image stretch="aspectFill" src="res://images/portrait"></image>
+                </StackLayout>
+            </AbsoluteLayout>
+
+            <!-- Brand title -->
+            <FlexboxLayout class="brand-product" justifyContent="space-between" alignItems="flex-start" padding="20" width="100%">
+                <StackLayout>
+                    <label class="brand-name" text="{{campaignDetail?.brand}}" textWrap="true"></label>
+                    <label class="product-name" text="{{campaignDetail?.product_name}}" textWrap="true"></label>
+                </StackLayout>
+
+                <StackLayout> </StackLayout>
+            </FlexboxLayout>
+
+            <!-- Commission -->
+            <GridLayout class="commission-box" rows="40, *" columns="*, 110" paddingLeft="20">
+                <label class="title" text="Commission" row="0" col="0"></label>
+                <FlexboxLayout class="prices" justifyContent="flex-start" flexWrap="wrap" row="1" col="0" padding="10 0">
+                    <GridLayout class="price-item" rows="15, 15" columns="20, auto">
+                        <image src="res://images/product" width="20" row="0" col="0" rowSpan="2"></image>
+                        <label class="commission" text="${{campaignDetail?.product_price || 0}}" textWrap="true" row="0" col="1"></label>
+                        <label class="extra-bonus" text="Product" textWrap="true" row="1" col="1"></label>
+                    </GridLayout>
+                    <GridLayout class="price-item" rows="15, 15" columns="20, auto" *ngIf="campaignInvitation?.commission">
+                        <image src="res://images/commission" width="20" row="0" col="0" rowSpan="2"></image>
+                        <label class="commission" text="${{campaignInvitation?.commission}}" textWrap="true" row="0" col="1"></label>
+                        <label class="extra-bonus" text="Commission" textWrap="true" row="1" col="1"></label>
+                    </GridLayout>
+                    <GridLayout class="price-item" rows="15, 15" columns="20, auto" *ngIf="getBonus">
+                        <image src="res://images/bonus" width="20" row="0" col="0" rowSpan="2"></image>
+                        <label class="commission" text="${{getBonus}}" textWrap="true" row="0" col="1"></label>
+                        <label class="extra-bonus" text="Extra Bonus" textWrap="true" row="1" col="1"></label>
+                    </GridLayout>
+                </FlexboxLayout>
+                <StackLayout row="0" col="1" colSpan="2">
+                    <StackLayout *ngIf="campaignInvitation && campaignRecruitStatus && !expired" class="left-time-box">
+                        <label class="due-date" text="Due Date"></label>
+                        <label class="time" text="{{ hoursleft }}hrs left"></label>
+                    </StackLayout>
+                </StackLayout>
+            </GridLayout>
+
+            <!-- Bonus info -->
+            <label
+                *ngIf="getBonus !== 0"
+                margin="10 20"
+                text="Upload content draft within {{ campaignInvitation?.bonus_time }}hr for ${{ getBonus }} bonus"
+                textWrap="true"
+            ></label>
+
+            <!-- Offer detail -->
+            <StackLayout padding="0 20">
+                <app-offer-detail-display [offerDetail]="offerDetail"></app-offer-detail-display>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+
+    <FlexboxLayout row="1" col="0" class="bottom-btns" justifyContent="space-between" alignItems="flex-end">
+        <label class="total-amount" text="Total ${{totalMoney}}"></label>
+        <ng-container *ngIf="type==='discover' && campaignInvitation ">
+            <button *ngIf="!expired && !applied" class="accept-btn" text="Apply" (tap)="showAddressInputDialog()"></button>
+            <button *ngIf="!expired && applied" class="accept-btn" text="Applied" [isEnabled]="false"></button>
+            <button *ngIf="expired" class="accept-btn" text="{{filled?'Filled':'Expired'}}" [isEnabled]="false"></button>
+        </ng-container>
+        <ng-container *ngIf="type==='myCampaign' && campaignInvitation && campaignRecruitStatus && offerDetail && !completeForm">
+            <button *ngIf="!expired" class="accept-btn" text="Accept Invitation" (tap)="showAddressInputDialog()"></button>
+            <button *ngIf="expired" class="accept-btn" text="{{filled?'Filled':'Expired'}}" [isEnabled]="false"></button>
+        </ng-container>
+    </FlexboxLayout>
+</GridLayout>

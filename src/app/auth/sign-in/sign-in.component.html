@@ -1,0 +1,64 @@
+<section class="sign-in-section">
+    <div class="header">
+        <div class="header-logo">
+            <img class="panel-image" src="../../../assets/svg/brand_logo_2.svg"/>
+        </div>
+        <div class="central"></div>
+        <div>
+            <div (click)="navigate('sign-up')" class="button sign-in-button">Sign Up</div>
+        </div>
+    </div>
+
+    <div class="sign-in-form">
+        <h3><strong>Sign In</strong></h3>
+        <form [formGroup]="signInForm" nz-form>
+            <nz-form-item>
+                <nz-form-control>
+                    <input
+                        formControlName="email"
+                        id="email"
+                        name="email"
+                        nz-input
+                        nzSize="large"
+                        placeholder="Email Address"
+                        type="email"
+                    />
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-control>
+                    <input
+                        formControlName="password"
+                        id="password"
+                        name="password"
+                        nz-input
+                        nzSize="large"
+                        placeholder="Password"
+                        type="password"
+                    />
+                </nz-form-control>
+            </nz-form-item>
+            <a [routerLink]="['/restore-password']">Forgot password?</a> <br>
+            <label class="remember-me" formControlName="rememberMe" nz-checkbox>Keep me signed in</label>
+        </form>
+    </div>
+
+    <div class="buttons">
+        <div
+            (click)="submitForm()"
+            Button
+            [disabled]="!signInForm.valid || submitting"
+            [loading]="submitting"
+            class="sign-in-button"
+            type="primary"
+        >
+            Sign In
+        </div>
+    </div>
+</section>
+
+<!--<section *ngIf="deviceDetectorService.isDesktop()">-->
+<!--    <div>-->
+<!--        <label>The desktop version of the influencer get started page is not ready</label>-->
+<!--    </div>-->
+<!--</section>-->

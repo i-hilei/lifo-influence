@@ -1,0 +1,50 @@
+<StackLayout>
+  <Label text="ShopProfileComponent works" textWrap="true"></Label>
+  <Label text="This is a migrated component" textWrap="true"></Label>
+  <Label text="Update it to provide the UI elements required in your mobile app" textWrap="true"></Label>
+</StackLayout>
+
+<!--
+Original Web template:
+
+<div class="shop-container" *ngIf="shopDetail">
+    <div class="shop-image">
+        <div class="shop-name">
+            {{shopDetail.shop_name}}'s Shop
+        </div>
+        <div class="empty-profile-image">
+            <img src="assets/images/shop-background.jpg">
+        </div>
+    </div>
+    <div class="shop-info">
+        <div class="owner">{{shopDetail.shop_name}}</div>
+        <div class="social" *ngIf="shopDetail.instagram_id"> 
+            <img src="assets/png/ic_instagram@2x.png"> @{{shopDetail.instagram_id}}</div>
+        <div class="social" *ngIf="shopDetail.tiktok_id">
+            <img src="assets/png/ic_tiktok@2x.png"> @{{shopDetail.tiktok_id}}</div>
+        <div class="share-button" *ngIf="isInternalView">
+            <button (click)="copyShopLink()"> 
+            <img src="assets/png/send-icon.png" class="send-icon">
+            Share My Shop</button>
+        </div>
+    </div>
+    <Modal
+        (ngModelChange)="copyModalShow = $event"
+        [popup]="true"
+        [closable]="false"
+        [ngModel]="copyModalShow"
+        [transparent]="true"
+        (onClose)="onCopyModalClose()">
+        
+        <div class="copy-container" *ngIf="copyModalShow">
+            <div class="copy-title">Store URL Copied! </div>
+            <div class="copy-message">Share your storefront and start earning!</div>
+            <div class="copy-link">
+                <div class="link">{{link}}</div>
+                <div class="check-button"><img src="assets/png/ic_succeed@2x.png"></div>
+            </div>
+            <div class="close-button" (click)="onCopyModalClose()"> Close </div>
+        </div>
+    </Modal>
+</div>
+-->

@@ -1,0 +1,44 @@
+<ActionBar flat="true" backgroundColor="#fff" color="#333">
+    <NavigationButton text=""></NavigationButton>
+</ActionBar>
+
+<GridLayout rows="auto, *, auto" columns="*" padding="20" height="100%" width="100%">
+    <!-- title -->
+    <label row="0" col="0" class="title" text="People you've invited" marginBottom="20" fontSize="28" fontWeight="bold"></label>
+
+    <!-- List -->
+    <ScrollView *ngIf="referralList?.length > 0" row="1" col="0" class="list-box">
+        <StackLayout>
+            <GridLayout *ngFor="let referral of referralList" class="list-item" rows="30, auto" columns="*, auto">
+                <label class="name" text="@{{referral.instagram_id}}" row="0" col="0"></label>
+                <StackLayout class="ticket-status" row="0" col="1" orientation="horizontal">
+                    <ng-container *ngIf="referral.invited_to_lottery">
+                        <StackLayout *ngIf="referral.totalTicket" orientation="horizontal" class="extra-tickets">
+                            <image src="res://images/mdi_success"></image>
+                            <label text="Ticket + {{1}}"></label>
+                        </StackLayout>
+                        <image class="raffle-label" src="res://images/raffle_label"></image>
+                    </ng-container>
+                </StackLayout>
+                <label class="referral-status" text="{{status_LABELS[referral.status]}}" row="1" col="0"></label>
+                <label class="date" text="{{referral.displayTime | date:'M/d/yyyy'}}" row="1" col="1"></label>
+            </GridLayout>
+        </StackLayout>
+    </ScrollView>
+
+    <!-- Empty list -->
+    <StackLayout *ngIf="referralList?.length === 0" row="1" col="0">
+        <image src="res://images/no_data_house" width="60%" horizontalAlignment="center" marginTop="100"></image>
+        <label
+            text="Invite friend to earn rewards!"
+            horizontalAlignment="center"
+            fontSize="16"
+            fontWeight="500"
+            color="#45515D"
+            marginTop="50"
+        ></label>
+    </StackLayout>
+
+    <!-- Invite -->
+    <button class="lifo-btn" row="2" col="0" text="Invite Friends" (tap)="openInviteFriendDialog()"></button>
+</GridLayout>

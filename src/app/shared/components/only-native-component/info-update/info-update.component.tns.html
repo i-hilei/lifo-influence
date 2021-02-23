@@ -1,0 +1,171 @@
+<ModalStack dismissEnabled="false" class="modal-container" backgroundColor="#fff">
+    <GridLayout rows="*, 50" columns="*">
+        <ScrollView height="100%" row="0" col="0">
+            <StackLayout class="info-box" padding="20" paddingTop="0">
+                <label
+                    class="additional-info"
+                    text="Please leave your information here. Lifo will generate a contract for you to review later."
+                    textWrap="true"
+                    padding="10"
+                ></label>
+
+                <!-- Product Type -->
+                <StackLayout class="form-item" *ngIf="productTypeList && productTypeList.length !== 0">
+                    <label class="title" text="Product Type" textWrap="true" marginBottom="4"></label>
+                    <WrapLayout orientation="horizontal" marginBottom="10">
+                        <FlexboxLayout
+                            *ngFor="let item of productTypeList"
+                            justifyContent="flex-start"
+                            alignItems="center"
+                            marginRight="5"
+                            marginBottom="5"
+                            (tap)="selectProductType(item.id)"
+                        >
+                            <image
+                                src="res://images/radio_{{item.id === influencer.variant_id?'checked':'unchecked'}}"
+                                width="20"
+                                height="20"
+                                marginRight="4"
+                            ></image>
+                            <label text="{{item.title}}" textWrap="true"></label>
+                        </FlexboxLayout>
+                    </WrapLayout>
+                </StackLayout>
+
+                <!-- First Name -->
+                <StackLayout class="form-item">
+                    <label class="title" text="First Name" textWrap="true"></label>
+                    <TextField
+                        required
+                        hint="First Name"
+                        [(ngModel)]="influencer.inf_name"
+                        #firstNameModel="ngModel"
+                        style="margin-bottom: 0"
+                    >
+                    </TextField>
+                    <label
+                        visibility="{{ firstNameModel.valid  || !firstNameModel.dirty || firstNameModel.untouched ? 'hidden' : 'visible' }}"
+                        text="First Name required"
+                        textWrap="true"
+                        class="error-msg"
+                    ></label>
+                </StackLayout>
+
+                <!-- Last Name -->
+                <StackLayout class="form-item">
+                    <label class="title" text="Last Name" textWrap="true"></label>
+                    <TextField
+                        required
+                        hint="Last Name"
+                        [(ngModel)]="influencer.inf_last_name"
+                        #lastNameModel="ngModel"
+                        style="margin-bottom: 0"
+                    >
+                    </TextField>
+                    <label
+                        visibility="{{ lastNameModel.valid  || !lastNameModel.dirty || lastNameModel.untouched ? 'hidden' : 'visible' }}"
+                        text="Last Name required"
+                        textWrap="true"
+                        class="error-msg"
+                    ></label>
+                </StackLayout>
+
+                <!-- Phone Number -->
+                <StackLayout class="form-item">
+                    <label class="title" text="Phone Number" textWrap="true"></label>
+                    <TextField
+                        hint="Phone Number (Optional)"
+                        [(ngModel)]="influencer.inf_phone"
+                        #phoneNumberModel="ngModel"
+                        style="margin-bottom: 0"
+                    >
+                    </TextField>
+                    <label
+                        visibility="{{ phoneNumberModel.valid  || !phoneNumberModel.dirty || phoneNumberModel.untouched ? 'hidden' : 'visible' }}"
+                        text="Phone Number required"
+                        textWrap="true"
+                        class="error-msg"
+                    ></label>
+                </StackLayout>
+
+                <!-- Address -->
+                <StackLayout class="form-item">
+                    <label class="title" text="Address" textWrap="true"></label>
+                    <label class="explation" text="We will ship a product for your content creation." textWrap="true"></label>
+
+                    <TextField
+                        required
+                        hint="Street"
+                        [(ngModel)]="influencer.influencer_address1"
+                        #address1Model="ngModel"
+                        style="margin-bottom: 0"
+                    >
+                    </TextField>
+                    <TextField hint="Unit, Suite, Apt (Optional) " [(ngModel)]="influencer.influencer_address2" style="margin-bottom: 0">
+                    </TextField>
+                    <label
+                        visibility="{{ address1Model.valid  || !address1Model.dirty || address1Model.untouched ? 'hidden' : 'visible' }}"
+                        text="Street is required"
+                        textWrap="true"
+                        class="error-msg"
+                    ></label>
+                </StackLayout>
+
+                <!-- City -->
+                <StackLayout class="form-item">
+                    <label class="title" text="City" textWrap="true"></label>
+                    <TextField required hint="City" [(ngModel)]="influencer.city" #cityModel="ngModel" style="margin-bottom: 0">
+                    </TextField>
+                    <label
+                        visibility="{{ cityModel.valid  || !cityModel.dirty || cityModel.untouched ? 'hidden' : 'visible' }}"
+                        text="City is required"
+                        textWrap="true"
+                        class="error-msg"
+                    ></label>
+                </StackLayout>
+
+                <!-- State / Province -->
+                <StackLayout class="form-item">
+                    <label class="title" text="State / Province" textWrap="true"></label>
+                    <TextField
+                        required
+                        hint="State / Province"
+                        [(ngModel)]="influencer.province"
+                        #stateModel="ngModel"
+                        style="margin-bottom: 0"
+                    >
+                    </TextField>
+                    <label
+                        visibility="{{ stateModel.valid  || !stateModel.dirty || stateModel.untouched ? 'hidden' : 'visible' }}"
+                        text="State is required"
+                        textWrap="true"
+                        class="error-msg"
+                    ></label>
+                </StackLayout>
+
+                <!-- Zip Code -->
+                <StackLayout class="form-item">
+                    <label class="title" text="Zip Code" textWrap="true"></label>
+                    <TextField required hint="Zip Code" [(ngModel)]="influencer.zip" #zipCodeModel="ngModel" style="margin-bottom: 0">
+                    </TextField>
+                    <label
+                        visibility="{{ zipCodeModel.valid  || !zipCodeModel.dirty || zipCodeModel.untouched ? 'hidden' : 'visible' }}"
+                        text="Zip Code is required"
+                        textWrap="true"
+                        class="error-msg"
+                    ></label>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+        <FlexboxLayout class="btns" justifyContent="space-between" alignItems="flex-end" row="1" col="0">
+            <button class="back-btn" text="{{context?.backText || 'Cancel'}}" (tap)="back()" marginLeft="20"></button>
+            <button
+                class="confirm-btn"
+                text="{{context?.confirmText || 'Confirm'}}"
+                marginRight="20"
+                [isEnabled]="btnEnabled"
+                (tap)="accept()"
+            ></button>
+        </FlexboxLayout>
+    </GridLayout>
+</ModalStack>

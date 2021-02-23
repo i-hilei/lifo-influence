@@ -1,0 +1,35 @@
+<app-page-header 
+    [headerConfig]="pageHeaderConfig"
+    (onRightLinkClick)="editContent()"
+></app-page-header>
+
+<section class="campaign-review">
+    <section class="tab-content">
+        <section class="img-preview">
+            <nz-carousel #carousel (nzAfterChange)="afterChange()" (nzBeforeChange)="beforeChange($event)"
+                         [nzDots]="false">
+                <div *ngFor="let file of files" nz-carousel-content>
+                    <img *ngIf="file?.type === 'image'" [src]="file.url"/>
+                    <video *ngIf="file?.type === 'video'" [src]="file.videoUrl" controls></video>
+                </div>
+            </nz-carousel>
+        </section>
+        <section class="img-tab">
+            <section class="img-container">
+                <section
+                    (click)="selectPreviewImg(i)"
+                    *ngFor="let file of files; let i = index"
+                    [ngClass]="{ selected: i === selectedIndex }"
+                    class="img-tab-item"
+                >
+                    <img *ngIf="file?.url" [src]="file.url"/>
+                    <i *ngIf="file?.type === 'video'" nz-icon nzTheme="outline" nzType="play-circle"></i>
+                </section>
+            </section>
+        </section>
+        <section [innerText]="campaignDetail?.description ? campaignDetail?.description : ''" class="caption"></section>
+        <section class="post-banner">
+            Reminder: Please don’t post to social media before it’s approved
+        </section>
+    </section>
+</section>

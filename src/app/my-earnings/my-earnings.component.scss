@@ -1,0 +1,262 @@
+.page-container {
+    min-height: 100vh;
+
+    .page-header {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+
+    .my-earnings {
+        min-height: calc(100vh - 120px - 43px);
+        padding: 15px;
+        line-height: 1;
+
+        .money {
+            width: 100%;
+            height: 135px;
+            border-radius: 8px;
+            box-shadow: 2px 2px 4px rgba(13, 5, 60, 0.1), -2px 2px 4px rgba(13, 5, 60, 0.1);
+
+            .money-overview {
+                width: 100%;
+                height: 50%;
+                background-color: #717ed2;
+                border-radius: 8px;
+                padding: 10px 20px;
+                box-sizing: border-box;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                .overview-content {
+                    display: flex;
+                    height: 100%;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    align-items: center;
+
+                    .total-money {
+                        font-size: 30px;
+                        font-weight: 600;
+                        color: #fff;
+                    }
+
+                    .desc {
+                        font-size: 10px;
+                        color: #fff;
+                    }
+                }
+
+                .request-btn {
+                    user-select: none;
+                    font-size: 13px;
+                    font-weight: 600;
+                    padding: 0 24px;
+                    background-color: #fff;
+                    color: #717ed2;
+                    border: none;
+
+                    &:disabled {
+                        opacity: 0.6;
+                    }
+                }
+            }
+
+            .money-detail {
+                width: 100%;
+                height: 50%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0 15px;
+
+                .money-detail-item {
+                    color: #414bb2;
+
+                    .count {
+                        text-align: center;
+                        font-size: 18px;
+                        font-weight: 500;
+                        margin-bottom: 5px;
+                    }
+
+                    .desc {
+                        text-align: center;
+                        font-size: 10px;
+                    }
+                }
+            }
+        }
+
+        .transaction-list {
+            margin-top: 25px;
+            padding-bottom: 40px;
+
+            .title {
+                font-size: 16px;
+                font-weight: 600;
+            }
+
+            .transaction-item {
+                margin-top: 30px;
+                width: 100%;
+                height: 40px;
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+
+                .left-img {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 54px;
+                    margin-right: 10px;
+                    height: 40px;
+                    border-radius: 4px;
+                    background-color: #eee;
+
+                    .product-img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        border-radius: 4px;
+                    }
+
+                    .cash-out {
+                        width: 40%;
+                        object-fit: cover;
+                    }
+                }
+
+                .right-info {
+                    width: calc(100% - 64px);
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    height: 100%;
+                    padding: 2px 0;
+                    box-sizing: border-box;
+
+                    .name-time {
+                        max-width: calc(100% - 100px);
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-between;
+                        align-items: flex-start;
+                        height: 100%;
+
+                        .name {
+                            width: 100%;
+                            font-size: 14px;
+                            font-weight: 600;
+                            color: #525069;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                        }
+
+                        .time {
+                            font-size: 12px;
+                            font-weight: 500;
+                            columns: #a2a4b0;
+                        }
+                    }
+
+                    .money-count {
+                        width: 90px;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+
+                        .anticon {
+                            transform: translateY(2px);
+                        }
+
+                        .count-operation {
+                            color: #3fa451;
+
+                            .count {
+                                font-size: 18px;
+                                font-weight: 600;
+                            }
+
+                            .operation {
+                                font-size: 20px;
+                            }
+                        }
+
+                        .out {
+                            color: #ee7c51;
+                        }
+                    }
+                }
+            }
+        }
+
+        .loading {
+            margin-top: 20px;
+        }
+
+        .no-data {
+            text-align: center;
+
+            img {
+                margin-bottom: 20px;
+            }
+        }
+
+        // Dialog
+        ::ng-deep .am-modal-wrap {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .am-modal-popup {
+                position: relative;
+                width: 80vw;
+
+                .am-modal-content {
+                    border-radius: 8px;
+
+                    .container {
+                        padding: 20px;
+                        color: #0d053c;
+
+                        .top {
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            margin-bottom: 20px;
+                        }
+
+                        .title {
+                            font-size: 14px;
+                            font-weight: bold;
+                            line-height: 17px;
+                            margin-bottom: 20px;
+                        }
+
+                        .desc {
+                            font-size: 12px;
+                            line-height: 20px;
+                            font-weight: 500;
+                        }
+
+                        .ant-input {
+                            padding: 8px 16px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .download-app {
+        position: -webkit-sticky;
+        position: sticky;
+        bottom: 0;
+        z-index: 1;
+    }
+}

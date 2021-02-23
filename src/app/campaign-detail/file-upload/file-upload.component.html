@@ -1,0 +1,203 @@
+<app-page-header
+    (onRightLinkClick)="clickUpload()"
+    [disableRightLink]="!isTextValid() || this.isSubmitting || this.files.length === 0"
+    [headerConfig]="pageHeaderConfig"
+    [isLoading]="isSubmitting"
+></app-page-header>
+<section class="file-upload">
+    <!-- Imgs / Videos / Caption -->
+    <section class="content">
+        <section class="upload-desc">Please upload content draft for your post here for review</section>
+        <section class="post-banner">Reminder: Please don’t post to social media before it’s approved</section>
+
+        <section class="content-container">
+            <section class="upload-container">
+                <!-- Img -->
+                <section class="photos">
+                    <section class="title">Images</section>
+                    <section class="imgs">
+                        <app-file-picker
+                            #imgFilePicker
+                            (onFileChange)="fileChange($event, 'image')"
+                            (onFileRemove)="removeFile($event, 'image')"
+                            [accept]="imageUploadConfig.accept"
+                            [fileProgressMap]="fileProgressMap"
+                            [files]="imageUploadConfig.files"
+                            [multiple]="imageUploadConfig.multiple"
+                            [selectable]="imageUploadConfig.selectable"
+                        ></app-file-picker>
+                    </section>
+                </section>
+
+                <!-- Video -->
+                <section class="stories">
+                    <section class="title">Videos</section>
+                    <section class="videos">
+                        <app-file-picker
+                            #videoFilePicker
+                            (onFileChange)="fileChange($event, 'video')"
+                            (onFileRemove)="removeFile($event, 'video')"
+                            [accept]="videoUploadConfig.accept"
+                            [fileProgressMap]="fileProgressMap"
+                            [files]="videoUploadConfig.files"
+                            [multiple]="videoUploadConfig.multiple"
+                            [selectable]="videoUploadConfig.selectable"
+                        ></app-file-picker>
+                    </section>
+                </section>
+            </section>
+
+            <!-- Caption -->
+            <section class="caption">
+                <section class="title">Caption</section>
+
+                <!-- Requirements -->
+                <section class="requirements" *ngIf="hasRequirements()">
+                    <div class="requirements-title">Please include the following information in your content:</div>
+                    <div class="requirements-block hashtags" *ngIf="elementsToCheck.hashtags.length">
+                        <div
+                            class="indicator"
+                            [class.red]="!isAllInSectionExist('hashtags')"
+                            [class.green]="isAllInSectionExist('hashtags')"
+                        >
+                            <svg
+                                *ngIf="isAllInSectionExist('hashtags')"
+                                width="12"
+                                height="12"
+                                viewBox="0 0 12 12"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M5.99944 0.285156C2.84516 0.285156 0.285156 2.84516 0.285156 5.99944C0.285156 9.15373 2.84516 11.7137 5.99944 11.7137C9.15373 11.7137 11.7137 9.15373 11.7137 5.99944C11.7137 2.84516 9.15373 0.285156 5.99944 0.285156ZM4.85658 8.85658L1.99944 5.99944L2.80516 5.19373L4.85658 7.23944L9.19373 2.9023L9.99944 3.71373L4.85658 8.85658Z"
+                                    fill="#BDBDBD"
+                                />
+                            </svg>
+                            <svg
+                                *ngIf="!isAllInSectionExist('hashtags')"
+                                width="12"
+                                height="12"
+                                viewBox="0 0 12 12"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    clip-rule="evenodd"
+                                    d="M5.715 0C2.56032 0 0 2.56032 0 5.715C0 8.86968 2.56032 11.43 5.715 11.43C8.86968 11.43 11.43 8.86968 11.43 5.715C11.43 2.56032 8.86968 0 5.715 0ZM8.0621 2.7759L8.65412 3.36792L6.30701 5.71504L8.65412 8.06216L8.0621 8.65418L5.71498 6.30707L3.36786 8.65418L2.77584 8.06216L5.12295 5.71504L2.77584 3.36792L3.36786 2.7759L5.71498 5.12301L8.0621 2.7759Z"
+                                    fill="#EB5757"
+                                />
+                            </svg>
+                        </div>
+                        <div class="requirements-title">Hashtag(s):</div>
+                        <div class="tags-container">
+                            <div
+                                class="tag"
+                                [class.red]="hashtag.checkStatus === 'not_exists'"
+                                [class.green]="hashtag.checkStatus === 'exists'"
+                                *ngFor="let hashtag of elementsToCheck.hashtags"
+                            >
+                                #{{ hashtag.elementTitle }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="requirements-block tags" *ngIf="elementsToCheck.tags.length">
+                        <div class="indicator" [class.red]="!isAllInSectionExist('tags')" [class.green]="isAllInSectionExist('tags')">
+                            <svg
+                                *ngIf="isAllInSectionExist('tags')"
+                                width="12"
+                                height="12"
+                                viewBox="0 0 12 12"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M5.99944 0.285156C2.84516 0.285156 0.285156 2.84516 0.285156 5.99944C0.285156 9.15373 2.84516 11.7137 5.99944 11.7137C9.15373 11.7137 11.7137 9.15373 11.7137 5.99944C11.7137 2.84516 9.15373 0.285156 5.99944 0.285156ZM4.85658 8.85658L1.99944 5.99944L2.80516 5.19373L4.85658 7.23944L9.19373 2.9023L9.99944 3.71373L4.85658 8.85658Z"
+                                    fill="#BDBDBD"
+                                />
+                            </svg>
+                            <svg
+                                *ngIf="!isAllInSectionExist('tags')"
+                                width="12"
+                                height="12"
+                                viewBox="0 0 12 12"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    clip-rule="evenodd"
+                                    d="M5.715 0C2.56032 0 0 2.56032 0 5.715C0 8.86968 2.56032 11.43 5.715 11.43C8.86968 11.43 11.43 8.86968 11.43 5.715C11.43 2.56032 8.86968 0 5.715 0ZM8.0621 2.7759L8.65412 3.36792L6.30701 5.71504L8.65412 8.06216L8.0621 8.65418L5.71498 6.30707L3.36786 8.65418L2.77584 8.06216L5.12295 5.71504L2.77584 3.36792L3.36786 2.7759L5.71498 5.12301L8.0621 2.7759Z"
+                                    fill="#EB5757"
+                                />
+                            </svg>
+                        </div>
+                        <div class="requirements-title">Social Account (s):</div>
+                        <div class="tags-container">
+                            <div
+                                class="tag"
+                                [class.red]="tag.checkStatus === 'not_exists'"
+                                [class.green]="tag.checkStatus === 'exists'"
+                                *ngFor="let tag of elementsToCheck.tags"
+                            >
+                                @{{ tag.elementTitle }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="requirements-block coupon" *ngIf="!!elementsToCheck.coupon">
+                        <div
+                            class="indicator"
+                            [class.red]="elementsToCheck.coupon?.checkStatus === 'not_exists'"
+                            [class.green]="elementsToCheck.coupon?.checkStatus === 'exists'"
+                        >
+                            <svg
+                                *ngIf="elementsToCheck.coupon?.checkStatus === 'exists'"
+                                width="12"
+                                height="12"
+                                viewBox="0 0 12 12"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M5.99944 0.285156C2.84516 0.285156 0.285156 2.84516 0.285156 5.99944C0.285156 9.15373 2.84516 11.7137 5.99944 11.7137C9.15373 11.7137 11.7137 9.15373 11.7137 5.99944C11.7137 2.84516 9.15373 0.285156 5.99944 0.285156ZM4.85658 8.85658L1.99944 5.99944L2.80516 5.19373L4.85658 7.23944L9.19373 2.9023L9.99944 3.71373L4.85658 8.85658Z"
+                                    fill="#BDBDBD"
+                                />
+                            </svg>
+                            <svg
+                                *ngIf="elementsToCheck.coupon?.checkStatus === 'not_exists'"
+                                width="12"
+                                height="12"
+                                viewBox="0 0 12 12"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    clip-rule="evenodd"
+                                    d="M5.715 0C2.56032 0 0 2.56032 0 5.715C0 8.86968 2.56032 11.43 5.715 11.43C8.86968 11.43 11.43 8.86968 11.43 5.715C11.43 2.56032 8.86968 0 5.715 0ZM8.0621 2.7759L8.65412 3.36792L6.30701 5.71504L8.65412 8.06216L8.0621 8.65418L5.71498 6.30707L3.36786 8.65418L2.77584 8.06216L5.12295 5.71504L2.77584 3.36792L3.36786 2.7759L5.71498 5.12301L8.0621 2.7759Z"
+                                    fill="#EB5757"
+                                />
+                            </svg>
+                        </div>
+                        <div class="requirements-title">Coupon Code:</div>
+                        <div
+                            class="requirements-content coupon_tag"
+                            [class.red]="elementsToCheck.coupon?.checkStatus === 'not_exists'"
+                            [class.green]="elementsToCheck.coupon?.checkStatus === 'exists'"
+                        >
+                            {{ elementsToCheck.coupon?.elementTitle }}
+                        </div>
+                    </div>
+                </section>
+
+                <TextareaItem
+                    [(ngModel)]="caption"
+                    [autoHeight]="true"
+                    [placeholder]="'Paste caption here'"
+                    (onChange)="checkRequirements()"
+                    class="caption-text"
+                ></TextareaItem>
+            </section>
+        </section>
+    </section>
+</section>

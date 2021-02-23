@@ -1,0 +1,61 @@
+<AbsoluteLayout>
+    <ScrollView height="100%" width="100%">
+        <StackLayout class="industry-box" padding="{{PAGE_PADDING}}">
+            <image src="res://images/brand_logo" height="36" horizontalAlignment="left"></image>
+
+            <label class="title" text="Select Your Top 3 Interested Topics："></label>
+
+            <GridLayout rows="auto, auto, auto, auto, auto" columns="*, *, *">
+                <AbsoluteLayout
+                    *ngFor="let img of imagesAll; let i = index"
+                    class="topic-item"
+                    row="{{getRow(i)}}"
+                    column="{{getCol(i)}}"
+                    width="{{imageSize}}"
+                    height="{{img.title==='Other'?'40':imageSize}}"
+                    marginBottom="{{MARGIN_BETWEEN_IMAGE}}"
+                    borderRadius="8"
+                    (tap)="selectTopic(img)"
+                >
+                    <ng-container *ngIf="img.title!=='Other'">
+                        <image src="res://images/{{img.src}}" stretch="aspectFill"></image>
+
+                        <GridLayout rows="*, auto" columns="*" width="100%" height="100%">
+                            <StackLayout row="0" column="0"> </StackLayout>
+                            <label row="1" column="0" class="topic-name" text="{{img.title}}"></label>
+                        </GridLayout>
+                    </ng-container>
+
+                    <StackLayout *ngIf="img.title==='Other'" padding="10" width="100%">
+                        <label text="Other" horizontalAlignment="center" color="#828282"></label>
+                    </StackLayout>
+
+                    <GridLayout *ngIf="img.checked" rows="*, 24" columns="*, 24" width="100%" height="100%" class="selected-overlay">
+                        <StackLayout row="0" column="0" colSpan="2"> </StackLayout>
+                        <image row="1" column="1" src="res://images/ic_selected" width="24" stretch="aspectFit"></image>
+                    </GridLayout>
+                </AbsoluteLayout>
+            </GridLayout>
+
+            <button class="btn-item confirm" text="Confirm" (tap)="confirm()"></button>
+            <button class="btn-item skip" text="Skip" (tap)="skipToDashboard()"></button>
+
+            <label class="step" text="1/2" horizontalAlignment="center"></label>
+        </StackLayout>
+    </ScrollView>
+
+    <FlexboxLayout
+        *ngIf="loading"
+        top="0"
+        left="0"
+        width="100%"
+        height="100%"
+        justifyContent="center"
+        alignItems="center"
+        backgroundColor="rgba(255,255,255,0.5)"
+    >
+        <StackLayout width="auto" height="auto" backgroundColor="#fff" borderRadius="10" padding="50" borderWidth="1" borderColor="#eee">
+            <ActivityIndicator busy="true" color="#ccc"></ActivityIndicator>
+        </StackLayout>
+    </FlexboxLayout>
+</AbsoluteLayout>

@@ -1,0 +1,9 @@
+<div class="mobile-container">
+    <section *ngIf="showLoading" class="loading-box">
+        <app-loading></app-loading>
+    </section>
+
+    <router-outlet></router-outlet>
+
+    <app-messages></app-messages>
+</div>

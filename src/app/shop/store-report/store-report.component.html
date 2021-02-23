@@ -1,0 +1,76 @@
+<div class="shop-container">
+    <div class="store-report">
+        <div *ngIf="!isLoadingData" class="counters">
+            <div class="counter-item">
+                <div class="counter-title">Visitors</div>
+                <div class="counter-value">{{ visitors }}</div>
+            </div>
+            <div class="counter-item">
+                <div class="counter-title">Orders</div>
+                <div class="counter-value">{{ ordersCount }}</div>
+            </div>
+            <div class="counter-item">
+                <div class="counter-title">Total Sales</div>
+                <div class="counter-value">${{ totalSales }}</div>
+            </div>
+            <div class="counter-item">
+                <div class="counter-title">Earnings</div>
+                <div class="counter-value">${{ earnings }}</div>
+            </div>
+            <div class="counter-item">
+                <div class="counter-title">Conversion</div>
+                <div class="counter-value">{{ conversion }}%</div>
+            </div>
+        </div>
+    </div>
+
+    <section style="margin-top: 100px">
+        <app-loading *ngIf="isLoadingData"></app-loading>
+    </section>
+
+    <div *ngIf="!isLoadingData" class="sales-report">
+        <div class="title-container">
+            <div class="title">Sales Report</div>
+            <div class="link" (click)="modalShow = true">How the payment works ></div>
+        </div>
+
+        <div class="empty-message" *ngIf="!orders.length">
+            <div>Share your storefront and start earning!</div>
+        </div>
+
+        <div class="solved-products">
+            <div class="product" *ngFor="let order of orders">
+                <div class="product-image">
+                    <img [src]="order.shopifyProduct?.images[0]?.src" />
+                </div>
+                <div class="product-content">
+                    <div class="title">{{ order.shopifyProduct?.title }}</div>
+                    <div class="product-statistic">
+                        <div class="labels">
+                            <div class="label">Commission</div>
+                            <div class="label">Unit Sold</div>
+                            <div class="label">Total commission</div>
+                        </div>
+
+                        <div class="values">
+                            <div class="value">${{ order.commission }}</div>
+                            <div class="value">{{ order.quantity }}</div>
+                            <div class="value">${{ order.commission * order.quantity }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <Modal (ngModelChange)="modalShow = $event" [closable]="false" [ngModel]="modalShow" [transparent]="true">
+        <div class="popup-container">
+            <div class="title">How and when you’ll get paid</div>
+            <div class="text">
+                Lifo will issue the commission for the order to your wallet once the associated payment is settled and the return period
+                passed
+            </div>
+            <div class="button" (click)="modalShow = false">Close</div>
+        </div>
+    </Modal>
+</div>

@@ -1,0 +1,42 @@
+.platform-box {
+    min-height: 100%;
+    background-color: #f7f8fc;
+    .title {
+        font-weight: bold;
+        color: #45515d;
+        margin: 20 0;
+    }
+
+    .platform-item {
+        background-color: #fff;
+        border-radius: 10;
+        margin-bottom: 16;
+
+        .selected-overlay {
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+    }
+
+    .btn-item {
+        width: 100%;
+        padding: 15;
+        border-radius: 4;
+        font-size: 16;
+        font-weight: 600;
+    }
+    .confirm {
+        background-color: #414bb2;
+        color: #fff;
+    }
+    .skip {
+        color: #414bb2;
+        background-color: transparent;
+    }
+
+    .step {
+        color: #c3c9cf;
+        font-weight: bold;
+    }
+}

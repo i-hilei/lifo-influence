@@ -1,0 +1,52 @@
+<div class="shop-container">
+    <div class="header-container">
+        <div class="external-store-header">
+            <div class="back" (click)="backToDashboard()">
+                <img src="assets/png/left-arrow-dark.png" class="navigation-icon" />
+            </div>
+            <!-- <div class="shop-icon">
+                <img src="assets/svg/lifo-shop.svg">
+            </div> -->
+            <div class="admin">Shoping Cart</div>
+            <div class="back" >
+            </div>
+        </div>
+    </div>
+
+    <div class="cart-items">
+        <div class="empty" *ngIf="shopingCartFull.length <= 0">Your shopping cart is empty!</div>
+        <div class="product-list-item" *ngFor="let product of shopingCartFull; index as i">
+            <div class="product-image">
+                <img src="{{product.images[0].src}}">
+            </div>
+            <div class="product-info">
+                <div class="product-title">{{ product.title }}</div>
+                <div class="product-variant">
+                    {{product.selectedVariant.title}}
+                </div>
+
+                <div class="product-price" *ngIf="product.selectedVariant.compareAtPrice">
+                    ${{ product.selectedVariant.price }} 
+                    <span class="original-price">${{product.selectedVariant.compareAtPrice}}</span>
+                </div>
+                <div class="product-price" *ngIf="!product.selectedVariant.compareAtPrice">
+                    ${{product.selectedVariant.price}}
+                </div>
+                <div class="operation">
+                    <nz-button-group>
+                        <button nz-button nzSize="small" (click)="addCount(product, -1)"><img src="assets/png/minus.png" class="navigation-icon" /></button>
+                        <button nz-button nzSize="small" class="count">{{product.count}}</button>
+                        <button nz-button nzSize="small" (click)="addCount(product, 1)"><img src="assets/png/plus.png" class="navigation-icon" /></button>
+                    </nz-button-group>
+                    <img src="assets/png/remove-icon.png" class="navigation-icon" (click)="removeProductFromCart(product, i)" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="bottom-button" class="bottom-button">
+        <button id="buy-button" class="buy-button" (click)="checkout()" [disabled]="shopingCartFull.length <= 0 || disableCheckout">
+            Checkout Now
+        </button>
+    </div>
+</div>

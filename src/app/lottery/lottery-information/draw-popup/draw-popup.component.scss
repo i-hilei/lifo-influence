@@ -1,0 +1,62 @@
+.draw-popup-container {
+    display: flex;
+    flex-direction: column;
+
+    .container {
+        display: flex;
+        flex-direction: column;
+
+        .main-text {
+            margin: 15px 0;
+            font-weight: bold;
+            font-size: 20px;
+            line-height: 24px;
+            text-align: center;
+            color: #F2994A;
+        }
+
+        .won-text {
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 24px;
+            text-align: center;
+            color: #4F4F4F;
+        }
+
+        .secondary-text {
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 24px;
+            text-align: center;
+            color: #828282;
+        }
+
+        .button {
+            margin-top: 30px;
+            padding: 17px;
+            background: #F2994A;
+            box-shadow: 0px 0px 10px rgba(255, 216, 167, 0.6);
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 20px;
+            text-align: center;
+            text-transform: capitalize;
+            color: #FFFFFF;
+        }
+
+        .button.disabled {
+            opacity: 0.5;
+        }
+    }
+
+    .footer {
+        margin: 25px 0px 5px 0px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        font-size: 14px;
+        line-height: 17px;
+        color: #828282;
+    }
+}

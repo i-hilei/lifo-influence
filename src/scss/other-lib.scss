@@ -1,0 +1,9 @@
+.intercom-lightweight-app-launcher,
+.intercom-launcher-frame {
+    transform: scale(0.5) translate(40px, 40px) !important;
+}
+
+// Google map dropdown
+.pac-container {
+    z-index: 9999;
+}

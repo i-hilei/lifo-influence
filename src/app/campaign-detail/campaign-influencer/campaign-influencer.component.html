@@ -1,0 +1,229 @@
+<section class="page-container">
+    <section class="page-header">
+        <app-page-header [headerConfig]="pageHeaderConfig"></app-page-header>
+    </section>
+
+    <section class="campaign-influencer-box">
+        <div *ngIf="!showAcceptOfferMobile && !showDeclineOfferMobile" class="mobile-view">
+            <div *ngIf="!completeForm && campaignInvitation" class="invitation-section">
+                <div *ngIf="!isApplied" class="invitation-timer">
+                    <div *ngIf="!expired" class="banner">{{ hoursleft }}hrs left</div>
+                    <div *ngIf="!expired && quota !== undefined" class="signup-message">{{ appliedUser }} influencers have signed up!</div>
+
+                    <div class="expire-banner" *ngIf="expired">{{ filled ? "Sorry, the campaign is full" : "Expired" }}</div>
+                </div>
+                <div class="invitation">
+                    <div class="title">Commission</div>
+
+                    <ng-container *ngIf="campaignInvitation.commission !== 0">
+                        <div class="money">
+                            <span>${{ campaignInvitation.commission }}</span>
+                            <span *ngIf="campaignDetail.has_initial_payment" class="self-order-campaign">Self-order campaign</span>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="campaignInvitation.commission === 0">
+                        <div *ngIf="!campaignInvitation.additional_commission">Free Product</div>
+                        <div *ngIf="campaignInvitation.additional_commission">{{ campaignInvitation.additional_commission }}</div>
+                    </ng-container>
+
+                    <section class="initial-payment" *ngIf="initialPayment">
+                        <img src="assets/svg/money.svg" />
+                        <section class="desc">
+                            ${{ initialPayment }} will be issued upfront, which you can request payment in 14 days.
+                        </section>
+                    </section>
+                    <section *ngIf="campaignDetail.has_initial_payment" class="initial-payment">
+                        <section class="desc">
+                            This amount includes your campaign comission and the reimbursement for you to self-order on the brand’s website.
+                        </section>
+                    </section>
+
+                    <div *ngIf="getBonus !== 0" class="message">
+                        Upload content draft within {{ campaignInvitation.bonus_time }}hr for ${{ getBonus }} bonus
+                    </div>
+
+                    <div class="post-banner" *ngIf="postTimelineMessage">{{ postTimelineMessage }}</div>
+                    <img src="assets/svg/bookmark.svg" class="bookmark" alt="" />
+                </div>
+            </div>
+
+            <div class="mobile-container">
+                <div *ngIf="offerDetail" class="offer-detail">
+                    <app-offer-detail-display [offerDetail]="offerDetail"></app-offer-detail-display>
+                </div>
+
+                <div *ngIf="!completeForm && !expired && !requireApplication" class="buttons float-buttons">
+                    <button (click)="acceptOfferMobile()" class="button accept-button" nz-button nzType="primary">Accept Invitation</button>
+                    <!-- <button (click)="acceptOfferMobile()" class="button accept-button" nz-button nzType="primary">Apply</button> -->
+                    <button (click)="declineOfferMobile()" class="button reject-button" nz-button nzType="link">Maybe Later</button>
+                </div>
+
+                <div *ngIf="!completeForm && !expired && requireApplication" class="buttons float-buttons">
+                    <button (click)="acceptOfferMobile()" class="button accept-button" nz-button nzType="primary" [disabled]="isApplied">
+                        {{ isApplied ? "Applied" : "Apply" }}
+                    </button>
+                    <!-- <button (click)="acceptOfferMobile()" class="button accept-button" nz-button nzType="primary">Apply</button> -->
+                    <button *ngIf="!isApplied" (click)="declineOfferMobile()" class="button reject-button" nz-button nzType="link">
+                        Maybe Later
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <section *ngIf="loading" class="loading" [style.margin-top]="'20px'">
+            <app-loading></app-loading>
+        </section>
+
+        <div *ngIf="showDeclineOfferMobile" class="mobile-view">
+            <div class="mobile-container">
+                <div class="big-icon-holder">
+                    <img src="../../assets/svg/concern.svg" />
+                </div>
+
+                <div class="sub-title">Tell us more about your concerns...</div>
+                <div class="input-box">
+                    <nz-radio-group [(ngModel)]="decline_type" class="labels">
+                        <label nz-radio nzValue="low_commision">The commision is too low.</label>
+                        <label nz-radio nzValue="dislike_product">I don't like this product.</label>
+                        <label nz-radio nzValue="others">
+                            <span class="other-text">Others</span>
+                        </label>
+                        <input
+                            *ngIf="decline_type === 'others'"
+                            nz-input
+                            placeholder="What are your other reasons?"
+                            class="reason-input"
+                            [(ngModel)]="decline_text_reason"
+                        />
+                    </nz-radio-group>
+                </div>
+
+                <div class="buttons">
+                    <button (click)="declientOfferRealMobile()" class="button accept-button" nz-button nzType="primary">Confirm</button>
+                    <button (click)="backToOffer()" class="button reject-button" nz-button nzType="link">Back</button>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="showAcceptOfferMobile" class="mobile-view">
+            <div class="description">
+                Please leave your information here. Lifo will ship a product to you later.
+                <span style="color: red; font-size: 14px">Product can be delivered only to United States</span>
+            </div>
+
+            <div class="mobile-container">
+                <div class="offer-detail">
+                    <div
+                        *ngIf="
+                            productTypeList &&
+                            productTypeList.length !== 0 &&
+                            (!offerDetail.product_list || offerDetail.product_list.length === 0)
+                        "
+                        class="input-box"
+                    >
+                        <div class="input-name">Product Type</div>
+                        <div class="input-field product-type">
+                            <nz-radio-group [(ngModel)]="influencer.variant_id">
+                                <label *ngFor="let variantItem of productTypeList" nz-radio [nzValue]="variantItem.id">{{
+                                    variantItem.title
+                                }}</label>
+                            </nz-radio-group>
+                        </div>
+                    </div>
+                    <div *ngIf="offerDetail.product_list && offerDetail.product_list.length !== 0" class="input-box products">
+                        <ng-container *ngFor="let product of offerDetail.product_list">
+                            <div class="product-list-item">
+                                <div class="product-title">{{ product.title }}</div>
+
+                                <div class="product-info">
+                                    <div class="image">
+                                        <img [src]="product.image.src" />
+                                    </div>
+
+                                    <div class="additional-info">
+                                        <div class="title">Choose a size of the product</div>
+                                        <nz-radio-group
+                                            class="variants"
+                                            [(ngModel)]="selectedProducts[product.id]"
+                                            (ngModelChange)="changeProductVariant({ product_id: product.id, variant_id: $event })"
+                                        >
+                                            <label *ngFor="let variant of product.variants" nz-radio [nzValue]="variant.id">
+                                                {{ variant.title }}
+                                            </label>
+                                        </nz-radio-group>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field flex-1 mr-6">
+                            <input nz-input placeholder="First Name" [(ngModel)]="influencer.inf_name" />
+                        </div>
+                        <div class="input-field flex-1 ml-6">
+                            <input nz-input placeholder="Last Name" [(ngModel)]="influencer.inf_last_name" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field">
+                            <input [(ngModel)]="influencer.inf_phone" nz-input placeholder="Phone Number" />
+                        </div>
+                    </div>
+
+                    <form [formGroup]="shippingAddress" nz-form>
+                        <div class="row">
+                            <div class="input-field">
+                                <input
+                                    type="text"
+                                    formControlName="influencer_address1"
+                                    placeholder="Street"
+                                    nz-input
+                                    #addresstext
+                                    style="padding: 10px 15px"
+                                />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field flex-4 mr-6">
+                                <input formControlName="influencer_address2" nz-input placeholder="Unit, Suite, Apt (Optional)" />
+                            </div>
+                            <div class="input-field flex-2 ml-6">
+                                <input formControlName="zip" nz-input placeholder="Zip Code" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field flex-1 mr-6">
+                                <input formControlName="province" nz-input placeholder="State / Province" />
+                            </div>
+                            <div class="input-field flex-1 ml-6">
+                                <input formControlName="city" nz-input placeholder="City" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div *ngIf="!completeForm" class="buttons float-buttons">
+                    <button
+                        nz-button
+                        nzType="primary"
+                        class="accept-button"
+                        [disabled]="!isRequiredFieldFilled || submitting"
+                        [nzLoading]="submitting"
+                        (click)="acceptOfferRealMobile()"
+                    >
+                        Accept
+                    </button>
+                    <button nz-button nzType="link" (click)="backToOffer()" class="button reject-button">Back</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="download-app">
+        <app-app-download-section></app-app-download-section>
+    </section>
+</section>

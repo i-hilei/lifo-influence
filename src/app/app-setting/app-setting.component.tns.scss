@@ -1,0 +1,12 @@
+.setting-box {
+    .setting-item {
+        padding: 15;
+        font-weight: 500;
+        color: #525069;
+        border-width: 1;
+        border-color: #eaeff4;
+        &:highlighted {
+            background-color: teal;
+        }
+    }
+}

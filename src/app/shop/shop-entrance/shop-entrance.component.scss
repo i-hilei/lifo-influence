@@ -1,0 +1,127 @@
+
+.shop-container {
+    background-color: black;
+    color: #FFFFFF;
+    background: url('../../../assets/images/shop_backgound@2x.jpg') no-repeat center center fixed;
+    background-size: cover;
+
+    font-family: Avenir;
+    padding-bottom: 20px;
+    min-height: 100vh;
+
+    .header-container {
+        height: 40px;
+        background: rgba(24, 17, 17, 0.5);
+        .external-store-header {
+            height: 40px;
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            .shop-icon {
+                height: 24px;
+                text-align: center;
+                width: 120px;
+                margin: 8px;
+                background: #FFFFFF;
+            }
+            .admin {
+                font-weight: 800;
+                font-size: 10px;
+                line-height: 14px;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                color: #ABABAB;
+                padding: 13px;
+            }
+            .back {
+                width: 40px;
+                height: 40px;
+                text-align: center;
+                .navigation-icon {
+                    margin-top: 13px;
+                    height: 14px;
+                }
+            }
+        }
+    }    
+
+    .content {
+        //background: linear-gradient(180deg, rgba(0, 0, 0, 0.05) 52.98%, rgba(0, 0, 0, 0.2) 73.3%, rgba(0, 0, 0, 0.5) 100%), rgba(0, 0, 0, 0.31);
+        //backdrop-filter: blur(30px);
+        padding: 15px;
+    }
+
+    .hi-message {
+        font-weight: 800;
+        font-size: 24px;
+        line-height: 33px;
+        color: #FFFFFF;
+        margin-top: 30px;
+    }
+
+    .welcom-message {
+        font-style: normal;
+        font-weight: 300;
+        font-size: 20px;
+        line-height: 27px;
+        color: #FFFFFF;
+    }
+
+    .shop-message {
+        font-weight: 300;
+        font-size: 16px;
+        line-height: 22px;
+        color: #FFFFFF;
+        margin-top: 20px;
+    }
+
+    .current-shop {
+        font-size: 16px;
+        line-height: 22px;
+        color: #FFFFFF;
+        margin-top: 64px;
+        margin-bottom: 15px;
+    }
+
+    .apply-message {
+        font-weight: 300;
+        font-size: 14px;
+        line-height: 19px;
+        color: #FFFFFF;
+        margin-top: 30px;
+        margin-bottom: 15px;
+    }
+
+    .images {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        max-width: 345px;
+        img {
+            width: 100px;
+            height: 100px;
+            left: 20px;
+            top: 445px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+    }
+
+    .bottom-button {
+        .apply-button {
+            background: #FFFFFF;
+            border: 0.5px solid #E0E0E0;
+            box-sizing: border-box;
+            border-radius: 4px;font-weight: 500;
+            font-size: 16px;
+            line-height: 22px;
+            text-align: center;
+            text-transform: capitalize;
+            color: #000000;
+            padding: 6px;
+            width: 100%;
+        }
+    }
+}

@@ -1,0 +1,86 @@
+<StackLayout>
+  <Label text="dashboard-wallet works" textWrap="true"></Label>
+  <Label text="This is a migrated component" textWrap="true"></Label>
+  <Label text="Update it to provide the UI elements required in your mobile app" textWrap="true"></Label>
+</StackLayout>
+
+<!--
+Original Web template:
+
+<div class="wallet">
+    <section class="wallet-content">
+        <div class="balance-title">Balance For Payout</div>
+
+        <div class="current-balance">
+            <label class="currency">$</label>
+            <label class="balance">{{ accountBalance?.account_balance || 0 }}</label>
+        </div>
+
+        <div *ngIf="!!accountBalance?.pending_balance" class="pending-commission">
+            ${{ accountBalance?.pending_balance || 0 }} pending commission
+        </div>
+    </section>
+
+    <section class="history-payment">
+        <div class="view-history" (click)="goPage('/my-earnings')">
+            <img class="icon" src="../../assets/svg/mdi_history.svg" />
+            <label>Commission History</label>
+        </div>
+        <div class="request-payment" (click)="requetCashOutBtnClick()">
+            <i nz-icon nzType="credit-card" nzTheme="outline"></i>
+            <label>Request Payment</label>
+        </div>
+    </section>
+
+    <!-- Dialog ->
+    <!-- No balance ->
+    <Modal
+        [(ngModel)]="this.dialogState.noBalanceDialog.status"
+        [popup]="true"
+        [maskClosable]="false"
+        [footer]="this.dialogState.noBalanceDialog.footer"
+        (onClose)="closeDialog('noBalanceDialog')"
+    >
+        <section class="container">
+            <section class="desc">No balance in account</section>
+        </section>
+    </Modal>
+
+    <!-- Cashout confirm ->
+    <Modal
+        [(ngModel)]="this.dialogState.cashOutConfirmDialog.status"
+        [popup]="true"
+        [maskClosable]="false"
+        [footer]="this.dialogState.cashOutConfirmDialog.footer"
+        (onClose)="closeDialog('cashOutConfirmDialog')"
+    >
+        <section class="container">
+            <section class="titl">Request payment</section>
+            <section class="desc">
+                You are requesting a payment of ${{ accountBalance?.account_balance }} to your PayPal account:
+                {{ currentUserProfile?.paypal }}
+            </section>
+        </section>
+    </Modal>
+
+    <!-- Paypal Email ->
+    <Modal
+        [(ngModel)]="this.dialogState.paypalEmailDialog.status"
+        [popup]="true"
+        [maskClosable]="false"
+        [footer]="this.dialogState.paypalEmailDialog.footer"
+        (onClose)="closeDialog('paypalEmailDialog')"
+    >
+        <section class="container">
+            <section class="top">
+                <span class="name">PayPal</span>
+                <i nz-icon nzType="close" nzTheme="outline" (click)="closeDialog('paypalEmailDialog')"></i>
+            </section>
+            <section class="input">
+                <input nz-input placeholder="Enter PayPal email for payment" autofocus [(ngModel)]="paypal" />
+            </section>
+        </section>
+    </Modal>
+</div>
+
+-->

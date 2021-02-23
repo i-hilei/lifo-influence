@@ -1,0 +1,89 @@
+<section class="lottery-info" *ngIf="lotteryService.activeLottery">
+    <div class="block">
+        <app-page-header [headerConfig]="pageHeaderConfig"></app-page-header>
+    </div>
+
+    <div class="block">
+        <div class="end-date">
+            <img src="assets/svg/mdi_alarm.svg">
+            <label>Ending {{lotteryService.activeLottery?.end_date * 1000 | date}}. Hurry up</label>
+        </div>
+    </div>
+
+    <div class="block">
+        <app-lottery-card [hasRedirect]="false"></app-lottery-card>
+    </div>
+
+    <div class="block">
+        <div class="link-to-referrals" *ngIf="showLotteryButtons" [routerLink]="['/referrals/invite', lotteryService.activeLottery.id]">
+            <img src="assets/svg/gift.svg">
+            <label>Invite influencer friends to get more raffle tickets!</label>
+            <img src="assets/svg/mdi_chevron_right.svg">
+        </div>
+
+        <div class="tickets" *ngIf="showLotteryButtons">
+            <div class="tickets-information">
+                <label>
+                    <img src="assets/svg/tickets-details-icon.svg">
+                    You’ve earned {{lotteryService.userTotalTickets}} tickets now
+                </label>
+                <div class="tickets-details" [routerLink]="['/referrals/history']">
+                    <label>Details</label>
+                    <img src="assets/svg/mdi_chevron_right.svg">
+                </div>
+            </div>
+
+            <div class="raffle-history" *ngIf="lotteryService.activeLottery.type === LotteryType.drawing">
+                <div class="money-earned">
+                    ${{getEarnedMoney()}}
+                </div>
+
+                <div class="text">
+                    Total bonus earned for next campaign
+                </div>
+            </div>
+        </div>
+
+        <div class="lottery-rules">
+            <section class="description" *ngIf="lotteryService.activeLottery?.short_description">
+                {{lotteryService.activeLottery.short_description}}
+            </section>
+            <section class="mt-20" *ngIf="lotteryService.activeLottery?.description?.who_eligible">
+                <div class="title">Raffle Rules:</div>
+                <div class="description mt-20" [innerHTML]="lotteryService.activeLottery.description.who_eligible"></div>
+            </section>
+            <section class="mt-20" *ngIf="lotteryService.activeLottery?.description?.get_more_tickets">
+                <div class="title">How to earn raffle tickets: </div>
+                <div class="description mt-20" [innerHTML]="lotteryService.activeLottery.description.get_more_tickets"></div>
+            </section>
+            <section class="mt-20" *ngIf="lotteryService.activeLottery?.description?.full_message">
+                <div class="description mt-20" [innerHTML]="lotteryService.activeLottery.description.full_message"></div>
+            </section>
+        </div>
+    </div>
+
+    <a *ngIf="showLotteryButtons && lotteryService.activeLottery.type === LotteryType.invitation" class="lottery-button invite-friends-button"
+       [routerLink]="['/referrals/invite', lotteryService.activeLottery.id]">
+        Invite Your Friends
+    </a>
+
+    <a *ngIf="showLotteryButtons && lotteryService.activeLottery.type === LotteryType.drawing" class="lottery-button draw-button"
+       (click)="modalShow = true">
+        Draw the Raffle
+    </a>
+
+    <a *ngIf="lotteryService.activeLottery.type === LotteryType.link" class="lottery-button link-button"
+        [routerLink]="['/internal-shop/select-product']">
+        Share My Store
+    </a>
+
+    <Modal
+        (ngModelChange)="modalShow = $event"
+        [popup]="true"
+        [closable]="true"
+        [ngModel]="modalShow"
+        [transparent]="true"
+        (onClose)="onModalClose()">
+        <app-draw-popup *ngIf="modalShow"></app-draw-popup>
+    </Modal>
+</section>

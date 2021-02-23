@@ -1,0 +1,61 @@
+<StackLayout *ngIf="offerDetail">
+    <StackLayout class="divider"> </StackLayout>
+
+    <StackLayout class="product-introduction">
+        <label class="title" text="Product Introduction"></label>
+        <GridLayout class="desc" [height]="height+'px'">
+            <WebView (loadFinished)="onWebViewLoadFinished($event)" src="{{offerDetail.product_message}}"></WebView>
+        </GridLayout>
+
+        <WrapLayout orientation="horizontal">
+            <StackLayout class="link-item" *ngIf="showAmazonLink" (tap)="open(offerDetail.product_image_list[2])">
+                <image src="res://images/amazon" stretch="aspectFit"></image>
+            </StackLayout>
+            <StackLayout class="link-item" *ngIf="showShopifyLink" (tap)="open(offerDetail.product_image_list[1])">
+                <image src="res://images/shopify" stretch="aspectFit"></image>
+            </StackLayout>
+            <StackLayout class="link-item" *ngIf="showTextLink" (tap)="open(offerDetail.product_image_list[3])">
+                <label text="View Website"></label>
+            </StackLayout>
+        </WrapLayout>
+    </StackLayout>
+
+    <StackLayout class="divider"> </StackLayout>
+
+    <StackLayout class="collaboration-requirements">
+        <label class="title" text="Collaboration Details"></label>
+        <label text="{{offerDetail.content_format}}" textWrap="true"></label>
+
+        <!-- Tags -->
+        <label class="sub-title" text="Tags Required"></label>
+        <WrapLayout class="tag-items" *ngIf="offerDetail.post_tags">
+            <label class="tag-item" text="{{offerDetail.post_tags}}" textWrap="true"></label>
+        </WrapLayout>
+        <WrapLayout class="tag-items" *ngIf="offerDetail.post_hastags">
+            <label class="tag-item" text="{{offerDetail.post_hastags}}" textWrap="true"></label>
+        </WrapLayout>
+
+        <!-- Rules -->
+        <label class="sub-title" text="Content Rules"></label>
+        <StackLayout class="rule-items">
+            <FlexboxLayout *ngIf="offerDetail.visual_content_guideline" class="rule-item" justifyContent="flex-start" alignItems="center">
+                <label text="·" marginRight="5"></label>
+                <label text="{{offerDetail.visual_content_guideline}}" textWrap="true"></label>
+            </FlexboxLayout>
+            <FlexboxLayout *ngIf="offerDetail.visual_content_guideline" class="rule-item" justifyContent="flex-start" alignItems="center">
+                <label text="·" marginRight="5"></label>
+                <label text="{{offerDetail.text_post_guideline}}" textWrap="true"></label>
+            </FlexboxLayout>
+        </StackLayout>
+    </StackLayout>
+
+    <StackLayout class="divider"> </StackLayout>
+
+    <StackLayout class="compensation-details">
+        <label class="title" text="Compensation Details"></label>
+        <label class="bold" text="We will pay you: " textWrap="true"></label>
+        <label class="detail" text="{{ offerDetail.compensate_method }}" textWrap="true"></label>
+        <label class="bold" text="We will pay you through: " textWrap="true"></label>
+        <label class="detail" text="{{ offerDetail.payment_platform }}" textWrap="true"></label>
+    </StackLayout>
+</StackLayout>

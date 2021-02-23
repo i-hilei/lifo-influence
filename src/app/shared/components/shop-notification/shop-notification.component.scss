@@ -1,0 +1,123 @@
+.image {
+    margin-bottom: 13px;
+}
+
+.title {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 21px;
+    text-align: center;
+    color: #0D053C;
+    margin-bottom: 5px;
+}
+
+.description {
+    font-size: 14px;
+    line-height: 18px;
+    text-align: center;
+    color: #0D053C;
+    margin-bottom: 15px;
+}
+
+.button-row {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    a.button {
+        display: flex;
+        flex: 1;
+        padding: 14px;
+        justify-content: center;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 20px;
+        text-align: center;
+        text-transform: capitalize;
+        color: #FFFFFF;
+        background: #414BB2;
+        border-radius: 8px;
+    }
+}
+
+.shop-notification-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .content {
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 21px;
+        text-align: center;
+        color: #0D053C;
+        margin-bottom: 20px;
+    }
+
+    .button-row {
+        .next {
+            font-size: 14px;
+            line-height: 17px;
+            text-align: center;
+            text-decoration-line: underline;
+            color: #414BB2;
+            margin-top: 10px;
+        }
+    }
+}
+
+.shop-bonuses-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .image {
+        margin-bottom: 16px;
+    }
+
+    .days {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-bottom: 25px;
+
+        .day {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 17px;
+            color: #0D053C;
+            margin-bottom: 7px;
+
+            label {
+                display: flex;
+                flex-direction: row;
+
+                .is-earned-icon {
+                    margin-right: 12px;
+                    svg {
+                        width: 14px;
+                        height: 14px;
+                    }
+                }
+            }
+        }
+
+        .day.gray .is-earned-icon svg path {
+            fill: #BDBDBD;
+        }
+    }
+
+    .comments {
+        margin-top: 4px;
+        label {
+            font-size: 12px;
+            line-height: 14px;
+            color: #ABABAB;
+        }
+    }
+}

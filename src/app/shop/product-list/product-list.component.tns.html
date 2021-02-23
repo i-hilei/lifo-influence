@@ -1,0 +1,76 @@
+<StackLayout>
+  <Label text="ProductListComponent works" textWrap="true"></Label>
+  <Label text="This is a migrated component" textWrap="true"></Label>
+  <Label text="Update it to provide the UI elements required in your mobile app" textWrap="true"></Label>
+</StackLayout>
+
+<!--
+Original Web template:
+
+<div class="shop-container">
+    <div class="header-container">
+        <div class="external-store-header">
+            <!-- <div class="shop-icon">
+                <img src="assets/svg/lifo-shop.svg">
+            </div> ->
+            <div class="admin">
+                Lifo Shop
+            </div>
+        </div>
+    </div>
+    
+    <app-shop-profile [shopDetail]="shopDetail"></app-shop-profile>
+    
+    <div class="selected">
+        <div class="shop-item-container">
+            <div class="shop-item" *ngFor="let product of shopProductList; index as i" (click)="videProductDetail(product)">
+                <div class="product-image">
+                    <img src="{{product.images[0].src}}">
+                </div>
+                <div class="product-info">
+                    <div class="product-title">{{ displayTitle(product.title) }}</div>
+                    <div class="product-price">
+                        <span class="same-price" *ngIf="!product.variants[0].compareAtPrice">${{product.variants[0].price}}</span>
+                        <span class="discount-price" *ngIf="product.variants[0].compareAtPrice">${{product.variants[0].price}}</span>
+                        <span class="original-price" *ngIf="product.variants[0].compareAtPrice">${{product.variants[0].compareAtPrice}}</span>
+                    </div>
+                </div>
+                <div class="buy-button" (click)="createOrder(product)"> Buy Now </div>
+            </div>
+        </div>
+        <div class="empty-message" *ngIf="shopProductList.length === 0">
+            <img src="assets/png/empty-shop.png">
+            <div>Your store is empty</div>
+        </div>
+    </div>
+    
+    <div class="join-lifo">Want your own shop? <b (click)="joinLifo()">Join Lifo for that!</b></div>
+
+    <div class="recommend-title"> - Lifo Recommendation - </div>
+    <div class="tab">
+        <div class="tab-item">Popular</div>
+    </div>
+    <div class="selected">
+        <div class="shop-item-container">
+            <div class="shop-item" *ngFor="let product of lifoProductList; index as i" (click)="videProductDetail(product)">
+                <div class="product-image">
+                    <img src="{{product.images[0].src}}">
+                </div>
+                <div class="product-info">
+                    <div class="product-title">{{ displayTitle(product.title) }}</div>
+                    <div class="product-price">
+                        <span class="same-price" *ngIf="!product.variants[0].compareAtPrice">${{product.variants[0].price}}</span>
+                        <span class="discount-price" *ngIf="product.variants[0].compareAtPrice">${{product.variants[0].price}}</span>
+                        <span class="original-price" *ngIf="product.variants[0].compareAtPrice">${{product.variants[0].compareAtPrice}}</span>
+                    </div>
+                </div>
+                <div class="buy-button" (click)="createOrder(product)"> Buy Now </div>
+            </div>
+        </div>
+        <!-- <div class="empty-message" *ngIf="shopProductList.length === 0">
+            <img src="assets/png/empty-shop.png">
+            <div>Your store is empty</div>
+        </div> ->
+    </div>
+</div>
+-->

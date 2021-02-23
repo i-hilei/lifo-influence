@@ -1,0 +1,89 @@
+.sign-up-section {
+    padding: 20px;
+
+    ::ng-deep {
+        .am-modal {
+            width: 100%;
+            height: calc(100% - 40px);
+            position: fixed;
+            bottom: 0px;
+
+            .am-modal-body {
+                height: calc(100% - 60px);
+            }
+        }
+    }
+
+    .input-tip {
+        font-weight: 500;
+        font-size: 10px;
+        line-height: 16px;
+        letter-spacing: 0.1px;
+        color: #ff4d4f;
+    }
+
+    > div {
+        display: flex;
+        flex: 1;
+    }
+
+    .header {
+        flex: 0;
+        flex-direction: row;
+        justify-content: space-between;
+
+        div.sign-in-button {
+            display: inline-block;
+            color: #358FFF;;
+        }
+    }
+
+    .sign-up-message {
+        margin-top: 45px;
+        font-size: 20px;
+        line-height: 24px;
+        text-align: center;
+        text-transform: capitalize;
+        color: #414BB2;
+        font-weight: 600;
+    }
+
+    .form-title {
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 27px;
+        text-transform: capitalize;
+        color: #414BB2;
+        align-items: center;
+    }
+
+    .sign-up-form {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        justify-content: center;
+        margin-top: 30px;
+
+        form {
+            width: 100%;
+
+            img {
+                width: 90px;
+                height: 40px;
+                margin-right: 10px;
+            }
+
+            .agree-tou {
+                margin-bottom: 10px;
+            }
+        }
+    }
+
+    .buttons {
+        margin-top: 40px;
+
+        div[Button] {
+            width: 100%;
+        }
+    }
+}

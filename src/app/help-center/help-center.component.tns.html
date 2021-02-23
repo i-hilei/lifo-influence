@@ -1,0 +1,34 @@
+<ActionBar title="Help Center" class="action-bar" backgroundColor="#fff" borderWidth="1" borderColor="#ccc" color="#333">
+    <NavigationButton></NavigationButton>
+</ActionBar>
+
+<ScrollView height="100%">
+    <StackLayout class="help-center-box" height="100%">
+        <label class="title" text="How Can We Help You"></label>
+
+        <StackLayout class="faq-box" height="100%">
+            <label class="faq-title" text="Top Questions"></label>
+            <FlexboxLayout class="toggle-bar">
+                <label
+                    *ngFor="let item of radioData"
+                    class="toggle-item {{selectedCategory===item.value?'selected':''}}"
+                    text="{{item.name}}"
+                    (tap)="selectCategory(item.value)"
+                ></label>
+            </FlexboxLayout>
+
+            <StackLayout *ngFor="let item of faqList" class="question-item {{expandedQuestion===item.question?'expanded':''}}">
+                <GridLayout class="question-item-title" rows="auto" columns="*, auto" (tap)="toggleExpandStatus(item.question)">
+                    <label row="0" column="0" text="{{item.question}}" textWrap="true"></label>
+                    <image row="0" column="1" src="res://images/arrow-right" width="20" height="20" stretch="aspectFill"></image>
+                </GridLayout>
+                <label
+                    *ngIf="expandedQuestion===item.question"
+                    class="question-item-response"
+                    text="{{item.response}}"
+                    textWrap="true"
+                ></label>
+            </StackLayout>
+        </StackLayout>
+    </StackLayout>
+</ScrollView>

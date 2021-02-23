@@ -1,0 +1,126 @@
+<ScrollView>
+    <StackLayout class="account-info">
+        <FlexboxLayout justifyContent="flex-end" alignItems="center" class="setting-help" padding="0 20">
+            <image src="res://images/setting" stretch="aspectFill" marginRight="20" (tap)="goSettingPage()"></image>
+            <image src="res://images/help" stretch="aspectFill" (tap)="goHelpCenterPage()"></image>
+        </FlexboxLayout>
+
+        <FlexboxLayout class="name-portrait pad-20" justifyContent="space-between" alignItems="center">
+            <label text="Hi, {{fullName}}" fontSize="34" fontWeight="bold"></label>
+            <image src="{{currentUser?.profile_picture}}" stretch="aspectFill"></image>
+        </FlexboxLayout>
+
+        <!-- Invite friend join -->
+        <StackLayout padding="20">
+            <GridLayout
+                rows="*"
+                columns="auto, *, auto"
+                class="invite-friend"
+                backgroundImage="res://images/referral_background"
+                backgroundRepeat="no-repeat"
+                backgroundSize="cover"
+                height="auto"
+                width="100%"
+                padding="10 20"
+                borderRadius="10"
+                color="#0F1A8E"
+                fontSize="12"
+                fontWeight="500"
+            >
+                <image row="0" column="0" src="res://images/referral_icon" width="24" marginRight="20"></image>
+                <label row="0" column="1" text="Invite your influencer friends to join the Lifo community" textWrap="true"></label>
+                <image row="0" column="2" src="res://images/right" width="10" marginLeft="10"></image>
+            </GridLayout>
+        </StackLayout>
+
+        <!-- Invitation -->
+        <StackLayout class="invitation pad-20">
+            <FlexboxLayout class="section-title" justifyContent="space-between" alignItems="center" (tap)="goReferral()">
+                <label text="Invitation History"></label>
+                <StackLayout orientation="horizontal">
+                    <label text="Details" textWrap="true"></label>
+                    <image src="res://images/right" height="12" marginLeft="6"></image>
+                </StackLayout>
+            </FlexboxLayout>
+
+            <!-- Invited influencers -->
+            <label text="Number of Influencers you invite" class="invitation-desc"></label>
+            <label text="{{currentUser?.invited_referrals }}" class="invitation-count"></label>
+
+            <!-- Invited successfuly -->
+            <label text="Invited successfully" class="invitation-desc"></label>
+            <label text="{{currentUser?.successful_referrals}}" class="invitation-count"></label>
+        </StackLayout>
+        <StackLayout class="divider"> </StackLayout>
+
+        <!-- Email / Ins -->
+        <StackLayout class="email-ins pad-20">
+            <!-- Social media -->
+            <StackLayout class="social-meidia" marginBottom="20">
+                <label text="Social Media Account" class="section-title"></label>
+                <StackLayout *ngIf="currentUser?.instagram_id" orientation="horizontal">
+                    <image src="res://images/instagram-logo" width="15" height="15" stretch="aspectFit" marginRight="5"></image>
+                    <label text="{{currentUser?.instagram_id}}" class="email-account"></label>
+                </StackLayout>
+
+                <StackLayout *ngIf="currentUser?.tiktok_id" orientation="horizontal">
+                    <image src="res://images/tiktok-logo" width="15" height="15" stretch="aspectFit" marginRight="5"></image>
+                    <label text="{{currentUser?.tiktok_id}}" class="email-account"></label>
+                </StackLayout>
+            </StackLayout>
+
+            <!-- Email -->
+            <label text="Email" class="section-title"></label>
+            <label text="{{currentUser?.email}}" class="email-account"></label>
+        </StackLayout>
+        <StackLayout class="divider"> </StackLayout>
+
+        <!-- Contact -->
+        <StackLayout class="contact-info pad-20">
+            <FlexboxLayout class="section-title" justifyContent="space-between" alignItems="center">
+                <label text="Contact Information"></label>
+                <image
+                    class="edit-icon"
+                    src="res://images/mdi_edit"
+                    width="20"
+                    height="20"
+                    stretch="aspectFill"
+                    (tap)="showAddressUpdateModal()"
+                ></image>
+            </FlexboxLayout>
+
+            <!-- Name -->
+            <ng-container>
+                <label class="field-key" text="Name"></label>
+                <label class="field-value" text="{{fullName}}"></label>
+            </ng-container>
+
+            <!-- Shipping Address -->
+            <ng-container>
+                <label text="Shipping Address" class="field-key"></label>
+                <label text="{{shippingInfo}}" class="field-value" textWrap="true"></label>
+            </ng-container>
+
+            <!-- Phone Number -->
+            <ng-container>
+                <label text="Phone Number" class="field-key"></label>
+                <label text="{{currentUser?.phone_number}}" class="field-value"></label>
+            </ng-container>
+        </StackLayout>
+        <StackLayout class="divider"> </StackLayout>
+
+        <!-- Payment -->
+        <StackLayout class="payment-info pad-20">
+            <label text="Social Media Account" class="section-title"></label>
+            <image src="res://images/paypal" height="20" stretch="aspectFit" marginBottom="10" horizontalAlignment="left"></image>
+            <label
+                *ngIf="paypal"
+                text="Your requested payout will be sent to the PayPal account {{paypal}}."
+                textWrap="true"
+                margin="15 0"
+            ></label>
+            <label class="change-paypal-btn" text="Change PayPal Account" (tap)="showConnectPaypalModal()"></label>
+        </StackLayout>
+        <StackLayout class="divider"> </StackLayout>
+    </StackLayout>
+</ScrollView>

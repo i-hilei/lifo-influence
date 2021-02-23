@@ -1,0 +1,22 @@
+<div *ngIf="variantsExist" class="product-variants-container">
+    <div *ngFor="let option of productOptions; let i = index" class="product-variant-row">
+        <div class="product-variant-title">
+            {{ option.name }}
+        </div>
+        <div class="product-variant-options-wrapper">
+            <div *ngFor="let value of option.values">
+                <button
+                    class="product-variant-button"
+                    (click)="onVariantOptionSelected(value, i)"
+                    [attr.disabled]="value.disabled ? '' : null"
+                    [ngClass]="{
+                        'product-variant-button-checked': value.selected,
+                        'product-variant-button-unchecked': !value.selected
+                    }"
+                >
+                    {{ value.name }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

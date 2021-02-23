@@ -1,0 +1,20 @@
+// Ant Design Mobile style customize
+
+body {
+    .am-toast.am-toast-nomask.am-toast.am-toast-nomask.am-toast.am-toast-nomask-top {
+        .am-toast-notice {
+            transform: translateX(-50%) translateY(9px) !important;
+        }
+    }
+    .am-toast {
+        width: 100% !important;
+        max-width: calc(100% - 40px) !important;
+        .am-toast-notice {
+            width: auto !important;
+            .am-toast-notice-content {
+                width: max-content;
+                margin: 0 auto;
+            }
+        }
+    }
+}

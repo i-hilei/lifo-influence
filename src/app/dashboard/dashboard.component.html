@@ -1,0 +1,98 @@
+<div class="header">
+    <div class="profile-butoon">
+        <a [routerLink]="'/account-info'" class="button custom-icon-button">
+            <img [src]="profileService.currentProfile.profile_picture || 'assets/svg/mdi_account_circle.svg'" />
+        </a>
+    </div>
+    <div class="central"></div>
+    <div class="notifications-button">
+        <div class="shop-icon" (click)="viewLifoShop()">
+            <span class="admin">Lifo Shop</span>
+            <img src="assets/png/right-arrow.png" class="navigation-icon" />
+        </div>
+        <!-- <a class="button custom-icon-button">
+            <img src="../../assets/svg/mdi_notifications.svg" />
+        </a> -->
+    </div>
+</div>
+
+<section class="dashboard-section">
+    <app-dashboard-wallet></app-dashboard-wallet>
+
+    <div class="dashboard-content">
+        <section class="discover-mycampaign">
+            <section *ngFor="let tabItem of tabs" class="big-type-item" (click)="currentTabToggle({ type: 'big', tab: tabItem })">
+                <section class="content" [ngClass]="{ selected: currentTab.big.type === tabItem.type }">
+                    <section class="title">{{ tabItem.title }}</section>
+                    <section class="underline"></section>
+                </section>
+            </section>
+        </section>
+
+        <section *ngIf="currentTab.big.children" class="detail-tab-container">
+            <section
+                *ngFor="let tab of currentTab.big.children"
+                class="detail-tab-item"
+                [ngClass]="{ selected: currentTab.small.type === tab.type }"
+                (click)="currentTabToggle({ type: 'small', tab: tab })"
+            >
+                <section class="text">
+                    <span>{{ tab.title }}</span>
+                    <span> ({{ campaignList[currentTab.big.type][tab.type]?.length || 0 }})</span>
+                </section>
+            </section>
+        </section>
+
+        <section class="tab-content">
+            <div *ngIf="currentTab.big.type === BigTab.discover" class="campaigns-list">
+                <app-lottery-card></app-lottery-card>
+                <app-campaing-list-item
+                    *ngFor="let campaign of campaignList[BigTab.discover]"
+                    [showStatuses]="true"
+                    [campaign]="campaign"
+                    [showInvitation]="true"
+                    [redirectPath]="'/campaign/' + campaign.brand_campaign_id + '/discover'"
+                ></app-campaing-list-item>
+            </div>
+            <div *ngIf="currentTab.big.type === BigTab.mycampaign" class="campaigns-list">
+                <app-campaing-list-item
+                    *ngFor="let campaign of campaignList[BigTab.mycampaign][currentTab.small.type]"
+                    [campaign]="campaign"
+                    [showInvitation]="currentTab.small.type === OFFER_STATUS_TYPES.new"
+                    [showStatuses]="true"
+                ></app-campaing-list-item>
+            </div>
+
+            <!-- Empty -->
+            <div *ngIf="currentTab.big.type === BigTab.discover && campaignList[BigTab.discover]?.length === 0" class="empty-list">
+                <img src="assets/svg/box.svg" />
+                <div class="text">No discover campaigns yet</div>
+            </div>
+
+            <div
+                *ngIf="currentTab.big.type === BigTab.mycampaign && campaignList[BigTab.mycampaign][currentTab.small.type]?.length === 0"
+                class="empty-list"
+            >
+                <img src="assets/svg/box.svg" />
+
+                <div class="text" *ngIf="currentTab.small.type === OFFER_STATUS_TYPES.active">No active campaigns yet</div>
+                <div class="text" *ngIf="currentTab.small.type === OFFER_STATUS_TYPES.new">No invitations yet</div>
+                <div class="text" *ngIf="currentTab.small.type === OFFER_STATUS_TYPES.completed">No completed campaigns yet</div>
+            </div>
+
+            <section *ngIf="currentTab.big.type === BigTab.discover && !campaignList[BigTab.discover]" class="loading">
+                <app-loading></app-loading>
+            </section>
+            <section
+                *ngIf="currentTab.big.type === BigTab.mycampaign && !campaignList[BigTab.mycampaign][currentTab.small.type]"
+                class="loading"
+            >
+                <app-loading></app-loading>
+            </section>
+        </section>
+    </div>
+</section>
+
+<section class="download-app">
+    <app-app-download-section></app-app-download-section>
+</section>

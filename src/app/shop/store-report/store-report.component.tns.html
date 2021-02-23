@@ -1,0 +1,100 @@
+<StackLayout>
+  <Label text="StoreReportComponent works" textWrap="true"></Label>
+  <Label text="This is a migrated component" textWrap="true"></Label>
+  <Label text="Update it to provide the UI elements required in your mobile app" textWrap="true"></Label>
+</StackLayout>
+
+<!--
+Original Web template:
+
+<div class="shop-container">
+    <div class="header-container">
+        <div class="internal-store-header">
+            <div class="back" (click)="backToDashboard()">
+                <img src="assets/png/left-arrow.png" class="navigation-icon">
+            </div>
+            <!-- <div class="shop-icon" (click)="viewSelectProduct()">
+                <img src="assets/svg/lifo-shop.svg">
+            </div> ->
+            <div class="admin unselected" (click)="viewSelectProduct()">
+                Lifo Shop
+            </div>
+            <div class="admin selected">
+                Store Report
+            </div>
+        </div>
+    </div>
+    
+    <div class="store-report">
+        <div class="title">Store Report</div>
+        <div class="counters">
+            <div class="counter-item">
+                <div class="counter-title">Visiters</div>
+                <div class="counter-value">0</div>
+            </div>
+            <div class="counter-item">
+                <div class="counter-title">Orders</div>
+                <div class="counter-value">{{ordersCount}}</div>
+            </div>
+            <div class="counter-item">
+                <div class="counter-title">Total Sales</div>
+                <div class="counter-value">${{totalSales}}</div>
+            </div>
+            <div class="counter-item">
+                <div class="counter-title">Earnings</div>
+                <div class="counter-value">${{earnings}}</div>
+            </div>
+            <div class="counter-item">
+                <div class="counter-title">Conversion</div>
+                <div class="counter-value">0%</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="sales-report">
+        <div class="title-container">
+            <div class="title">Sales Report</div>
+            <div class="link" (click)="modalShow = true">How the payment works ></div>
+        </div>
+        <div class="empty-message" *ngIf="!orders.length">
+            <div>Share your storefront and start earning!</div>
+        </div>
+    
+        <div class="solved-products">
+            <div class="product" *ngFor="let order of orders">
+                <div class="product-image">
+                    <img [src]="order.shopifyProduct?.images[0]?.src">
+                </div>
+                <div class="product-content">
+                    <div class="title">{{order.shopifyProduct?.title}}</div>
+                    <div class="product-statistic">
+                        <div class="labels">
+                            <div class="label">Commission</div>
+                            <div class="label">Unit Sold</div>
+                            <div class="label">Total commission</div>
+                        </div>
+    
+                        <div class="values">
+                            <div class="value">${{order.commission}}</div>
+                            <div class="value">{{order.quantity}}</div>
+                            <div class="value">${{order.commission * order.quantity}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <Modal
+        (ngModelChange)="modalShow = $event" [closable]="false" [ngModel]="modalShow" [transparent]="true">
+        <div class="popup-container">
+            <div class="title">How and when you’ll get paid</div>
+            <div class="text">
+                Lifo will issue the commission for the order to your wallet once the associated payment is settled and the return period passed
+            </div>
+            <div class="button" (click)="modalShow = false">Close</div>
+        </div>
+    </Modal>
+    
+</div>
+-->

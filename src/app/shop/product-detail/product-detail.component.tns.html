@@ -1,0 +1,76 @@
+<StackLayout>
+  <Label text="ProductDetailComponent works" textWrap="true"></Label>
+  <Label text="This is a migrated component" textWrap="true"></Label>
+  <Label text="Update it to provide the UI elements required in your mobile app" textWrap="true"></Label>
+</StackLayout>
+
+<!--
+Original Web template:
+
+<div class="shop-container">
+    <div class="header-container">
+        <div class="external-store-header">
+            <div class="back" (click)="backToDashboard()">
+                <img src="assets/png/left-arrow-dark.png" class="navigation-icon">
+            </div>
+            <!-- <div class="shop-icon">
+                <img src="assets/svg/lifo-shop.svg">
+            </div> ->
+            <div class="admin">
+                Lifo Shop
+            </div>
+            <div class="back">
+            </div>
+        </div>
+    </div>
+    
+    <div class="shop-item" *ngIf="product">
+        <div class="product-image">
+            <section class="img-preview">
+                <nz-carousel #carousel (nzAfterChange)="afterChange()" (nzBeforeChange)="beforeChange($event)"
+                             [nzDots]="false">
+                    <div *ngFor="let image of product.images" nz-carousel-content>
+                        <img [src]="image.src"/>
+                    </div>
+                </nz-carousel>
+            </section>
+            <section class="img-tab">
+                <section class="img-container">
+                    <section
+                        (click)="selectPreviewImg(i)"
+                        *ngFor="let image of product.images; let i = index"
+                        [ngClass]="{ selected: i === selectedIndex }"
+                        class="img-tab-item"
+                    >
+                        <img [src]="image.src"/>
+                    </section>
+                </section>
+            </section>
+        </div>
+        <div class="product-info">
+            <div class="product-title">{{ product.title }}</div>
+            <div class="product-description">{{ product.description }}</div>
+            <div class="product-price">
+                <span class="same-price" *ngIf="!product.variants[0].compareAtPrice">${{product.variants[0].price}}</span>
+                <span class="discount-price" *ngIf="product.variants[0].compareAtPrice">${{product.variants[0].price}}</span>
+                <span class="original-price" *ngIf="product.variants[0].compareAtPrice">${{product.variants[0].compareAtPrice}}</span>
+            </div>
+        </div>
+        <div class="shipping">
+            <div>   
+                <img src="assets/png/ic_shipping@2x.png">
+                <span> 5-7 Business Day Shipping </span>
+                <img src="assets/png/ic_america@3x.png">
+            </div>
+
+            <div>
+                <img src="assets/png/ic_ stipulate@2x.png">
+                <span> 7 Days Free Return </span>
+            </div>
+        </div>
+        <div class="bottom-button">
+            <div class="buy-button" (click)="createOrder()"> Pay $ {{ product.variants[0].price }} </div>
+        </div>
+    </div>
+</div>
+-->

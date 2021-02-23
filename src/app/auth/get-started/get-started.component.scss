@@ -1,0 +1,123 @@
+.landing-page {
+    height: 100%;
+
+    .header {
+        flex: 0;
+        flex-direction: row;
+        justify-content: space-between;
+        display: flex;
+        padding: 20px;
+
+        > div {
+            display: flex;
+            flex: 1;
+        }
+
+        .header-buttons {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+
+            .sign-in-button {
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 17px;
+                text-align: center;
+                text-transform: capitalize;
+                color: #358fff;
+            }
+        }
+    }
+
+    .get-started-section {
+        display: flex;
+        flex-direction: column;
+        min-height: 90vh;
+        padding: 26px;
+        background: #f7f8fa;
+
+        > div {
+            display: flex;
+            flex: 1;
+        }
+
+        .content-text {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+
+            label.main-text {
+                font-weight: 600;
+                font-size: 24px;
+                line-height: 30px;
+                text-align: center;
+                color: #0d053c;
+            }
+
+            .content-subtext {
+                margin-top: 35px;
+                font-size: 14px;
+                line-height: 20px;
+                text-align: center;
+                color: #0d053c;
+                margin-bottom: 20px;
+            }
+        }
+
+        .get-started-img {
+            display: flex;
+            flex: 2;
+            justify-content: center;
+            margin-top: 10px;
+            margin-bottom: 10px;
+
+            img {
+                width: 100%;
+            }
+        }
+
+        .buttons {
+            display: flex;
+            flex: 1;
+            align-items: center;
+            justify-content: center;
+
+            .get-started-button {
+                padding: 10px 15px;
+                background: #414bb2;
+                box-shadow: 0px 0px 10px rgba(13, 5, 60, 0.2);
+                border-radius: 4px;
+
+                font-weight: 600;
+                font-size: 16px;
+                line-height: 20px;
+                text-align: center;
+                text-transform: capitalize;
+
+                color: #ffffff;
+            }
+        }
+
+        .sign-up-btns {
+            // margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            .download-img {
+                margin-bottom: 10px;
+            }
+            .sign-up-text {
+                color: #0071ff;
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .dark-section {
+        background: #f4f4ff;
+    }
+}

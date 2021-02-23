@@ -1,0 +1,50 @@
+<ActionBar title="Content Draft" class="action-bar" backgroundColor="#fff" borderWidth="1" borderColor="#ccc" color="#333">
+    <NavigationButton></NavigationButton>
+    <!-- Creating custom views for ActionItem-->
+    <ActionItem ios.position="right" android.position="popup" (tap)="submitContent()">
+        <button
+            [text]="isUploading?'Submitting':'Submit'"
+            color="#007AFF"
+            margin="0"
+            padding="0"
+            fontSize="16"
+            [isEnabled]="enableSubmitBtn"
+        ></button>
+    </ActionItem>
+</ActionBar>
+
+<StackLayout class="page-container" padding="20">
+    <label
+        text="Please upload content draft for your post for review Once your content was approved that you can post it on social media"
+        textWrap="true"
+    ></label>
+
+    <!-- Image -->
+    <label class="title" text="Photo" textWrap="true"></label>
+    <app-media-preview
+        #imgPreview
+        [files]="imgs"
+        [enableAddBtn]="true"
+        (onAddFile)="openImgs()"
+        [enableAddBtn]="enableImgAddBtn"
+        [fileProgressMap]="fileProgressMap"
+        [isUploading]="isUploading"
+        (onRemoveFile)="removeImg($event)"
+    ></app-media-preview>
+
+    <!-- Video -->
+    <label class="title" text="Video(Optional)" textWrap="true"></label>
+    <app-media-preview
+        #videoPreview
+        [files]="videos"
+        [enableAddBtn]="enableVideoAddBtn"
+        (onAddFile)="openVideos()"
+        [fileProgressMap]="fileProgressMap"
+        [isUploading]="isUploading"
+        (onRemoveFile)="removeVideo($event)"
+    ></app-media-preview>
+
+    <!-- Caption -->
+    <label class="title" text="Caption" textWrap="true"></label>
+    <TextView class="caption-input" hint="Paste caption here" [(ngModel)]="caption"> </TextView>
+</StackLayout>

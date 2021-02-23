@@ -1,0 +1,5 @@
+<section class="copy-message">
+    <i *ngIf="type === 'success'" nz-icon nzTheme="fill" nzType="check-circle"></i>
+    <i *ngIf="type === 'fail'" nz-icon nzTheme="fill" nzType="close-circle"></i>
+    <span>{{ message }}</span>
+</section>

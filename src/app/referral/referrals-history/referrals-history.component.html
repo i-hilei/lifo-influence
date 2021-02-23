@@ -1,0 +1,67 @@
+<section class="referrals-history">
+    <app-page-header [headerConfig]="{ 'title': 'Invitation History' }"></app-page-header>
+
+    <div class="referral-message">
+        <div class="message-title">
+            <label>People you’ve invited</label>
+        </div>
+    </div>
+
+    <!-- <div class="description">
+        <div class="title">· Invitation Sent</div>
+        The invitation has been sent to the invitee
+        <div class="title">· Invitation Accepted</div>
+        The invitation has accepted the invitee
+        <div class="title">· Campaign Completed</div>
+        Both you and your invitee will receive the rewards after your invitee completes his/her first campaign
+    </div> -->
+
+    <div class="lottery-referral-card" *ngFor="let referral of lotteryReferrals">
+        <div class="general">
+            <div class="instagram-id">@{{referral.instagram_id}}</div>
+            <div class="information">
+                <div class="extra-tickets" *ngIf="referral.totalTicket">
+                    <img src="assets/svg/mdi_success.svg">
+                    Ticket + {{referral.totalTicket}}
+                </div>
+                <div class="lottery-status">
+                    <svg width="10" height="11" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8.51952 1.59335C7.57947 0.653867 6.32951 0.136475 5 0.136475C3.67049 0.136475 2.4205 0.653877 1.48053 1.59336C0.540498 2.53279 0.0222168 3.78204 0.0222168 5.11075C0.0222168 6.43892 0.539873 7.68879 1.48053 8.62828C2.42116 9.56769 3.67049 10.0857 5 10.0857C6.32951 10.0857 7.57946 9.56843 8.52013 8.62828C9.45949 7.68879 9.97778 6.43893 9.97778 5.11075C9.97778 3.78203 9.45955 2.53278 8.51952 1.59335ZM8.09717 8.20685L6.14643 6.25662C5.93746 6.46479 5.68562 6.60488 5.41982 6.67556L6.13445 9.34133C5.76895 9.43842 5.38826 9.48895 4.99999 9.48895C4.61176 9.48895 4.23111 9.43843 3.8656 9.34133L4.5802 6.67556C4.31443 6.60488 4.06254 6.46479 3.85425 6.25662L1.90288 8.20685C1.33855 7.64407 0.960957 6.96323 0.769063 6.24336L3.43378 5.53038C3.36054 5.25533 3.36054 4.96572 3.43378 4.69187L0.769063 3.97831C0.960957 3.25845 1.33855 2.57827 1.90224 2.01482L3.85362 3.96501C4.06258 3.75684 4.31446 3.61679 4.58024 3.5461L3.86564 0.880342C4.23114 0.783213 4.6118 0.732725 5.00003 0.732725C5.3883 0.732725 5.76896 0.783223 6.13449 0.880342L5.41986 3.5461C5.68565 3.61737 5.9375 3.75685 6.14647 3.96566L8.09713 2.01538C8.65081 2.5681 9.0366 3.24198 9.2335 3.97768L6.56563 4.69185C6.63887 4.96638 6.63887 5.25598 6.56563 5.53036L9.2335 6.2446C9.03721 6.98029 8.65077 7.65414 8.09716 8.20684L8.09717 8.20685ZM5.26323 3.76505L5 2.48168L4.75631 3.76123C4.49057 3.80918 4.23549 3.93535 4.03036 4.14107C3.49437 4.6767 3.49437 5.54492 4.03036 6.08058C4.56632 6.61563 5.43502 6.61563 5.97096 6.08058C6.50691 5.54492 6.50691 4.6767 5.97096 4.14107C5.76955 3.94101 5.5221 3.81547 5.26324 3.76504L5.26323 3.76505Z" fill="#0D053C"/>
+                    </svg>
+                    <label>Raffle</label>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="status">{{status_LABELS[referral.status]}} </div>
+            <div class="timestamp">{{referral.displayTime | date:'M/d/yyyy'}}</div>
+        </div>
+        <div class="steps-visualization">
+            <div class="step-visualization" *ngFor="let step of [1, 2, 3]"
+                 [ngClass]="{
+                    'filled':
+                        step === 1 && referral.status === ReferralStatuses.invited ||
+                        (step === 1 || step === 2) && referral.status === ReferralStatuses.signed_up ||
+                        (step === 1 || step === 2 || step === 3) && referral.status === ReferralStatuses.campaign_completed
+                    }"></div>
+        </div>
+    </div>
+
+    <div class="referral-card" *ngFor="let referral of referrals">
+        <div class="instagram-id">@{{referral.instagram_id}}</div>
+        <div>
+            <div class="status">{{status_LABELS[referral.status]}} </div>
+            <div class="timestamp">{{referral.displayTime | date:'M/d/yyyy'}}</div>
+        </div>
+        <div class="steps-visualization">
+            <div class="step-visualization" *ngFor="let step of [1, 2, 3]"
+                 [ngClass]="{
+                    'filled':
+                        step === 1 && referral.status === ReferralStatuses.invited ||
+                        (step === 1 || step === 2) && referral.status === ReferralStatuses.signed_up ||
+                        (step === 1 || step === 2 || step === 3) && referral.status === ReferralStatuses.campaign_completed
+                    }"></div>
+        </div>
+    </div>
+
+</section>

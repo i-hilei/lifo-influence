@@ -1,0 +1,261 @@
+<section class="account-information">
+    <div class="page-header">
+        <div [routerLink]="['/dashboard']">
+            <img src="assets/svg/left_arrow.svg" />
+        </div>
+        <label>Account Information</label>
+        <div class="button logout-button blue" (click)="signOut()">Logout</div>
+    </div>
+
+    <div class="referral-page-link" [routerLink]="['/referrals/invite']">
+        <div class="referral-link-content" [style.backgroundImage]="'url(assets/svg/referrals_background.svg)'">
+            <img src="assets/svg/referrals_icon.svg">
+            <label>Invite your influencer friends to join the Lifo community</label>
+<!--            <img src="assets/svg/mdi_chevron_right.svg">-->
+        </div>
+    </div>
+
+    <div class="invitation-history" *ngIf="currentUserProfile.has_referrals">
+        <label>Invitation History</label>
+        <div class="button details-button" [routerLink]="['/referrals/history']">
+            <label>Details</label>
+            <img src="assets/svg/mdi_chevron_right.svg">
+        </div>
+    </div>
+
+    <div class="referrals-count" *ngIf="currentUserProfile.has_referrals">
+        <div class="referrals-info-row">
+            <label>Number of Influencers you invite</label>
+            <div class="count">{{currentUserProfile.invited_referrals}}</div>
+        </div>
+        <div class="referrals-info-row">
+            <label>Invited successfully</label>
+            <div class="count">{{currentUserProfile.successful_referrals}}</div>
+        </div>
+    </div>
+
+    <div class="block class-main-information">
+        <div class="social-media-accounts">
+            <label class="title">Social Media Account</label>
+            <div class="social-media-account" *ngIf="currentUserProfile.instagram_id">
+                <img src="assets/svg/platform-icons/ic_instagram_rounded-rectangle.svg">
+                <a class="blue">@{{ currentUserProfile.instagram_id }} </a>
+            </div>
+            <div class="social-media-account" *ngIf="currentUserProfile.tiktok_id">
+                <img src="assets/svg/platform-icons/ic_tiktok_rounded-rectangle.svg">
+                <a class="blue">@{{ currentUserProfile.tiktok_id }} </a>
+            </div>
+        </div>
+
+        <label class="title">Email</label>
+        <label class="blue">{{ currentUserProfile.email }}</label>
+    </div>
+    <nz-divider></nz-divider>
+    <div class="block">
+        <label class="block-title">Contact Information</label>
+        <div class="sub-block">
+            <div class="sub-block-content">
+                <label class="title">First Name</label>
+                <div class="editable-block">
+                    <ng-container *ngIf="!editModeBlocks.name">
+                        <label class="value-to-display">
+                            {{ currentUserProfile.name }}
+                        </label>
+                    </ng-container>
+                    <ng-container *ngIf="editModeBlocks.name">
+                        <input nz-input placeholder="First Name" [(ngModel)]="currentUserProfile.name" />
+                    </ng-container>
+                </div>
+            </div>
+            <div class="button" (click)="editModeBlocks.name = true" *ngIf="!editModeBlocks.name">
+                <img src="assets/svg/mdi_edit.svg" />
+            </div>
+        </div>
+        <div class="sub-block">
+            <div class="sub-block-content">
+                <label class="title">Last Name</label>
+                <div class="editable-block">
+                    <ng-container *ngIf="!editModeBlocks.last_name">
+                        <label class="value-to-display">
+                            {{ currentUserProfile.last_name }}
+                        </label>
+                    </ng-container>
+                    <ng-container *ngIf="editModeBlocks.last_name">
+                        <input nz-input placeholder="Last Name" [(ngModel)]="currentUserProfile.last_name" />
+                    </ng-container>
+                </div>
+            </div>
+            <div class="button" (click)="editModeBlocks.last_name = true" *ngIf="!editModeBlocks.last_name">
+                <img src="assets/svg/mdi_edit.svg" />
+            </div>
+        </div>
+        <div class="sub-block">
+            <div class="sub-block-content">
+                <label class="title">Shipping Address</label>
+                <div class="editable-block">
+                    <ng-container *ngIf="!editModeBlocks.address">
+                        <label class="value-to-display">
+                            {{ currentUserProfile.address1 }}{{ currentUserProfile.address1 ? "," : "" }} {{ currentUserProfile.address2
+                            }}{{ currentUserProfile.address2 ? "," : "" }} {{ currentUserProfile.city
+                            }}{{ currentUserProfile.city ? "," : "" }} {{ currentUserProfile.province
+                            }}{{ currentUserProfile.province ? "," : "" }}
+                            {{ currentUserProfile.zip }}
+                        </label>
+                    </ng-container>
+                    <ng-container *ngIf="editModeBlocks.address">
+                        <form [formGroup]="additionalInformationForm" nz-form>
+                            <nz-form-control>
+                                <input
+                                    #addresstext
+                                    formControlName="street"
+                                    name="address_1"
+                                    nz-input
+                                    nzSize="large"
+                                    placeholder="Street"
+                                    type="text"
+                                />
+                            </nz-form-control>
+                            <nz-form-control>
+                                <input
+                                    formControlName="unit_suite_apt"
+                                    id="address_2"
+                                    name="address_2"
+                                    nz-input
+                                    nzSize="large"
+                                    placeholder="Unit, Suite, Apt (Optional)"
+                                    type="text"
+                                />
+                            </nz-form-control>
+                            <nz-form-control>
+                                <input
+                                    formControlName="city"
+                                    id="address_3"
+                                    name="address_3"
+                                    nz-input
+                                    nzSize="large"
+                                    placeholder="City"
+                                    type="text"
+                                />
+                            </nz-form-control>
+                            <nz-form-control>
+                                <input
+                                    formControlName="state"
+                                    id="address_4"
+                                    name="address_4"
+                                    nz-input
+                                    nzSize="large"
+                                    placeholder="State"
+                                    type="text"
+                                />
+                            </nz-form-control>
+                            <nz-form-control>
+                                <input
+                                    formControlName="zip"
+                                    id="address_5"
+                                    name="address_5"
+                                    nz-input
+                                    nzSize="large"
+                                    placeholder="Zip code"
+                                    type="text"
+                                />
+                            </nz-form-control>
+                        </form>
+                        <!-- <input
+                            #addresstext
+                            nz-input
+                            placeholder="Street"
+                            [(ngModel)]="currentUserProfile.address1"/>
+
+                        <input nz-input placeholder="Unit, Suite, Apt (Optional)"
+                               [(ngModel)]="currentUserProfile.address2"/>
+                        <input nz-input placeholder="City" [(ngModel)]="currentUserProfile.city"/>
+                        <input nz-input placeholder="State" [(ngModel)]="currentUserProfile.province"/>
+                        <input nz-input placeholder="Zip code" [(ngModel)]="currentUserProfile.zip"/> -->
+                    </ng-container>
+                </div>
+            </div>
+            <div class="button" (click)="editAddress()" *ngIf="!editModeBlocks.address">
+                <img src="assets/svg/mdi_edit.svg" />
+            </div>
+        </div>
+        <div class="sub-block">
+            <div class="sub-block-content">
+                <label class="title">Phone Number</label>
+                <div class="editable-block">
+                    <ng-container *ngIf="!editModeBlocks.phone">
+                        <label class="value-to-display">{{ currentUserProfile.phone_number | mask: "(000) 000-0000" }}</label>
+                    </ng-container>
+                    <ng-container *ngIf="editModeBlocks.phone">
+                        <input nz-input placeholder="Phone number" mask="(000) 000-0000" [(ngModel)]="currentUserProfile.phone_number" />
+                    </ng-container>
+                </div>
+            </div>
+            <div class="button" (click)="editModeBlocks.phone = true" *ngIf="!editModeBlocks.phone">
+                <img src="assets/svg/mdi_edit.svg" />
+            </div>
+        </div>
+    </div>
+
+    <nz-divider></nz-divider>
+
+    <!-- <div class="block payment" *ngIf="!showBetaFeature">
+        <label class="block-title">Payment Information</label>
+        <div class="sub-block">
+            <div class="sub-block-content">
+                <label class="title">PayPal Account</label>
+                <div class="editable-block">
+                    <ng-container *ngIf="!editModeBlocks.paypal">
+                        <label class="value-to-display">{{ currentUserProfile.paypal }}</label>
+                    </ng-container>
+                    <ng-container *ngIf="editModeBlocks.paypal">
+                        <input nz-input placeholder="PayPal Account" [(ngModel)]="currentUserProfile.paypal" />
+                    </ng-container>
+                </div>
+            </div>
+            <div class="button" (click)="editModeBlocks.paypal = true" *ngIf="!editModeBlocks.paypal">
+                <img src="assets/svg/mdi_edit.svg" />
+            </div>
+        </div>
+    </div> -->
+
+    <nz-divider></nz-divider>
+
+    <div class="block buttons" *ngIf="isInEditMode">
+        <div Button (click)="updateCurrentProfile()" [type]="'primary'" class="save-button">Save</div>
+    </div>
+
+    <div class="block payment">
+        <label class="block-title">Payment Information</label>
+        <div class="paypal-logo">
+            <img src="assets/svg/paypal.svg">
+        </div>
+
+        <div class="connect-paypal" *ngIf="!currentUserProfile.paypal">
+            <label class="sub-message">Get payout sent to PayPal</label>
+            <a [href]="paypalService.getPaypalLink()">Connect PayPal Account</a>
+        </div>
+
+        <div class="connect-paypal" *ngIf="currentUserProfile.paypal">
+            <label class="sub-message">Your requested payout will be sent to the PayPal account <strong>{{currentUserProfile.paypal}}</strong>.</label>
+            <a [href]="paypalService.getPaypalLink()">Change PayPal Account</a>
+        </div>
+    </div>
+
+    <div class="block links">
+        <a [routerLink]="'/help-center'">FAQ</a>
+        <a (click)="modalShow = true">Terms of Use</a>
+        <div>v1.5.6 ©2020 by Lifo.ai</div>
+    </div>
+
+    <Modal
+        (ngModelChange)="modalShow = $event"
+        [animationType]="'slide-up'"
+        [popup]="true"
+        [closable]="true"
+        [ngModel]="modalShow"
+        [title]="'Terms of Use'"
+        [transparent]="true"
+    >
+        <app-terms-of-use [showAgreeButton]="false"></app-terms-of-use>
+    </Modal>
+</section>

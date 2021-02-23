@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "65044462485",
+    "firebase_url": "https://influencer-272204.firebaseio.com",
+    "project_id": "influencer-272204",
+    "storage_bucket": "influencer-272204.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:65044462485:android:832855ea5b9a7353c2549c",
+        "android_client_info": {
+          "package_name": "com.lifo.influencer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "65044462485-6h2vnliteh06hllhb5n1o4g95h3v52tq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDI4OE-oPSTHg2OlvxiFjyu5EGKCjXrcco"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "65044462485-6h2vnliteh06hllhb5n1o4g95h3v52tq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "65044462485-t55djm11eji8a94dhfofkcr9m57kph7c.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.lifo.influencer"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,57 @@
+<div class="draw-popup-container">
+    <div class="container first-draw" *ngIf="drawState === DrawState.firstDraw">
+        <img src="assets/svg/lottery_gift.svg">
+
+        <div class="main-text">
+            Draw the raffle to win up to $100 cash!
+        </div>
+
+        <a class="button" (click)="drawRaffle()">Draw the raffle</a>
+    </div>
+    <div class="container loading" *ngIf="drawState === DrawState.loading">
+        <img style="width: 100%;" src="assets/loading.gif">
+
+        <a class="button disabled">Drawing</a>
+    </div>
+    <div class="container draw-results" *ngIf="drawState === DrawState.drawResults">
+        <img src="assets/svg/lottery_congrats.svg">
+
+        <div class="main-text">
+            Congratulations!
+        </div>
+
+        <div class="won-text">
+            You have won ${{amountReceived}}
+        </div>
+
+        <div class="secondary-text">
+            you can later check on your lifo wallet
+        </div>
+
+        <a class="button" (click)="drawRaffle()">Draw Again</a>
+    </div>
+    <div class="container first-draw" *ngIf="drawState === DrawState.notEnoughTickets">
+        <img src="assets/svg/sad.svg">
+
+        <div class="main-text">
+            Sorry, you don’t have enough tickets
+        </div>
+
+        <div class="secondary-text">
+            Refer your friends to earn more!
+        </div>
+
+        <a class="button" [routerLink]="['/referrals/invite', lotteryService.activeLottery.id]">Inivte your friend</a>
+    </div>
+
+
+    <div class="footer">
+        <div class="tickets-remaining">
+            <img src="assets/svg/tickets-details-icon.svg">
+            {{lotteryService.userAvailableTickets}} tickets remain
+        </div>
+        <div class="get-more-tickets">
+            <a [routerLink]="['/referrals/invite', lotteryService.activeLottery.id]">Get more tickets</a>
+        </div>
+    </div>
+</div>

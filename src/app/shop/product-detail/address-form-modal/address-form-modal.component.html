@@ -1,0 +1,6 @@
+<section class="address-form-modal">
+    <section class="title">Confirm Shipping Address (US only)</section>
+    <app-shipping-address-form #AddressForm></app-shipping-address-form>
+    <section class="desc">We will ship the sample to you in a few days</section>
+    <button nz-button class="lifo-btn" [nzLoading]="isPurchasing" (click)="purchase()">Purchase With Wallet</button>
+</section>

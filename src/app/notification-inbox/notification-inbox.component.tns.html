@@ -1,0 +1,39 @@
+<PullToRefresh (refresh)="refreshList($event)" indicatorFillColor="transparent" indicatorColor="#ddd">
+    <ScrollView height="100%">
+        <GridLayout rows="*">
+            <StackLayout padding="20">
+                <app-main-page-header title="Notifications"></app-main-page-header>
+
+                <StackLayout class="notification-box">
+                    <GridLayout
+                        *ngFor="let item of notificationList"
+                        borderBottomWidth="1"
+                        borderColor="#EAEFF4"
+                        class="notification-item"
+                        rows="auto, auto"
+                        columns="auto, *, auto"
+                        padding="14 0"
+                        (tap)="goDetailPage(item)"
+                    >
+                        <image
+                            row="0"
+                            col="0"
+                            rowSpan="2"
+                            class="type-img"
+                            src="res://images/instagram-logo"
+                            width="50"
+                            height="50"
+                            borderRadius="25"
+                            marginRight="10"
+                        ></image>
+
+                        <label row="0" col="1" text="{{item.title}}" textWrap="true" fontWeight="500" color="#0D053C"></label>
+                        <label row="0" col="2" text="{{item.time | date:'yyyy-MM-dd HH:mm:ss'}}" fontSize="12" color="#BDBDBD"></label>
+
+                        <label row="1" col="1" colSpan="2" text="{{item.body}}" fontSize="12" color="#BDBDBD" textWrap="true"></label>
+                    </GridLayout>
+                </StackLayout>
+            </StackLayout>
+        </GridLayout>
+    </ScrollView>
+</PullToRefresh>

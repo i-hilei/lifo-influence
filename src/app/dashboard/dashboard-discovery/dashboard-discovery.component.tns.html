@@ -1,0 +1,50 @@
+<PullToRefresh (refresh)="refreshList($event)" indicatorFillColor="transparent" indicatorColor="#ddd">
+    <ScrollView height="100%">
+        <StackLayout padding="20" paddingBottom="70">
+            <StackLayout orientation="horizontal" class="titles">
+                <label
+                    text="Discover"
+                    verticalAlignment="bottom"
+                    class="{{isDiscover?'selected':''}}"
+                    (tap)="selectTab('discover')"
+                ></label>
+                <label
+                    text="My Campaigns"
+                    verticalAlignment="bottom"
+                    class="{{isMyCampaigns?'selected':''}}"
+                    (tap)="selectTab('myCampaigns')"
+                ></label>
+            </StackLayout>
+
+            <!-- Discover -->
+            <StackLayout visibility="{{ isDiscover ? 'visible' : 'collapsed' }}">
+                <StackLayout>
+                    <StackLayout *ngFor="let item of campaignList" marginTop="20">
+                        <app-campaing-list-item
+                            [showStatuses]="true"
+                            [campaign]="item"
+                            [showInvitation]="true"
+                            [redirectPath]="'/campaign-detail/detail/'+item.brand_campaign_id+'/discover'"
+                        ></app-campaing-list-item>
+                    </StackLayout>
+                </StackLayout>
+                <ActivityIndicator
+                    *ngIf="firstLoading"
+                    width="100%"
+                    height="200"
+                    background="rgba(255,255,255,0.5)"
+                    color="#ccc"
+                    busy="true"
+                ></ActivityIndicator>
+                <StackLayout *ngIf="campaignList?.length === 0" marginTop="100">
+                    <app-native-no-data></app-native-no-data>
+                </StackLayout>
+            </StackLayout>
+
+            <!-- My Campaigns -->
+            <StackLayout visibility="{{ isMyCampaigns ? 'visible' : 'collapsed' }}">
+                <app-dashboard-campaign #myCampaignComponent></app-dashboard-campaign>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</PullToRefresh>

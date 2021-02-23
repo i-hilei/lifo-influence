@@ -1,0 +1,146 @@
+<StackLayout>
+  <Label text="SignUpFinalComponent works" textWrap="true"></Label>
+  <Label text="This is a migrated component" textWrap="true"></Label>
+  <Label text="Update it to provide the UI elements required in your mobile app" textWrap="true"></Label>
+</StackLayout>
+
+<!--
+Original Web template:
+
+<section class="sign-in-section">
+    <div class="header">
+        <div class="header-logo">
+            <img class="panel-image" src="../../../assets/svg/brand_logo_2.svg">
+        </div>
+    </div>
+
+    <div class="content-text">
+        The last step!<br/>
+        Please provide your shipping information, we will use it to ship products to you!
+    </div>
+
+    <div class="sign-in-form">
+        <form [formGroup]="additionalInformationForm" nz-form>
+            <nz-form-item>
+                <nz-form-control>
+                    <input formControlName="name"
+                           name="name"
+                           nz-input
+                           nzSize="large"
+                           placeholder="Your Name" type="text">
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-control>
+                    <input #addresstext
+                           formControlName="street"
+                           name="address_1"
+                           nz-input
+                           nzSize="large"
+                           placeholder="Street"
+                           type="text">
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-control>
+                    <input formControlName="unit_suite_apt"
+                           id="address_2"
+                           name="address_2"
+                           nz-input
+                           nzSize="large"
+                           placeholder="Unit, Suite, Apt (Optional)" type="text">
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-control>
+                    <input formControlName="city"
+                           id="address_3"
+                           name="address_3"
+                           nz-input
+                           nzSize="large"
+                           placeholder="City" type="text">
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-control>
+                    <input formControlName="state"
+                           id="address_4"
+                           name="address_4"
+                           nz-input
+                           nzSize="large"
+                           placeholder="State" type="text">
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-control>
+                    <input formControlName="zip"
+                           id="address_5"
+                           name="address_5"
+                           nz-input
+                           nzSize="large"
+                           placeholder="Zip code" type="text">
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-control>
+                    <input formControlName="phone_number"
+                           id="phone_number"
+                           name="phone_number"
+                           nz-input
+                           nzSize="large"
+                           mask="(000) 000-0000"
+                           placeholder="Phone Number (Optional)" type="text">
+                </nz-form-control>
+            </nz-form-item>
+            <!-- <nz-form-item>
+                <nz-form-control>
+                    <nz-form-label nzFor="industries">What industries do you best associate with? Choose as many as you
+                        like
+                    </nz-form-label>
+                    <nz-select
+                        [nzMaxTagCount]="industries.length"
+                        formControlName="industries"
+                        id="industries"
+                        nzMode="multiple"
+                        nzPlaceHolder="Industries"
+                        nzSize="large"
+                    >
+                        <nz-option *ngFor="let item of industries" [nzLabel]="item" [nzValue]="item"></nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item> ->
+            <!-- <nz-form-item>
+                <div>
+                    <img class="panel-image" src="../../../../assets/svg/paypal-logo.svg">
+                </div>
+                <nz-form-control [nzSpan]="14">
+                    <input nz-input
+                           nzSize="large"
+                           formControlName="payPal"
+                           placeholder="Enter PayPal account"
+                           name="paypal" type="text"
+                           id="paypal">
+                </nz-form-control>
+            </nz-form-item> ->
+        </form>
+    </div>
+
+    <div class="shipping-img">
+        <img class="panel-image" src="../../../assets/svg/shipping.svg">
+    </div>
+
+    <div class="buttons">
+        <div (click)="submitForm()" Button [disabled]="!additionalInformationForm.valid" [type]="'primary'"
+             class="button sign-in-button">
+            Submit
+        </div>
+    </div>
+</section>
+
+<!--<section *ngIf="deviceDetectorService.isDesktop()">->
+<!--    <div>->
+<!--        <label>The desktop version of the influencer get started page is not ready</label>->
+<!--    </div>->
+<!--</section>->
+
+-->

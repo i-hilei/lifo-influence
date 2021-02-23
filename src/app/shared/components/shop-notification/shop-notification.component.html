@@ -1,0 +1,57 @@
+<div class="shop-notification-container" *ngIf="currentTab === 'notification'">
+    <div class="title">
+        Lifo Shop
+    </div>
+    <div class="description">
+        Limited Time Offer
+    </div>
+    <div class="image">
+        <img src="assets/png/sale.png">
+    </div>
+    <div class="content">
+        Earn $10 extra commission for your first Lifo store sale!
+    </div>
+    <div class="button-row">
+        <a class="button" (click)="navigateToShop()">Check it out</a>
+        <!-- <a class="next" (click)="clickNext()">Next</a> -->
+    </div>
+</div>
+
+<div class="shop-bonuses-container" *ngIf="currentTab === 'bonuses'">
+    <div class="title">
+        7 Days Store Visit Bonus!
+    </div>
+
+    <div class="description">
+        Earn by having people visit your Lifo store daily
+    </div>
+
+    <div class="image">
+        <img src="assets/svg/bonus.svg">
+    </div>
+
+    <div class="days">
+        <div class="day" *ngFor="let day of days" [class.gray]="!day.isEarned">
+            <label>
+                <div class="is-earned-icon">
+                    <svg fill="none" height="40" viewBox="0 0 40 40" width="40" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M19.9965 3.33252C10.7965 3.33252 3.32983 10.7992 3.32983 19.9992C3.32983 29.1992 10.7965 36.6659 19.9965 36.6659C29.1965 36.6659 36.6632 29.1992 36.6632 19.9992C36.6632 10.7992 29.1965 3.33252 19.9965 3.33252ZM16.6632 28.3325L8.32983 19.9992L10.6798 17.6492L16.6632 23.6159L29.3132 10.9659L31.6632 13.3325L16.6632 28.3325Z"
+                            fill="#219653"/>
+                    </svg>
+                </div>
+
+                <strong>Day {{day.id}}</strong>:
+                {{day.title}}
+            </label>
+        </div>
+    </div>
+
+    <div class="button-row">
+        <a class="button" (click)="navigateToShop()">Share my store</a>
+    </div>
+
+    <div class="comments">
+        <label>Commission bonus will last for 30 days</label>
+    </div>
+</div>

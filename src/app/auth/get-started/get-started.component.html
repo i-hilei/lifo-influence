@@ -1,0 +1,86 @@
+<section class="landing-page">
+    <div class="header">
+        <div class="header-logo">
+            <img class="panel-image" src="assets/svg/brand_logo_2.svg" />
+        </div>
+        <div class="central"></div>
+        <div class="header-buttons">
+            <div (click)="navigate('/sign-in')" class="button sign-in-button">Sign In</div>
+        </div>
+    </div>
+    <section class="get-started-section">
+        <div class="content-text">
+            <label class="main-text">Lifo connects you with brands you can trust.</label>
+
+            <div class="content-subtext">
+                Lifo is building an invitation-only community for high-quality influencers. We find superior brands that match with your
+                style and audience, and provide you with stable revenue streams.
+            </div>
+        </div>
+
+        <div class="sign-up-btns">
+            <img class="download-img" src="assets/svg/download_app_store.svg" width="190" height="64" (click)="downloadIosApp()" />
+            <section class="sign-up-text" (click)="navigate('/sign-up')">Sign up in browser</section>
+        </div>
+
+        <div class="get-started-img">
+            <img class="panel-image" src="assets/svg/get_started_img_1.svg" />
+        </div>
+    </section>
+
+    <section class="get-started-section dark-section">
+        <div class="content-text">
+            <label class="main-text">Commission guarantee</label>
+
+            <div class="content-subtext">
+                As long as your contents follow the provided guidelines, commissions will be paid to your Lifo wallet
+            </div>
+        </div>
+
+        <div class="get-started-img">
+            <img class="panel-image" src="assets/svg/get_started_img_2.svg" />
+        </div>
+
+        <div class="buttons">
+            <div (click)="navigate('/sign-up')" class="button get-started-button">Get Started</div>
+        </div>
+    </section>
+
+    <section class="get-started-section">
+        <div class="content-text">
+            <label class="main-text">Simple workflow</label>
+
+            <div class="content-subtext">
+                No more back-and-forth with the brand or agent to complete a campaign. We provide clear guidelines upfront so that you can
+                focus on content
+            </div>
+        </div>
+
+        <div class="get-started-img">
+            <img class="panel-image" src="assets/svg/get_started_img_3.svg" />
+        </div>
+
+        <div class="buttons">
+            <div (click)="navigate('/sign-up')" class="button get-started-button">Get Started</div>
+        </div>
+    </section>
+
+    <section class="get-started-section dark-section">
+        <div class="content-text">
+            <label class="main-text">Get paid more</label>
+
+            <div class="content-subtext">
+                Responsive, high-quality, on time deliveries will be rewarded with higher commission rates, so that more brands would love
+                to work with you
+            </div>
+        </div>
+
+        <div class="get-started-img">
+            <img class="panel-image" src="assets/svg/get_started_img_4.svg" />
+        </div>
+
+        <div class="buttons">
+            <div (click)="navigate('/sign-up')" class="button get-started-button">Get Started</div>
+        </div>
+    </section>
+</section>

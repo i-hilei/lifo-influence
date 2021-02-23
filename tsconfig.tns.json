@@ -1,0 +1,52 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@src/*": [
+        "src/*.tns.ts",
+        "src/*.ts"
+      ],
+      "@assets/*": [
+        "src/assets/*.tns.ts",
+        "src/assets/*.ts"
+
+      ],
+      "@services/*": [
+        "src/app/services/*.tns.ts",
+        "src/app/services/*.ts",
+      ],
+      "@auth/*": [
+        "src/app/auth/*.tns.ts",
+        "src/app/auth/*.ts"
+      ],
+      "@typings/*": [
+        "src/app/typings/*.tns.ts",
+        "src/app/typings/*.ts"
+      ],
+      "@models/*": [
+        "src/app/models/*.tns.ts",
+        "src/app/models/*.ts",
+      ],
+      "@shared/*": [
+        "src/app/shared/*.tns.ts",
+        "src/app/shared/*.ts",
+      ],
+      "@nativehelper":[
+        "src/app/native-helper/*.tns.ts",
+        "src/app/native-helper/*"
+      ],
+      "@campaigndetail":[
+        "src/app/campaign-detail/*.tns.ts",
+        "src/app/campaign-detail/*"
+      ]
+    }
+  },
+  "files": [
+    "src/main.tns.ts"
+  ]
+}

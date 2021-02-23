@@ -1,0 +1,14 @@
+<div class="page-header">
+    <section class="real-content">
+        <div class="back" (click)="back()">
+            <img *ngIf="!headerConfig.leftImgUrl" src="assets/svg/left_arrow.svg" />
+            <img *ngIf="headerConfig.leftImgUrl" [src]="headerConfig.leftImgUrl" />
+        </div>
+        <label>{{ headerConfig?.title }}</label>
+        <section>
+            <a (click)="rightLinkClick()" [disabled]="disableRightLink" [nzLoading]="isLoading" class="right-btn" nz-button nzType="link">{{
+                headerConfig?.rightLinkText
+            }}</a>
+        </section>
+    </section>
+</div>

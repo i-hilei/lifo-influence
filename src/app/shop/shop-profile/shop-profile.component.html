@@ -1,0 +1,56 @@
+<div class="shop-container" [ngStyle]="{ 'background-image': 'url(' + backgroundImg + ')' }">
+    <section class="bg-img">
+        <ng-container *ngIf="shopDetail && !shopDetail.shop_image_url && type === 'internal'">
+            <img src="assets/png/add_photo.png" />
+            <section class="text">Customize your cover in settings</section>
+        </ng-container>
+
+        <ng-container *ngIf="shopDetail && !shopDetail.shop_image_url && type === 'external'">
+            <img src="assets/png/lifo_shop_white.png" style="margin-bottom: 20px" />
+        </ng-container>
+    </section>
+    <section class="content">
+        <ng-container *ngIf="shopDetail">
+            <section class="info-share">
+                <section class="info">
+                    <section class="shop-name">{{ shopDetail.shop_name }}</section>
+                    <section class="social-medias">
+                        <div class="social" *ngIf="shopDetail.instagram_id">
+                            <img src="assets/png/ic_instagram_white.png" />
+                            <span>@{{ shopDetail.instagram_id }}</span>
+                        </div>
+                        <div class="social" *ngIf="shopDetail.tiktok_id">
+                            <img src="assets/png/ic_tiktok_white.png" />
+                            <span>@{{ shopDetail.tiktok_id }}</span>
+                        </div>
+                    </section>
+                </section>
+                <button nz-button class="lifo-btn share-btn" (click)="copyShopLink()">
+                    <img src="assets/png/send-icon-black.png" class="send-icon" />
+                    <span>Share Store</span>
+                </button>
+            </section>
+        </ng-container>
+
+        <section class="radius-blank"></section>
+    </section>
+
+    <Modal
+        (ngModelChange)="copyModalShow = $event"
+        [popup]="true"
+        [closable]="false"
+        [ngModel]="copyModalShow"
+        [transparent]="true"
+        (onClose)="onCopyModalClose()"
+    >
+        <div class="copy-container" *ngIf="copyModalShow">
+            <div class="copy-title">Store URL Copied!</div>
+            <div class="copy-message">Share your storefront and start earning!</div>
+            <div class="copy-link">
+                <div class="link">{{ link }}</div>
+                <div class="check-button"><img src="assets/png/ic_succeed@2x.png" /></div>
+            </div>
+            <div class="close-button" (click)="onCopyModalClose()">Close</div>
+        </div>
+    </Modal>
+</div>

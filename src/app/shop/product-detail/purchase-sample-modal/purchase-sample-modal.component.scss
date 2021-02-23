@@ -1,0 +1,24 @@
+.purchase-sample-modal {
+    text-align: left;
+    padding: 30px;
+    color: #000;
+
+    .title {
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 25px;
+    }
+    .body {
+        .body-item {
+            line-height: 19px;
+            margin-top: 20px;
+        }
+    }
+
+    .confirm {
+        margin-top: 30px;
+        background: #000;
+        color: #fff;
+        border: none;
+    }
+}

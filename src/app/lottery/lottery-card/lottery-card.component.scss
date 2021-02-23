@@ -1,0 +1,28 @@
+.lottery-card {
+    position: relative;
+
+    > img {
+        width: 100%;
+    }
+
+    .status {
+        padding: 2px 4px;
+        position: absolute;
+        top: 10px;
+        left: 12px;
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(4px);
+        border-radius: 5px;
+        display: flex;
+        flex-direction: row;
+
+        label {
+            margin-left: 4px;
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 17px;
+            color: #4F4F4F;
+            text-transform: capitalize;
+        }
+    }
+}

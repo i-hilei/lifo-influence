@@ -1,0 +1,402 @@
+<div class="shop-container">
+    <section class="shop-profile">
+        <app-shop-profile [shopDetail]="shopDetail"></app-shop-profile>
+
+        <section class="operations">
+            <span class="back-btn" (click)="backToDashboard()">
+                <img src="assets/png/left-arrow.png" />
+            </span>
+
+            <span class="preview-btn" (click)="openPreviewPage()">
+                <img src="assets/png/market-white.png" />
+                <span class="text">Preview</span>
+            </span>
+        </section>
+    </section>
+
+    <!-- My Selections / Setting / Store Report -->
+    <section class="shop-selection-setting-report">
+        <!-- Toggle btns -->
+        <section class="toggle-btns" *ngIf="link_main">
+            <section class="toggle-btn-item" [ngClass]="{ 'selected-tab': selectedFirstTab === 'selections' }"
+                (click)="toggleSelectedTab('selections')">
+                <section class="item-text">My Store</section>
+                <section class="line"></section>
+            </section>
+
+            <section class="toggle-btn-item center" [ngClass]="{ 'selected-tab': selectedFirstTab === 'links' }"
+                (click)="toggleSelectedTab('links')">
+                <section class="item-text">Links</section>
+                <section class="line"></section>
+            </section>
+
+            <section class="toggle-btn-item center" [ngClass]="{ 'selected-tab': selectedFirstTab === 'report' }"
+                (click)="toggleSelectedTab('report')">
+                <section class="item-text">My Earnings</section>
+                <section class="line"></section>
+            </section>
+
+
+            <section class="toggle-btn-item" [ngClass]="{ 'selected-tab': selectedFirstTab === 'settings' }"
+                (click)="toggleSelectedTab('settings')">
+                <section class="item-text">Settings</section>
+                <section class="line"></section>
+            </section>
+        </section>
+        <!-- My Selection -->
+        <section [hidden]="selectedFirstTab !== 'selections'">
+            <section class="selection-works" style="margin: 10px">
+                <span class="title">My Selections ({{ shopProductList.length }}/20)</span>
+                <span class="how-it-works" (click)="showStoreTutorial()">How it works?</span>
+            </section>
+            <div class="selected">
+                <div class="shop-item-container">
+                    <div class="loading-section" *ngIf="loading">
+                        <app-loading></app-loading>
+                    </div>
+                    <div class="shop-item" *ngFor="let product of shopProductList; index as i">
+                        <app-shop-item [product]="product" [showCommission]="true" (click)="videProductDetail(product)">
+                        </app-shop-item>
+                        <div class="remove-button" (click)="removeProductFromShop(product, i)">Remove</div>
+                    </div>
+                </div>
+                <div class="empty-message" *ngIf="shopProductList.length === 0 && !loading">
+                    <img src="assets/png/img_money.png" />
+                    <div>Add products below to start earning</div>
+                </div>
+            </div>
+            <div class="selected">
+                <div class="title">What other people are selling?</div>
+                <div class="description">Extra $10 commission for your first store sale</div>
+            </div>
+            <div class="tab">
+                <div
+                    class="tab-item"
+                    [class.active]="(currentActiveTab$ | async) === AVAILABLE_TYPES.popular"
+                    (click)="changeActiveTab(AVAILABLE_TYPES.popular)"
+                >
+                    Popular
+                </div>
+                <div
+                    class="tab-item"
+                    [class.active]="(currentActiveTab$ | async) === AVAILABLE_TYPES.highest_commission"
+                    (click)="changeActiveTab(AVAILABLE_TYPES.highest_commission)"
+                >
+                    Highest Commission
+                </div>
+            </div>
+            <div class="selected">
+                <div class="shop-item-container">
+                    <div class="loading-section" *ngIf="loading">
+                        <app-loading></app-loading>
+                    </div>
+                    <div class="shop-item" *ngFor="let product of remainingProductList; index as i">
+                        <app-shop-item [product]="product" [showCommission]="true" (click)="videProductDetail(product)">
+                        </app-shop-item>
+                        <div class="buy-button" (click)="addProductToShop(product, i)"
+                            [ngClass]="{ disabled: product.loading || shopProductList.length >= 20 }">
+                            Add To Selection
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <section [hidden]="selectedFirstTab !== 'links'">
+            <!-- Icon List -->
+            <div class="choose_link" *ngIf="thumbnail">
+                <div class="choose_link_title">
+                    <p>Choose Link Thumbnail</p>
+                    <div class="close_button" (click)="toggle()">
+                        <img src="../../../assets/svg/cancel.svg" alt="">
+                    </div>
+                </div>
+
+                <div class="choose_link_boxes">
+                    <div class="choose_link_box" *ngFor='let data of UpdatedLinksName ; index as i'>
+                        <div [ngClass]="{'disable': data.disable}" (click)="linkform(i)" class="choose_link_box_left">
+                            <img src="{{data.path}}" alt="">
+                            <p>{{data.name}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="button_div" (click)="cancelThumbnail()">
+                    <button class="add_new_link_button">Cancel</button>
+                </div>
+            </div>
+
+
+
+            <!-- Link Form -->
+            <div class="select_icon" *ngIf=showaddForm>
+                <div class="select_icon_title">
+                    <h1>Link Details</h1>
+                    <div class="close_button" (click)="RenderFirst()">
+                        <img src="../../../assets/svg/cancel.svg" alt="">
+                    </div>
+                </div>
+                <div class="thumline_title">
+                    <p>Thumbnail</p>
+                    <div class="change_icon" (click)="ChangeLinkIcon()">
+                        <img src="{{LinksName[LinksNameId].path}}" alt="">
+                        <p>Change</p>
+                    </div>
+                </div>
+                <div class="choose_icon_form">
+                    <form [formGroup]="linkaddForm" (ngSubmit)="submitForm()">
+                        <div class="url_set add_url_detail">
+                            <div class="url_detail">
+                                <div class="url_title">
+                                    <div class="Title_feild">
+                                        <label>Title</label>
+                                        <input type="text" formControlName="title" id="title" name="title" required
+                                            minlength="4" placeholder="Title for the link. Max 20 characters"
+                                            [ngClass]="{ 'is-invalid': submitted && myForm.title.errors }" />
+
+                                        <div *ngIf="submitted && myForm.title.errors" class="invalid-feedback">
+                                            <div *ngIf="myForm.title.errors.required" style="color:red"> Title is
+                                                required</div>
+                                            <div style="color:red" *ngIf="myForm.title.errors.maxlength">Title for the
+                                                link. Max 20
+                                                characters </div>
+                                        </div>
+                                    </div>
+                                    <div class="placeholder_feild">
+                                        <label>Link</label>
+                                        <input type="text" formControlName="url" placeholder="https://"
+                                            [ngClass]="{ 'is-invalid': submitted && myForm.url.errors }" />
+
+                                        <div *ngIf="submitted && myForm.url.errors" class="invalid-feedback">
+                                            <div *ngIf="myForm.url.errors.required" style="color:red"> Url is
+                                                required</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="add_line">
+                            <button>Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+            <div class="LinkSection link_main" *ngIf="link_main">
+                <div class="my_link_title">
+                    <p>Show 'My Link' in Shop</p>
+                    <div class="my_link_title_toggle url_radio">
+                        <ui-switch [(ngModel)]="status" (valueChange)="onShowHideLinks($event)">
+                        </ui-switch>
+                    </div>
+                </div>
+                <div class="look_like">
+                    <div class="how_look_like">
+                        <span>HOW IT LOOKS LIKE</span>
+                    </div>
+                    <div class="social_icon" *ngIf='getshopdetails?.links?.length > 0;else emptylinkPreview'>
+                        <div class="social_icon_box" *ngFor='let link of getshopdetails?.links; '>
+                            <div class="icon_box">
+                                <a href="https://{{link?.url}}" target="_blank">
+                                    <img src="{{LinksName[link?.arrayIndex]?.path}}" alt=""></a>
+                            </div>
+                            <p>{{link?.title}}</p>
+                        </div>
+                    </div>
+                    <ng-template #emptylinkPreview>
+                        <div class="social_icon">
+                            <div class="social_icon_box">
+                                <div class="icon_box">
+                                    <img src="../../../assets/Link_icon/tinified/ic_youtube@2x.png" alt="">
+                                </div>
+                                <p>My Youtube</p>
+                            </div>
+                            <div class="social_icon_box">
+                                <div class="icon_box">
+                                    <img src="../../../assets/Link_icon/tinified/ic_twitter@2x.png" alt="">
+                                </div>
+                                <p>My Twitter</p>
+                            </div>
+
+
+                            <div class="social_icon_box">
+                                <div class="icon_box">
+                                    <img src="../../../assets/Link_icon/tinified/ic_tiktok@2x.png" alt="">
+                                </div>
+                                <p>My TikTok</p>
+                            </div>
+                        </div>
+                    </ng-template>
+
+                    <div class="how_look_like">
+                        <span>EDIT</span>
+                    </div>
+                </div>
+
+                <div class='socialLinks' *ngIf='getshopdetails?.links?.length > 0;else emptylinks'>
+                    <div class="medialink">
+                        <div class="url_set" *ngFor='let link of getshopdetails?.links; index as i'>
+                            <div class="arrow_set">
+
+                                <div class="up_arrow disablearrow" (click)="upArrow(i)" *ngIf="i===0;else UpArrow">
+                                    <img src="../../../assets/svg/uparrow.svg" alt="">
+                                </div>
+                                <ng-template #UpArrow>
+                                    <div class="up_arrow" (click)="upArrow(i)">
+                                        <img src="../../../assets/svg/Vector (1).svg" alt="">
+                                    </div>
+                                </ng-template>
+                                <div class="down_arrow disablearrow" (click)="downArrow(i)"
+                                    *ngIf="i===LastDownArrow;else DownArrow">
+                                    <img src="../../../assets/svg/downarrow.svg" alt="">
+                                </div>
+                                <ng-template #DownArrow>
+                                    <div class="down_arrow" (click)="downArrow(i)">
+                                        <img src="../../../assets/svg/Vector (2).svg" alt="">
+                                    </div>
+                                </ng-template>
+                            </div>
+                            <div class="url_detail">
+                                <div class="url_title">
+                                    <div>
+                                        {{link?.title}}
+                                    </div>
+                                    <div class="">
+                                        {{link?.url}}
+                                    </div>
+                                    <div class="edit_icon_set">
+                                        <img (click)="openEditForm(i,link.title,link.url)"
+                                            src="../../../assets/svg/edit.svg" />
+                                    </div>
+                                </div>
+                                <div class="delete_icon">
+                                    <a nz-popconfirm nzPopconfirmTitle="Delete this link?" nzPopconfirmPlacement="top"
+                                        (nzOnConfirm)="confirm(i)" nzCancelText="Cancel" nzOkText="Delete"
+                                        (nzOnCancel)="cancel()"><img src="../../../assets/png/delete.png" /></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <ng-template #emptylinks>
+                    <div class="link_shop_body">
+                        <p class="dummy_text">Add your preferred website to your shop</p>
+                    </div>
+                </ng-template>
+                <div class="button_div" (click)="togglenewAdd()">
+                    <button class="add_new_link_button diasble_add_new_link" *ngIf="LimitLink;else disableadd"> Max 4
+                        Links</button>
+                    <ng-template #disableadd>
+                        <button class="add_new_link_button"> Add New Link </button>
+                    </ng-template>
+                </div>
+            </div>
+
+            <!-- Edit Form -->
+            <div class="select_icon" *ngIf="showEditForm">
+                <div class="select_icon_title">
+                    <h1>Link Details</h1>
+                    <div class="close_button" (click)="showmainpage()">
+                        <img src="../../../assets/svg/cancel.svg" alt="">
+                    </div>
+                </div>
+                <div class="thumline_title">
+                    <p>Thumbnail</p>
+                    <div class="change_icon" (click)="ChangeLinkEditIcon()">
+                        <img src="{{LinksName[linksIndex].path}}" alt="">
+                        <p>Change</p>
+                    </div>
+                </div>
+                <div class="choose_icon_form">
+                    <form [formGroup]="editLinkForm" (ngSubmit)="SubmitEditForm()">
+                        <div class="url_set add_url_detail">
+                            <div class="url_detail">
+                                <div class="url_title">
+                                    <div class="Title_feild">
+                                        <label>Title</label>
+                                        <input type=text formControlName="title" required
+                                            placeholder="Title for the link. Max 20 characters"
+                                            [ngClass]="{ 'is-invalid': submitted && myForm.title.errors }" />
+
+                                        <div *ngIf="submitted && myForm.title.errors" class="invalid-feedback">
+                                            <div *ngIf="myForm.title.errors.required" style="color:red"> Title is
+                                                required</div>
+                                            <div style="color:red" *ngIf="myForm.title.errors.maxlength">Title for
+                                                the
+                                                link. Max 20
+                                                characters </div>
+                                        </div>
+                                    </div>
+                                    <div class="placeholder_feild">
+                                        <label>Link</label>
+                                        <input type=text formControlName="url" placeholder="https://"
+                                            [ngClass]="{ 'is-invalid': submitted && myForm.url.errors }" />
+
+                                        <div *ngIf="submitted && myForm.url.errors" class="invalid-feedback">
+                                            <div *ngIf="myForm.url.errors.required" style="color:red"> Url is
+                                                required</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="add_line">
+                            <button>Save</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- My links -->
+        <section class="main_link_section" [hidden]="selectedFirstTab !== 'my_links'">
+            <div *ngFor="let data of getshopdetails?.links"
+                [ngStyle]="{ 'background-image': 'url(' + backgroundImg + ')' }">
+                <div class="LinkSection mylink_main" style="text-align: center;" *ngIf="data?.display">
+                    <div class="mylink_title" style="text-align: center;">
+                        <a class="titleh1" style="color: #ffffff;" href="https://{{data?.url}}"
+                            target="_blank">{{data?.title}}</a>
+                    </div>
+                </div>
+                <div class="blank_div" *ngIf="data?.display">
+
+                </div>
+
+
+            </div>
+        </section>
+
+
+
+        <!-- Settings -->
+        <app-shop-setting [shopDetail]="shopDetail" [hidden]="selectedFirstTab !== 'settings'"
+            (onUpdateShopDetail)="updateShopDetail($event)"></app-shop-setting>
+
+        <!-- Store Report -->
+        <app-store-report [hidden]="selectedFirstTab !== 'report'"></app-store-report>
+    </section>
+
+    <div class="remove-modal">
+        <Modal className="remove-modal" (ngModelChange)="removeModalShow = $event" [popup]="true" [closable]="false"
+            [ngModel]="removeModalShow" [transparent]="true" (onClose)="onRemoveModalClose()">
+            <div class="remove-container" *ngIf="selectedProduct">
+                <div class="remove-title">Remove Product</div>
+                <div class="remove-question">Are you sure you want to remove this product from your selections list?
+                </div>
+                <div class="shop-item remove-item">
+                    <app-shop-item [product]="selectedProduct" [showCommission]="true"></app-shop-item>
+                </div>
+                <div class="buttons">
+                    <div class="cancel-button" (click)="onRemoveModalClose()">Cancel</div>
+                    <div class="remove-button" (click)="removeProductReal(selectedProduct)">Remove</div>
+                </div>
+            </div>
+        </Modal>
+    </div>
+</div>

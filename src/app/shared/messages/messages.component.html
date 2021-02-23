@@ -1,0 +1,22 @@
+<div *ngIf="showMessage" class="">
+
+    <div class="message-container overlay">
+        <div class="message-box">
+            <div *ngIf="lastMessageOptions?.type === MessageType.message" class="message">
+                <div class="message-content">
+                    <div class="message-icon">
+                        <img [src]="'assets/svg/mdi_'+lastMessageOptions.messageLevel+'.svg'">
+                    </div>
+
+                    <div class="message-text">
+                        {{lastMessageOptions?.text}}
+                    </div>
+                </div>
+
+                <div (click)="closeMessage()" class="buttons-row">
+                    <div class="button">Ok</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

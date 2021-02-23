@@ -1,0 +1,235 @@
+::ng-deep {
+    .am-badge-text {
+        top: 0 !important;
+        width: 20px;
+        height: 14px;
+        font-size: 10px;
+        font-weight: 600;
+        line-height: 14px;
+        text-align: center;
+    }
+
+    .am-tabs-default-bar-content {
+        .am-tabs-default-bar-tab-active {
+            > div {
+                color: #414bb2;
+            }
+
+            .am-badge-text {
+                color: #ffffff;
+                background-color: #414bb2;
+            }
+        }
+
+        .am-tabs-default-bar-tab:not(.am-tabs-default-bar-tab-active) {
+            > div {
+                color: #bdbdbd;
+            }
+
+            .am-badge-text {
+                color: #a7b3c0;
+                background-color: #eaeff4;
+            }
+        }
+
+        .am-tabs-default-bar-underline {
+            display: none;
+        }
+    }
+
+    .am-tabs-default-bar-top .am-tabs-default-bar-tab-active::after {
+        height: 6px !important;
+        background-color: #414bb2 !important;
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+        border: none;
+    }
+
+    .ant-modal-content {
+        border-radius: 20px;
+    }
+}
+
+.custom-icon-button {
+    width: 24px;
+    height: 24px;
+}
+
+.header {
+    height: 50px;
+    flex-direction: row;
+    justify-content: space-between;
+    display: flex;
+    padding: 10px 15px;
+
+    > div {
+        display: flex;
+        flex: 1;
+
+        a {
+            img {
+                max-width: 24px;
+                max-height: 24px;
+                border-radius: 50%;
+            }
+        }
+
+        div[Button] {
+            width: 100%;
+        }
+    }
+
+    .notifications-button {
+        flex-direction: row-reverse;
+
+        .custom-icon-button {
+            display: none;
+        }
+
+        .shop-icon {
+            .navigation-icon {
+                margin-left: 10px;
+                height: 14px;
+            }
+            .admin {
+                font-family: Montserrat;
+                font-style: normal;
+                font-weight: 600;
+                font-size: 14px;
+                line-height: 17px;
+                text-align: center;
+                color: #8695a5;
+            }
+        }
+    }
+}
+
+.dashboard-section {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 15px;
+    width: 100%;
+    height: 100%;
+    min-height: calc(100vh - 50px);
+
+    .dashboard-content {
+        .discover-mycampaign {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 8px;
+            .big-type-item {
+                flex: 1;
+                position: relative;
+                width: fit-content;
+                overflow: hidden;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .content {
+                    display: flex;
+                    position: relative;
+                    width: fit-content;
+                    color: #bdbdbd;
+                    transition: all linear 0.1s;
+                    &.selected {
+                        color: #414bb2;
+                        .underline {
+                            background-color: #414bb2;
+                        }
+                    }
+                    .title {
+                        padding: 6px 10px;
+                        font-weight: 600;
+                        font-size: 14px;
+                        line-height: 17px;
+                    }
+                    .underline {
+                        position: absolute;
+                        left: 0;
+                        bottom: 0;
+                        width: 100%;
+                        height: 6px;
+                        transform: translateY(50%);
+                        border-radius: 3px;
+                        transition: all linear 0.1s;
+                    }
+                }
+            }
+        }
+
+        .detail-tab-container {
+            width: 100%;
+            height: 28px;
+            border: 1px solid #eaeff4;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px 0 14px 0;
+
+            .detail-tab-item {
+                flex: 1;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: #8695a5;
+                font-size: 12px;
+                font-weight: 500;
+                border-right: 1px solid #eaeff4;
+                transition: all linear 0.2s;
+                &:last-child {
+                    border: none;
+                }
+                &.selected {
+                    background-color: #eaeff4;
+                }
+            }
+        }
+
+        .tab-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+
+            .campaigns-list {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .empty-list {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                align-items: center;
+                margin-top: 40px;
+
+                .text {
+                    margin-top: 35px;
+                    font-size: 14px;
+                    line-height: 16px;
+                    letter-spacing: 0.1px;
+                    color: #45515d;
+                }
+            }
+
+            .loading {
+                margin-top: 20px;
+            }
+        }
+    }
+}
+
+.download-app {
+    position: -webkit-sticky;
+    position: sticky;
+    bottom: 0;
+    z-index: 1;
+}

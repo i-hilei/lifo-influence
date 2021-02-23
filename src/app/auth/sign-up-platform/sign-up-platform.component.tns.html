@@ -1,0 +1,84 @@
+<AbsoluteLayout>
+    <ScrollView height="100%" width="100%">
+        <StackLayout class="platform-box" padding="20">
+            <image src="res://images/brand_logo" height="36" horizontalAlignment="left"></image>
+
+            <!-- Platform -->
+            <label class="title" text="Select Your Interested Platforms:"></label>
+            <GridLayout rows="auto, auto, auto, auto" columns="*, *">
+                <AbsoluteLayout
+                    *ngFor="let platform of platforms; let i = index"
+                    class="platform-item"
+                    row="{{getRow(i)}}"
+                    col="{{getCol(i)}}"
+                    marginLeft="{{isFirstColumn(i)?0:8}}"
+                    marginRight="{{isFirstColumn(i)?8:0}}"
+                    height="50"
+                    (tap)="selectItem(platform)"
+                >
+                    <FlexboxLayout justifyContent="flex-start" alignItems="center" width="100%" height="100%">
+                        <image src="res://images/{{platform.src}}" width="30" height="30" stretch="aspectFit" margin="0 8"></image>
+                        <label text="{{platform.title}}" fontWeight="600" color="#0D053C"></label>
+                    </FlexboxLayout>
+
+                    <GridLayout *ngIf="platform.checked" rows="*, 24" columns="*, 24" width="100%" height="100%" class="selected-overlay">
+                        <StackLayout row="0" column="0" colSpan="2"> </StackLayout>
+                        <image row="1" column="1" src="res://images/ic_selected" width="24" stretch="aspectFit"></image>
+                    </GridLayout>
+                </AbsoluteLayout>
+            </GridLayout>
+
+            <!-- Content Type -->
+            <label class="title" text="Select Your Preferred Content Types:"></label>
+            <GridLayout rows="auto, auto" columns="*, *">
+                <AbsoluteLayout
+                    *ngFor="let contentType of contentTypes; let i = index"
+                    class="platform-item"
+                    row="{{getRow(i)}}"
+                    col="{{getCol(i)}}"
+                    marginLeft="{{isFirstColumn(i)?0:8}}"
+                    marginRight="{{isFirstColumn(i)?8:0}}"
+                    height="50"
+                    (tap)="selectItem(contentType)"
+                >
+                    <FlexboxLayout justifyContent="flex-start" alignItems="center" width="100%" height="100%">
+                        <image src="res://images/{{contentType.src}}" width="30" height="30" stretch="aspectFit" margin="0 8"></image>
+                        <label text="{{contentType.title}}" fontWeight="600" color="#0D053C"></label>
+                    </FlexboxLayout>
+
+                    <GridLayout
+                        *ngIf="contentType.checked"
+                        rows="*, 24"
+                        columns="*, 24"
+                        width="100%"
+                        height="100%"
+                        class="selected-overlay"
+                    >
+                        <StackLayout row="0" column="0" colSpan="2"> </StackLayout>
+                        <image row="1" column="1" src="res://images/ic_selected" width="24" stretch="aspectFit"></image>
+                    </GridLayout>
+                </AbsoluteLayout>
+            </GridLayout>
+
+            <button class="btn-item confirm" text="Confirm" (tap)="confirm()"></button>
+            <button class="btn-item skip" text="Skip" (tap)="goNextPage()"></button>
+
+            <label class="step" text="2/2" horizontalAlignment="center"></label>
+        </StackLayout>
+    </ScrollView>
+
+    <FlexboxLayout
+        *ngIf="loading"
+        top="0"
+        left="0"
+        width="100%"
+        height="100%"
+        justifyContent="center"
+        alignItems="center"
+        backgroundColor="rgba(255,255,255,0.5)"
+    >
+        <StackLayout width="auto" height="auto" backgroundColor="#fff" borderRadius="10" padding="50" borderWidth="1" borderColor="#eee">
+            <ActivityIndicator busy="true" color="#ccc"></ActivityIndicator>
+        </StackLayout>
+    </FlexboxLayout>
+</AbsoluteLayout>

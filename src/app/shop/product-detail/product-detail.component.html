@@ -1,0 +1,426 @@
+<div class="shop-container">
+    <div class="header-container">
+        <div class="external-store-header">
+            <div class="back" (click)="backToDashboard()">
+                <img src="assets/png/left-arrow-dark.png" class="navigation-icon" />
+            </div>
+            <div class="admin">Lifo Shop</div>
+            <div class="back action" *ngIf="enableShopingCart">
+                <img src="assets/png/shoping_cart_dark.png" class="navigation-icon" (click)="visitCart()" />
+                <span class="badge">{{shopingCart.length}}</span>
+                <img src="assets/png/ic_share_box@2x.png" class="navigation-icon" (click)="copyLink()" />
+            </div>
+            <div class="back" *ngIf="!enableShopingCart">
+                <img src="assets/png/ic_share_box@2x.png" class="navigation-icon" (click)="copyLink()" />
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="product" class="shop-item">
+        <div class="product-image">
+            <section class="img-preview">
+                <nz-carousel #carousel (nzAfterChange)="afterChange()" (nzBeforeChange)="beforeChange($event)"
+                    [nzDots]="false">
+                    <div *ngFor="let image of product.images" nz-carousel-content>
+                        <img [src]="image.src" />
+                    </div>
+                </nz-carousel>
+
+                <div class="spacial__line" *ngIf="product.promoted">
+                    <div class="special">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M5.99958 2.49085C4.00028 -0.519278 1.95734e-08 0.733371 0 4.01162C0 6.22994 1.99805 7.81147 3.50003 9.00379C5.06256 10.2434 5.50017 11.0185 5.99958 11.52C6.49983 11.0185 6.91823 10.2166 8.49955 9.00379C10.0241 7.83576 12 6.20481 12 3.98774C12 0.733371 7.99972 -0.518859 5.99958 2.49085Z"
+                                fill="#E41515"
+                            />
+                        </svg>
+                        Special Edition
+                    </div>
+                </div>
+            </section>
+            <section class="img-tab">
+                <section class="img-container">
+                    <section (click)="selectPreviewImg(i)" *ngFor="let image of product.images; let i = index"
+                        [ngClass]="{ selected: i === selectedIndex }" class="img-tab-item">
+                        <img [src]="image.src" />
+                    </section>
+                </section>
+            </section>
+        </div>
+        <section class="padding-20">
+            <div class="deatils_timter__main">
+                <div class="deatils_timter" *ngIf="!shopId && product.commission_offer_deadline">
+                    <div class="deatils_timter_left">
+                        <h5>Limited Time Offer</h5>
+                        <div class="bottom__timer">
+                            <h1>{{ math.round((product.additional_commission / product.commission) * 100) }}%</h1>
+                            <span>Commission Increase </span>
+                        </div>
+                    </div>
+                    <div class="deatils_timter_right">
+                        <h5>Ends</h5>
+                        <div class="timer">
+                            <div class="time">
+                                {{ math.floor((product.commission_offer_deadline - date) / 3600) | number: "2.0-0" }}
+                            </div>
+                            :
+                            <div class="time">
+                                {{ math.floor((product.commission_offer_deadline - date) / 60) % 60 | number: "2.0-0" }}
+                            </div>
+                            :
+                            <div class="time">
+                                {{ (product.commission_offer_deadline - date) % 60 | number: "2.0-0" }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Customer limited time offer -->
+                <div class="deatils_timter" *ngIf="shopId && product.commission_offer_deadline">
+                    <div class="deatils_timter_left">
+                        <h5>Limited Time Offer</h5>
+                        <div class="bottom__timer">
+                            <span class="discount-price">${{ finalProductVariant.price }}</span>
+                            <span class="original-price">${{ finalProductVariant.compareAtPrice }}</span>
+                        </div>
+                    </div>
+                    <div class="deatils_timter_right">
+                        <h5>Ends</h5>
+                        <div class="timer">
+                            <div class="time">
+                                {{ math.floor((product.discount_deadline - date) / 3600) | number: "2.0-0" }}
+                            </div>
+                            :
+                            <div class="time">
+                                {{ math.floor((product.discount_deadline - date) / 60) % 60 | number: "2.0-0" }}
+                            </div>
+                            :
+                            <div class="time">
+                                {{ (product.discount_deadline - date) % 60 | number: "2.0-0" }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Price -->
+                <div *ngIf="!product.commission_offer_deadline" class="product-price">
+                    <span
+                        class="discount-price"
+                        *ngIf="!finalProductVariant.compareAtPrice || finalProductVariant.compareAtPrice === finalProductVariant.price"
+                        >${{ finalProductVariant.price }}</span
+                    >
+                    <ng-container
+                        *ngIf="finalProductVariant.compareAtPrice && finalProductVariant.compareAtPrice !== finalProductVariant.price"
+                    >
+                        <span class="discount-price">${{ finalProductVariant.price }}</span>
+                        <span class="original-price">${{ finalProductVariant.compareAtPrice }}</span>
+                    </ng-container>
+                </div>
+            </div>
+
+            <div class="product-info">
+                <div class="product-commission" *ngIf="!shopId">
+                    <div class="product-border-left">
+                        <div class="product-title">Commission Per Sale</div>
+                        <div class="product-value">
+                            ${{ math.round((product.commission - product.additional_commission) * 100) / 100 | number: "1.0-2" }}
+                            <span class="pluscommission" *ngIf="product.additional_commission"> + {{ product.additional_commission }}</span>
+                        </div>
+                    </div>
+                    <div class="product-border-right">
+                        <div class="product-title">Est. Monthly Earnings</div>
+                        <div class="product-value">${{ product.commission * 10 | number: "1.0-2" }}</div>
+                    </div>
+                </div>
+
+                <!-- Product Title -->
+                <div class="product-title">
+                    <span class="brand-name">{{ product.vendor }} </span>
+                    <span class="product-title-text">{{ product.title }}</span>
+                </div>
+                <div class="shipping">
+                    <div>
+                        <img src="assets/png/ic_shipping@2x.png" />
+                        <span> 3-5 Business Day Shipping </span>
+                        <img src="assets/png/ic_america@3x.png" />
+                    </div>
+
+                    <div>
+                        <img src="assets/png/ic_ stipulate@2x.png" />
+                        <span> 7 Days Free Return </span>
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <section class="description-title" style="font-weight: 500; color: #000">Description</section>
+                <div class="product-description" [innerHtml]="product.descriptionHtml"></div>
+            </div>
+
+            <div class="product-sale" *ngIf="!shopId">
+                <div>
+                    <span class="product-count">{{ product.sold }}</span> items sold
+                </div>
+                |
+                <div>
+                    <span class="product-count">{{ product.influencers }}</span> influencers are selling
+                </div>
+            </div>
+
+            <!-- show if internal -->
+            <div *ngIf="!shopId">
+                <button
+                    *ngIf="shopDetail"
+                    nz-button
+                    class="add-to-selection lifo-btn"
+                    [disabled]="isProductSelected || isProductListFilled"
+                    [nzLoading]="isAddingToSelection"
+                    (click)="addToSelection()"
+                >
+                    {{ isProductSelected ? "Selected" : "Add To Selection" }}
+                </button>
+
+                <button
+                    *ngIf="sampleStatus && sampleStatus !== 'not_available'"
+                    nz-button
+                    class="get-sample-button lifo-btn"
+                    [disabled]="sampleStatus === 'ordered'"
+                    (click)="showPurchaseSampleModal()"
+                >
+                    <ng-container *ngIf="sampleStatus === 'available'">
+                        <span>Purchase Sample At $1 ($</span>
+                        <span class="get-sample-button-original-price">{{
+                            finalProductVariant.compareAtPrice || finalProductVariant.price
+                        }}</span>
+                        <span>)</span>
+                    </ng-container>
+
+                    <ng-container *ngIf="sampleStatus === 'ordered'"> Sample Requested </ng-container>
+                </button>
+            </div>
+        </section>
+    </div>
+
+    <div id="bottom-button" class="bottom-button" *ngIf="shopId && product">
+        <section>
+            <div
+                class="gold-text"
+                *ngIf="
+                    internalProduct?.enable_sharing &&
+                    !enableShopingCart &&
+                    shopId &&
+                    productShareCodeObject.code &&
+                    productShareCodeObject.likes_count > 0
+                "
+            >
+                {{ getCurrentLikeStatus }}
+            </div>
+            <a
+                class="gold-text gold-text-link mb-20 mt-10"
+                *ngIf="internalProduct?.enable_sharing && !enableShopingCart && shopId && !!this.productLink"
+                (click)="copyProductLinkToClipboard(true)"
+            >
+                Copy my sharable link again.
+            </a>
+        </section>
+
+        <!-- Disable sharing -->
+        <ng-container *ngIf="!internalProduct?.enable_sharing">
+            <section class="buttons">
+                <button id="buy-button" class="buy-button" (click)="showModal('variantModal')">
+                    {{ enableShopingCart ? "Add to Cart" : "Buy Now" }}
+                </button>
+            </section>
+        </ng-container>
+
+        <!-- Enable sharing -->
+        <ng-container *ngIf="internalProduct?.enable_sharing">
+            <!-- Phone number exist -->
+            <section *ngIf="!productShareCodeObject.code" class="buttons">
+                <button *ngIf="!enableShopingCart" id="discount-button" class="discount-button mr-10" (click)="getDiscountModal = true">
+                    <img src="assets/png/discount.png" width="18" style="margin-right: 6px" />
+                    Get up to 90% off
+                </button>
+
+                <button id="buy-button" class="buy-button" (click)="showModal('variantModal')">
+                    {{ enableShopingCart ? "Add to Cart" : "Buy Now" }}
+                </button>
+            </section>
+
+            <!-- Phone number doesn't exist -->
+            <section *ngIf="productShareCodeObject.code" class="buttons">
+                <button
+                    *ngIf="!enableShopingCart"
+                    class="discount-button"
+                    (click)="showModal('variantModal')"
+                    style="justify-content: center"
+                >
+                    {{ discountPercentage > 0 ? "Buy with extra " + discountPercentage + "% off" : "Buy now" }}
+                </button>
+
+                <button *ngIf="enableShopingCart" id="buy-button" class="buy-button" (click)="showModal('variantModal')">
+                    Add to Cart
+                </button>
+            </section>
+        </ng-container>
+    </div>
+
+    <section *ngIf="!product" style="margin-top: 40px">
+        <app-loading></app-loading>
+    </section>
+
+    <!-- Purchase Sample Modal -->
+    <Modal class="radius-modal" [(ngModel)]="modalControl.purchaseSampleModal" [popup]="true"
+        [animationType]="'slide-up'">
+        <app-purchase-sample-modal #PurchaseSampleModal (onConfirmClicked)="confirmPurchaseClick()">
+        </app-purchase-sample-modal>
+    </Modal>
+
+    <!-- Address Form Modal -->
+    <Modal class="radius-modal" [(ngModel)]="modalControl.addressInputsModal" [popup]="true"
+        [animationType]="'slide-up'">
+        <app-address-form-modal #AddressFormModal (onPurchase)="purchaseSample($event)"></app-address-form-modal>
+    </Modal>
+
+    <!-- Variant Modal -->
+    <Modal
+        class="radius-modal"
+        [(ngModel)]="modalControl.variantModal"
+        [popup]="true"
+        [animationType]="'slide-up'"
+        (onClose)="variantSelect.quantity = 1"
+    >
+        <app-product-variant-select
+            #variantSelect
+            [product]="product"
+            [discountPercentage]="discountPercentage"
+            [showCountButton]="!(internalProduct?.enable_sharing && productShareCodeObject.code)"
+            (payMoney)="createOrder($event)"
+            (addToCart)="addToCart($event)"
+            (updateSelectedVariants)="updateSelectVariant($event)"
+        ></app-product-variant-select>
+    </Modal>
+
+    <Modal
+        class="bg-transparent-modal creating-order-modal"
+        [maskClosable]="false"
+        [transparent]="true"
+        [closable]="false"
+        [(ngModel)]="isCreatingOrder"
+    >
+        <section class="creating-order">
+            <app-loading></app-loading>
+            <section class="desc">Creating Order</section>
+        </section>
+    </Modal>
+
+    <Modal class="radius-modal" [popup]="true" [animationType]="'slide-up'" [transparent]="true" [(ngModel)]="getDiscountModal">
+        <section class="modal-container" *ngIf="!showLinkModal">
+            <div class="title">Get up to 90% off!</div>
+            <div class="description">
+                Share this product out to collect LIKES from friends. For every LIKE collected, you’ll get an extra 10% off for this
+                product, until 90% is reached. Your friend will also get a $5 Gift Card.
+                <br />
+                <span>Enter and verify your phone number to claim your discount later:</span>
+            </div>
+            <div class="phone-number">
+                <nz-form-control>
+                    <input
+                        nz-input
+                        placeholder="Phone number"
+                        style="margin-bottom: 10px; color: #000"
+                        mask="(000) 000-0000"
+                        [prefix]="phonePrefix"
+                        [formControl]="phoneNumberControl"
+                    />
+                </nz-form-control>
+                <nz-form-control>
+                    <input nz-input placeholder="verification code" [formControl]="verificationCodeControl" />
+                    <button
+                        class="get-code-button"
+                        [disabled]="!phoneNumberControl.valid || disableSendCode || gettingCode"
+                        (click)="getCode()"
+                    >
+                        {{ disableSendCode ? remainingDurationToSendCode + "s" : "Get Code" }}
+                    </button>
+                </nz-form-control>
+            </div>
+            <div class="buttons-row">
+                <button class="button cancel-button" (click)="getDiscountModal = false">Back</button>
+                <button
+                    class="button submit-button ml-20"
+                    [disabled]="!phoneNumberControl.valid || !verificationCodeControl.valid"
+                    (click)="submitPhoneNumber()"
+                >
+                    Submit
+                </button>
+            </div>
+        </section>
+        <section class="modal-container" *ngIf="showLinkModal">
+            <div class="title">URL copied. Share for discount!</div>
+            <div class="description">Start to collect your LIKES and get the discount!</div>
+            <div class="product-link-block" *ngIf="productLink">
+                <div class="product-link">
+                    {{ productLink }}
+                </div>
+                <div class="button product-copy-button" (click)="copyProductLinkToClipboard()">
+                    <img src="assets/svg/checked.svg" />
+                </div>
+            </div>
+            <div class="buttons-row">
+                <button class="button submit-button" (click)="getDiscountModal = false">Got It</button>
+            </div>
+        </section>
+    </Modal>
+
+    <Modal class="radius-modal" [popup]="true" [animationType]="'slide-up'" [transparent]="true" [(ngModel)]="likeModal.show_modal">
+        <section class="modal-container" style="padding: 20px" *ngIf="likeModal.step_1">
+            <div class="title gold">Hi my friend, I need your like to get a discount for this product!</div>
+            <div class="description">
+                Support me by simply clicking the LIKE button below, then I can get a discount for the product while you can get a $5 Gift
+                Card from Lifo Shop.
+            </div>
+
+            <div class="buttons-row">
+                <button class="button submit-button" (click)="likeModal.step_1 = false; likeModal.step_2 = true">
+                    LIKE and get the gift card
+                </button>
+            </div>
+        </section>
+
+        <section class="modal-container" style="padding: 20px" *ngIf="likeModal.step_2">
+            <div class="title">Thank you for your support!</div>
+            <div class="description">Enter your phone number and the gift card will be texted to you.</div>
+            <div class="phone-number">
+                <nz-form-control>
+                    <input
+                        nz-input
+                        placeholder="Phone number"
+                        style="margin-bottom: 10px"
+                        prefix="+1 "
+                        mask="(000) 000-0000"
+                        [formControl]="phoneNumberControl"
+                    />
+                </nz-form-control>
+                <nz-form-control>
+                    <input nz-input placeholder="verification code" [formControl]="verificationCodeControl" />
+                    <button
+                        class="get-code-button"
+                        [disabled]="!phoneNumberControl.valid || disableSendCode || gettingCode"
+                        (click)="getCode()"
+                    >
+                        {{ disableSendCode ? remainingDurationToSendCode + "s" : "Get Code" }}
+                    </button>
+                </nz-form-control>
+            </div>
+            <div class="buttons-row">
+                <button
+                    class="button submit-button"
+                    [disabled]="!phoneNumberControl.valid || !verificationCodeControl.valid"
+                    (click)="likeProduct()"
+                >
+                    Confirm
+                </button>
+            </div>
+        </section>
+    </Modal>
+</div>

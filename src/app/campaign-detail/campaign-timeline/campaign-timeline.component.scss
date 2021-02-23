@@ -1,0 +1,374 @@
+::ng-deep {
+    .am-steps-vertical {
+        .am-steps-item-tail:after {
+            height: 0;
+            width: 0;
+        }
+
+        .am-steps-item-tail {
+            margin-top: 10px;
+            border-left: dashed 1px #e0e0e0;
+        }
+    }
+}
+
+.campaign-timeline {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+
+    .campaign-information {
+        display: flex;
+    }
+
+    .steps {
+        display: flex;
+        flex-direction: column;
+
+        .step {
+            display: flex;
+            flex-direction: row;
+            position: relative;
+            padding: 10px 0;
+
+            .line {
+                position: absolute;
+                height: 100%;
+                left: 7.4px;
+                top: 20px;
+                border-left: dashed 1px #e0e0e0;
+                z-index: 0;
+            }
+
+            .icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 18px;
+                height: 18px;
+                z-index: 1;
+
+                .circle {
+                    display: flex;
+                    width: 10px;
+                    height: 10px;
+                    border-radius: 50%;
+                }
+
+                .circle.waiting {
+                    background-color: #a7b3c0;
+                }
+
+                .circle.active {
+                    background-color: #f2994a;
+                }
+
+                .circle.completed {
+                    background-color: #219653;
+                }
+            }
+
+            .step-content {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                margin-left: 9px;
+
+                .step-header {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    margin-bottom: 17px;
+
+                    .header-text {
+                        display: flex;
+                        flex: 3;
+                        font-size: 14px;
+                        line-height: 17px;
+                        text-transform: capitalize;
+                        color: #45515e;
+
+                        .bonus {
+                            margin-left: 5px;
+                            font-size: 14px;
+                            color: #219653;
+                        }
+                    }
+
+                    .step-completed-date {
+                        font-size: 14px;
+                        line-height: 18px;
+                        color: #828282;
+                    }
+
+                    .campaign-status {
+                        display: flex;
+                        min-width: 80px;
+                        height: 20px;
+                        border-radius: 4px;
+                        justify-content: center;
+                        align-items: center;
+                        font-weight: 600;
+                        font-size: 10px;
+                        line-height: 20px;
+                        background-color: #f2f2f2;
+                        color: #828282;
+
+                        .status-content {
+                            display: flex;
+                            align-items: center;
+                        }
+
+                        img {
+                            margin-right: 3px;
+                        }
+                    }
+
+                    .campaign-status.red {
+                        background-color: #ffebec;
+                        color: #eb5757;
+
+                        svg path {
+                            fill: #eb5757;
+                        }
+                    }
+
+                    .campaign-status.blue {
+                        background-color: #e3eefd;
+                        color: #7aa2d8;
+
+                        svg path {
+                            fill: #7aa2d8;
+                        }
+                    }
+
+                    .campaign-status.green {
+                        background-color: #dcefeb;
+                        color: #78b3a6;
+
+                        svg path {
+                            fill: #78b3a6;
+                        }
+                    }
+
+                    .campaign-status.orange {
+                        color: #f2994a;
+                        background-color: #fae4d1;
+
+                        svg path {
+                            fill: #f2994a;
+                        }
+                    }
+                }
+
+                .step-header.disabled {
+                    color: #a7b3c0;
+
+                    .header-text {
+                        color: #a7b3c0;
+                    }
+
+                    .campaign-status {
+                        opacity: 0.5;
+                    }
+                }
+
+                .warning-message {
+                    margin-bottom: 20px;
+                }
+
+                .warning-message.orange {
+                    color: #f2994a;
+                }
+
+                .warning-message.red {
+                    color: #eb5757;
+                }
+
+                .warning-message.green {
+                    color: #219653;
+                }
+
+                .post-banner {
+                    margin-top: 10px;
+                    background: #ffebec;
+                    border-radius: 6px;
+                    display: inline-block;
+                    padding: 5px 15px;
+                    font-weight: 600;
+                    color: #eb5757;
+                    vertical-align: top;
+                }
+
+                .step-description {
+                    padding: 14px;
+                    background: #f4f7ff;
+                    border-radius: 8px;
+                    font-size: 14px;
+                    line-height: 18px;
+                    color: #4f4f4f;
+
+                    ::ng-deep nz-input-group {
+                        .ant-input-wrapper {
+                            background-color: #ffffff;
+                            border: 1px solid #2f80ed;
+                            border-radius: 11px;
+                            padding: 3px;
+
+                            .ant-input-group-addon {
+                                background-color: #ffffff;
+                                border: none;
+
+                                i svg path {
+                                    fill: #2f80ed;
+                                }
+                            }
+
+                            input {
+                                border: none !important;
+                                box-shadow: none !important;
+                                padding-left: 0px;
+                            }
+                        }
+                    }
+
+                    .order-number-title {
+                        color: #4f4f4f;
+                        margin-bottom: 6px;
+                    }
+
+                    .order-number {
+                        font-family: Montserrat;
+                        font-weight: 600;
+                    }
+
+                    .current-shipping {
+                        margin: 10px 0;
+                        width: 100%;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+
+                        .anticon {
+                            color: #219653;
+                            margin-right: 10px;
+                        }
+
+                        span {
+                            flex: 1;
+                        }
+                    }
+
+                    .tracking-number {
+                        // text-decoration: underline;
+                        color: #4f4f4f;
+                        font-weight: 600;
+
+                        i {
+                            color: #2f80ed;
+                        }
+                    }
+
+                    .tracking-carrier {
+                        margin: 10px 0;
+                    }
+
+                    .campaign-status-information {
+                        display: flex;
+                        align-items: center;
+                        flex: 2;
+                        padding: 3px;
+                        font-weight: 500;
+                        font-size: 14px;
+                        line-height: 18px;
+                        color: #828282;
+
+                        .icon {
+                            width: 16px;
+                            height: 16px;
+                            margin-right: 3px;
+                        }
+                    }
+
+                    .campaign-status-information.red {
+                        color: #eb5757;
+                    }
+
+                    .campaign-status-information.blue {
+                        color: #7aa2d8;
+                    }
+
+                    .campaign-status-information.green {
+                        color: #78b3a6;
+                    }
+
+                    .web-link {
+                        margin: 15px 0 20px 0;
+                        > a {
+                            display: flex;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            > i {
+                                margin-right: 5px;
+                            }
+                        }
+                    }
+
+                    .input-block {
+                        margin-top: 10px;
+                        .input-tip {
+                            font-weight: 500;
+                            font-size: 10px;
+                            line-height: 16px;
+                            letter-spacing: 0.1px;
+                        }
+
+                        nz-form-control ::ng-deep .ant-form-item-control-input-content {
+                            display: flex;
+                            flex-direction: row;
+                        }
+                        .ant-form-item {
+                            margin-bottom: 0px;
+                        }
+
+                        .submit-link {
+                            line-height: 30px;
+                        }
+                    }
+
+                    .view-button {
+                        margin: 5px;
+                        font-size: 14px;
+                        line-height: 14px;
+                        font-weight: 500;
+
+                        i {
+                            margin-right: 5px;
+                        }
+                    }
+                }
+
+                .buttons-row {
+                    display: flex;
+                    flex-direction: row;
+                    margin-top: 16px;
+
+                    .button {
+                        display: flex;
+                        justify-content: center;
+                        border: 1px solid #2f80ed;
+                        box-sizing: border-box;
+                        border-radius: 8px;
+                        padding: 7px 30px;
+                        font-weight: 500;
+                        font-size: 12px;
+                        line-height: 16px;
+                        letter-spacing: 0.1px;
+                        color: #0071ff;
+                        height: 30px;
+                    }
+                }
+            }
+        }
+    }
+}

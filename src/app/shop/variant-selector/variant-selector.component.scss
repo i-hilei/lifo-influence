@@ -1,0 +1,55 @@
+
+.product-variants-container {
+    margin: 24px 0px;
+
+    .product-variant-row {
+        color: #000000;
+    }
+
+    .product-variant-options-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    .product-variant-title {
+        font-family: Avenir;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 19px;
+        text-transform: capitalize;
+        color: #000000;
+        margin: 10px 0px;
+    }
+
+    .product-variant-button {
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 19px;
+        text-transform: capitalize;
+        color: #000000;
+        margin-right: 10px;
+        padding: 10px;
+        border-radius: 4px;
+        background-color: #fff;
+    }
+
+    .product-variant-button-checked {
+        border: 0.5px solid #e0e0e0;
+    }
+
+    .product-variant-button-unchecked {
+        color: #898989;
+        border-style: none;
+    }
+
+    .product-variant-button-checked:disabled {
+        color: #d9d9d9;
+    }
+
+    .product-variant-button-unchecked:disabled {
+        color: #d9d9d9;
+    }
+}

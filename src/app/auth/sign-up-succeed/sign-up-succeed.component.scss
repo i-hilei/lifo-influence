@@ -1,0 +1,49 @@
+.welcome-section {
+    display: flex;
+    flex-direction: column;
+    padding: 26px;
+    height: 100%;
+
+    > div {
+        display: flex;
+        flex: 1;
+    }
+
+    .header {
+        flex: 0;
+        flex-direction: row;
+        justify-content: space-between;
+
+        > div {
+            display: flex;
+            flex: 1;
+
+            div[Button] {
+                width: 100%;
+            }
+        }
+    }
+
+    .content-text {
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 34px;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 24px;
+    }
+
+    .get-started-img {
+        justify-content: center;
+    }
+
+    .buttons {
+        align-items: center;
+        justify-content: center;
+
+        div[Button] {
+            width: 100%;
+        }
+    }
+}

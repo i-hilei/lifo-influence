@@ -1,0 +1,22 @@
+<ActionBar title="Setting" class="action-bar" backgroundColor="#fff" borderWidth="1" borderColor="#ccc" color="#333">
+    <NavigationButton></NavigationButton>
+</ActionBar>
+
+<StackLayout class="setting-box">
+    <!-- About -->
+    <FlexboxLayout class="setting-item" justifyContent="space-between" alignItems="center">
+        <label text="About"></label>
+        <StackLayout orientation="horizontal">
+            <label text="Version 1.1.1"></label>
+        </StackLayout>
+    </FlexboxLayout>
+    <!-- Terms of use -->
+    <FlexboxLayout class="setting-item" justifyContent="space-between" alignItems="center" (tap)="showTermsOfUseModal()">
+        <label text="Terms of use" textWrap="true"></label>
+        <image src="res://images/arrow-right" width="20" height="20"></image>
+    </FlexboxLayout>
+    <!-- Log out -->
+    <StackLayout class="setting-item" (tap)="logOut()">
+        <label text="Log out" textWrap="true"></label>
+    </StackLayout>
+</StackLayout>

@@ -1,0 +1,17 @@
+.toggle-tab {
+    margin: 10 0;
+    padding: 4;
+    border-radius: 15;
+    background-color: #eaeff4;
+    label {
+        text-align: center;
+        font-size: 11;
+        margin: 0 4;
+        border-radius: 12;
+        color: #8695a5;
+    }
+    label.active {
+        background-color: #fff;
+        color: #333;
+    }
+}

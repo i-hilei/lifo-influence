@@ -1,0 +1,39 @@
+<div class="lottery-card">
+    <div class="content" [ngStyle]="{'background-image': 'url(\'/assets/png/image109.png\')'}">
+        <div class="tag">
+            <img class="cube" src="assets/svg/cube.svg">
+            <span>Free Product</span>
+        </div>
+
+        <div class="lottery-text">
+            <div class="title">
+                Apple
+            </div>
+
+            <div class="secondary-text">
+                Here is the product name and it will be a little long, but it can’t be longer like this...
+            </div>
+        </div>
+    </div>
+    <div class="description">
+        <div class="lottery-info">
+            <div class="estimation">
+                24hrs left
+            </div>
+
+            <div class="lottery-rating">
+                <div class="stars">
+                    <img class="star" *ngFor="let i of [1,2,3,4,5]" src="assets/svg/star.svg">
+                </div>
+
+                <div class="text">
+                    recommend
+                </div>
+            </div>
+        </div>
+
+        <div class="description-text">
+            Your application is under review
+        </div>
+    </div>
+</div>

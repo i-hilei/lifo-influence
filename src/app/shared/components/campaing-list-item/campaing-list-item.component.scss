@@ -1,0 +1,242 @@
+:host {
+    width: 100%;
+}
+
+.campaign-item {
+    display: flex;
+    flex-direction: column;
+    height: 130px;
+    background: #ffffff;
+    box-shadow: 0 1px 8px rgba(13, 5, 60, 0.08);
+    border-radius: 8px;
+    margin: 10px 2px;
+    padding: 10px;
+
+    .campaign-header {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 10px;
+        height: 20px;
+
+        > div {
+            display: flex;
+        }
+
+        .campaign-status {
+            min-width: 33.333%;
+            padding: 0 5px;
+            box-sizing: border-box;
+            margin-right: 10px;
+            border-radius: 4px;
+            justify-content: center;
+            align-items: center;
+            font-weight: 600;
+            font-size: 12px;
+            line-height: 14px;
+            background-color: #f2f2f2;
+            color: #828282;
+            height: 20px;
+
+            .status-content {
+                min-width: max-content;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+
+        .campaign-status.red {
+            background-color: #ffebec;
+            color: #eb5757;
+
+            svg path {
+                fill: #eb5757;
+            }
+        }
+
+        .campaign-status.blue {
+            background-color: #e3eefd;
+            color: #7aa2d8;
+
+            svg path {
+                fill: #7aa2d8;
+            }
+        }
+
+        .campaign-status.green {
+            background-color: #dcefeb;
+            color: #78b3a6;
+
+            svg path {
+                fill: #78b3a6;
+            }
+        }
+
+        .campaign-status.orange {
+            background-color: #fae4d1;
+            color: #f2994a;
+
+            svg path {
+                fill: #f2994a;
+            }
+        }
+
+        .campaign-status-information {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 12px;
+            color: #828282;
+            height: 20px;
+
+            .icon {
+                width: 16px;
+                height: 16px;
+                margin-right: 3px;
+            }
+        }
+
+        .campaign-status-information.red {
+            color: #eb5757;
+
+            svg path {
+                fill: #eb5757;
+            }
+        }
+
+        .campaign-status-information.blue {
+            color: #7aa2d8;
+
+            svg path {
+                fill: #7aa2d8;
+            }
+        }
+
+        .campaign-status-information.green {
+            color: #78b3a6;
+
+            svg path {
+                fill: #78b3a6;
+            }
+        }
+
+        .campaign-status-information.orange {
+            color: #f2994a;
+
+            svg path {
+                fill: #f2994a;
+            }
+        }
+    }
+
+    .campaign-information {
+        display: flex;
+        flex-direction: row;
+        border-radius: 4px;
+        height: 80px;
+
+        .campaign-image {
+            width: 33.333%;
+            height: 100%;
+            margin-right: 10px;
+
+            img {
+                width: 100%;
+                height: 100%;
+                border-radius: 4px;
+                object-fit: cover;
+            }
+        }
+
+        .campaign {
+            display: flex;
+            flex: 1;
+
+            .content {
+                flex: 3;
+                flex-direction: column;
+                margin-right: 5px;
+
+                .campaign-title {
+                    font-size: 14px;
+                    line-height: 17px;
+                    font-weight: 600;
+                }
+
+                .campaign-product-name {
+                    font-weight: 500;
+                    font-size: 10px;
+                    line-height: 14px;
+                    color: #bdbdbd;
+                }
+            }
+
+            .campaign-price {
+                display: flex;
+                flex-direction: column;
+                width: fit-content;
+                justify-content: flex-start;
+                align-items: flex-end;
+                position: relative;
+
+                .price {
+                    span {
+                        font-size: 11.2659px;
+                        line-height: 14px;
+                    }
+
+                    label {
+                        font-size: 19.313px;
+                        line-height: 24px;
+                    }
+                }
+                .free-product {
+                    font-size: 16px;
+                    text-align: right;
+                    line-height: 16px;
+                    .free {
+                        color: #4f4f4f;
+                    }
+                    .product {
+                        font-size: 12px;
+                        color: #bdbdbd;
+                    }
+                }
+
+                .bonus {
+                    font-size: 12px;
+                    color: #219653;
+                }
+                .img-holder {
+                    position: absolute;
+                    top: 60px;
+                    img {
+                        height: 20px;
+                        width: 20px;
+                    }
+                }
+            }
+        }
+    }
+
+    .campaign-footer {
+        display: flex;
+        flex-direction: row;
+        padding-top: 10px;
+
+        .view-campaign-details-button {
+            border: 1px solid #adb1da;
+            box-sizing: border-box;
+            border-radius: 11px;
+            padding: 3px 10px;
+            font-weight: 500;
+            font-size: 10px;
+            line-height: 14px;
+            color: #414bb2;
+            height: 20px;
+        }
+    }
+}

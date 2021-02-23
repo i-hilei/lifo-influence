@@ -1,0 +1,24 @@
+.address-form-modal {
+    padding: 20px;
+    text-align: left;
+
+    .title {
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 20px;
+        color: #45515e;
+    }
+
+    .desc {
+        font-weight: 500;
+        color: #000;
+        line-height: 16px;
+        margin: 8px 0;
+    }
+
+    .lifo-btn {
+        background-color: #000;
+        color: #fff;
+        border: none;
+    }
+}

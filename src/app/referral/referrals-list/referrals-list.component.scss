@@ -1,0 +1,211 @@
+::ng-deep {
+    .ant-checkbox {
+        .ant-checkbox-inner {
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+        }
+
+        .ant-checkbox-inner::after {
+            top: 47%;
+            left: 22%;
+            width: 5.71px;
+            height: 11.14px;
+        }
+    }
+    .ant-checkbox::after {
+        border-radius: 50%;
+    }
+    .ant-checkbox.ant-checkbox-checked {
+        .ant-checkbox-inner {
+            background-color: #414BB2;
+        }
+    }
+
+    .ant-checkbox-input:focus+.ant-checkbox-inner,
+    .ant-checkbox-wrapper:hover .ant-checkbox-inner,
+    .ant-checkbox:hover .ant-checkbox-inner {
+        border-color: #414BB2;
+    }
+}
+
+.referrals-list {
+    padding: 15px 25px;
+    background-color: #F4F4FF;
+    min-height: 100vh;
+    margin-bottom: 80px;
+
+    .page-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+
+        > div {
+            label {
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 17px;
+                text-align: center;
+                color: #0D053C;
+                margin-left: 5px;
+            }
+        }
+    }
+
+    .referral-message {
+        display: flex;
+        flex-direction: column;
+        margin: 20px 0;
+
+        .message-title {
+            display: flex;
+            flex-direction: row;
+            label {
+                font-weight: 600;
+                font-size: 24px;
+                line-height: 30px;
+                text-align: center;
+            }
+        }
+
+        .message-description {
+            display: flex;
+            flex-direction: column;
+            margin-top: 15px;
+
+            label {
+                font-size: 14px;
+                line-height: 20px;
+                color: #0D053C;
+                margin: 10px 0;
+            }
+        }
+    }
+
+    .referral-link-block {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        background: #FFFFFF;
+        border: 1px solid rgba(13, 5, 59, 0.1);
+        box-sizing: border-box;
+        border-radius: 8px;
+
+        .referral-link {
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            margin: 14px;
+        }
+
+        .referral-copy-button {
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 17px;
+            text-align: center;
+            color: #2F80ED;
+            padding: 0 14px;
+            border-left: 1px solid #E0E0E0;
+        }
+    }
+
+    .available-referrals-list {
+        display: flex;
+        flex-direction: column;
+        background: #FFFFFF;
+        box-shadow: 0px 1px 8px rgba(13, 5, 60, 0.08);
+        border-radius: 8px;
+        margin-top: 20px;
+        margin-bottom: 90px;
+
+        .header {
+            padding: 15px;
+            font-size: 14px;
+            line-height: 20px;
+            color: #0D053C;
+        }
+
+        .available-referral {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 15px;
+            border-top: 0.5px solid #E0E0E0;
+
+            .referral-image {
+                width: 50px;
+                height: 50px;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 50%;
+                }
+            }
+
+            .referral-info {
+                display: flex;
+                flex: 1;
+                flex-direction: column;
+                justify-content: center;
+                margin-left: 15px;
+
+                .referral-name {
+                    font-weight: 600;
+                    font-size: 14px;
+                    line-height: 17px;
+                    color: #333333;
+                }
+
+                .referral-followers-number {
+                    font-weight: 500;
+                    font-size: 14px;
+                    line-height: 17px;
+                    color: #828282;
+                    margin-top: 5px;
+                }
+            }
+
+            .checkbox-container {
+                display: flex;
+                justify-content: center;
+                min-width: 38px;
+                margin-left: 2px;
+
+                .is-invited {
+                    font-size: 11px;
+                    font-style: italic;
+                }
+            }
+        }
+    }
+}
+
+.bottom-container {
+    position: fixed;
+    bottom: 0px;
+    padding-bottom: 20px;
+    width: 100%;
+    max-width: 500px;
+    padding-left: 25px;
+    padding-right: 25px;
+    background: #F4F4FF;
+
+    .invite-button {
+        background: #414BB2;
+        box-shadow: 0px 0px 10px rgba(13, 5, 60, 0.2);
+        border-radius: 4px;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 20px;
+        text-align: center;
+        text-transform: capitalize;
+        color: #FFFFFF;
+        padding: 15px;
+        margin-top: 20px;
+    }
+}
+

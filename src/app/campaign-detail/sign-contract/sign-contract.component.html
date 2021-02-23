@@ -1,0 +1,36 @@
+<div class="mobile-view">
+    <div class="mobile-title"></div>
+    <div class="icon-holder">
+        <img src="../../assets/svg/logo.svg" />
+    </div>
+
+    <div *ngIf="!completeSigning" class="mobile-container">
+        <div *ngIf="offerDetail">
+            <app-offer-detail-display [offerDetail]="offerDetail"></app-offer-detail-display>
+        </div>
+
+        <div class="buttons">
+            <button (click)="signContract()" class="button accept-button" mat-stroked-button>Sign Contract</button>
+        </div>
+    </div>
+
+    <div *ngIf="completeSigning" class="mobile-container">
+        <div class="big-icon-holder">
+            <img src="../../assets/svg/have-five.svg" />
+        </div>
+        <div class="message-container">
+            <div class="sub-title">Thank you for collaborating with Lifo!</div>
+            <div class="text">We are building the best influencer marketing product and we are coming soon !</div>
+            <div class="text">
+                Click <a href="https://lifo.ai" target="_blank">here</a> to subscribe, we will let you know as soon as there is any update !
+            </div>
+        </div>
+        <div class="follow-message">Follow us on Instagram to know more about Lifo.</div>
+        <div class="buttons">
+            <button (click)="followLifo()" class="accept-button" mat-stroked-button>
+                <i class="icon" nz-icon nzTheme="outline" nzType="instagram"></i>
+                Follow Lifo
+            </button>
+        </div>
+    </div>
+</div>

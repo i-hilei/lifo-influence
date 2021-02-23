@@ -1,0 +1,93 @@
+<ActionBar title="Content Draft" class="action-bar" backgroundColor="#fff" borderWidth="1" borderColor="#ccc" color="#333">
+    <NavigationButton></NavigationButton>
+
+    <!-- Creating custom views for ActionItem-->
+    <ActionItem ios.position="right" android.position="popup" (tap)="editContent()">
+        <button text="Edit" color="#007AFF" margin="0" padding="0" fontSize="16"></button>
+    </ActionItem>
+</ActionBar>
+
+<StackLayout>
+    <StackLayout class="carousel-box" height="220">
+        <!-- <Carousel
+            *ngIf="mediaFiles.length > 0"
+            height="100%"
+            width="100%"
+            finite="true"
+            bounce="false"
+            showIndicator="false"
+            verticalAlignment="top"
+            android:indicatorAnimation="swap"
+            color="white"
+            [selectedPage]="selectedPage"
+            items="{{mediaFiles}}"
+        >
+            <CarouselItem *ngFor="let file of mediaFiles; let i = index" backgroundColor="#b3cde0" verticalAlignment="middle">
+                <label text="Slide {{i}}" backgroundColor="#50000000" horizontalAlignment="center"></label>
+            </CarouselItem>
+        </Carousel> -->
+
+        <Pager [items]="items" #pager [selectedIndex]="selectedPage" height="100%">
+            <ng-template let-i="index" let-item="item">
+                <StackLayout backgroundColor="skyblue" height="100%">
+                    <image
+                        *ngIf="item.type === 'image'"
+                        width="100%"
+                        height="100%"
+                        src="{{item.file}}"
+                        backgroundColor="#eee"
+                        stretch="aspectFill"
+                    ></image>
+                    <VideoPlayer
+                        *ngIf="item.type === 'video'"
+                        width="100%"
+                        height="100%"
+                        src="{{item.file}}"
+                        fill="true"
+                        backgroundColor="#eee"
+                    ></VideoPlayer>
+                </StackLayout>
+            </ng-template>
+        </Pager>
+    </StackLayout>
+
+    <StackLayout padding="20">
+        <ScrollView marginBottom="40" orientation="horizontal" class="media-overview">
+            <StackLayout width="auto" height="auto" orientation="horizontal">
+                <StackLayout
+                    *ngFor="let item of mediaFiles;let i = index"
+                    class="media-item"
+                    width="50"
+                    height="50"
+                    marginRight="10"
+                    backgroundColor="skyblue"
+                    borderRadius="5"
+                    (tap)="changePage(i)"
+                >
+                    <AbsoluteLayout width="100%" height="100%" backgroundColor="#eee">
+                        <image
+                            *ngIf="item.type === 'image'"
+                            left="0"
+                            top="0"
+                            width="100%"
+                            height="100%"
+                            src="{{item.file}}"
+                            stretch="aspectFill"
+                        ></image>
+                        <VideoPlayer
+                            *ngIf="item.type === 'video'"
+                            left="0"
+                            top="0"
+                            width="100%"
+                            height="100%"
+                            src="{{item.file}}"
+                            fill="true"
+                        ></VideoPlayer>
+                        <StackLayout left="0" top="0" width="100%" height="100%"> </StackLayout>
+                    </AbsoluteLayout>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+        <label class="caption" text="{{caption}}" textWrap="true"></label>
+    </StackLayout>
+</StackLayout>

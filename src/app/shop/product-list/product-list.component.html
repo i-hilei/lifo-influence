@@ -1,0 +1,99 @@
+<div class="shop-container">
+    <div class="discount-message-block">
+        <div class="discount-message">
+            <img src="assets/svg/diamond.svg" />
+            Get up to 90% off with friends’ support!
+        </div>
+    </div>
+
+    <app-shop-profile [shopDetail]="shopDetail" [type]="'external'"></app-shop-profile>
+
+    <div class="social_icon"  *ngIf='getshopdetails?.links'>
+        <div *ngFor='let link of getshopdetails?.links'>
+            <div  *ngIf="link?.display" class="social_icon_box" >
+                <div class="icon_box">
+                    <a href="https://{{link?.url}}" target="_blank"> 
+                        <img  src="{{LinksName[link.arrayIndex].path}}" alt="">
+                    </a>
+                    
+                </div>
+                <p>{{link.title}}</p>
+            </div>
+        </div>
+        
+    </div>
+
+    <div class="selected">
+        <div class="shop-item-container">
+            <div class="loading-section" *ngIf="loading">
+                <app-loading></app-loading>
+            </div>
+            <div class="shop-item" #shopItem [attr.product_id]="product.product_id"
+                *ngFor="let product of shopProductList; index as i" (click)="videProductDetail(product)">
+                <app-shop-item [product]="product"></app-shop-item>
+                <div class="buy-button" (click)="createOrder(product)" *ngIf="!enableShopingCart">Buy Now</div>
+                <div class="buy-button" (click)="createOrder(product)" *ngIf="enableShopingCart">Add to Cart</div>
+            </div>
+        </div>
+        <div class="empty-message" *ngIf="shopProductList.length === 0 && !loading">
+            <img src="assets/png/img_empty@2x.png" />
+            <div>Your store is empty</div>
+        </div>
+    </div>
+
+    <div class="join-lifo">Want your own shop? <b (click)="joinLifo()">Join Lifo for that!</b></div>
+
+    <div class="recommend-title">- Lifo Recommendation -</div>
+    <div class="tab">
+        <div class="tab-item">Popular</div>
+    </div>
+    <div class="selected">
+        <div class="shop-item-container">
+            <div class="loading-section" *ngIf="loading">
+                <app-loading></app-loading>
+            </div>
+            <div class="shop-item" *ngFor="let product of lifoProductList; index as i"
+                (click)="videProductDetail(product)">
+                <app-shop-item [product]="product"></app-shop-item>
+                <div class="buy-button" (click)="createOrder(product)" *ngIf="!enableShopingCart">Buy Now</div>
+                <div class="buy-button" (click)="createOrder(product)" *ngIf="enableShopingCart">Add to Cart</div>
+            </div>
+        </div>
+        <!-- <div class="empty-message" *ngIf="shopProductList.length === 0">
+            <img src="assets/png/empty-shop.png">
+            <div>Your store is empty</div>
+        </div> -->
+    </div>
+
+    <div class="select-modal">
+        <Modal
+            class="radius-modal"
+            [(ngModel)]="modalControl.selectVariantModel"
+            [popup]="true"
+            [animationType]="'slide-up'"
+            (onClose)="variantSelect.quantity = 1"
+        >
+            <app-product-variant-select
+                #variantSelect
+                [product]="selectProductDetail"
+                (payMoney)="realCheckout($event)"
+                (addToCart)="addToCart($event)"
+                (updateSelectedVariants)="updateSelectVariant($event)"
+            ></app-product-variant-select>
+        </Modal>
+    </div>
+
+    <div class="shoping-cart-button" *ngIf="enableShopingCart">
+        <button nz-button (click)="visitCart()">
+            <img src="assets/png/shoping_cart.png" class="navigation-icon" />View Cart ({{ shoppingCartItems }})
+        </button>
+    </div>
+
+    <Modal class="bg-transparent-modal creating-order-modal" [maskClosable]="false" [transparent]="true"
+        [closable]="false" [(ngModel)]="isCreatingOrder" [closable]="false">
+        <section class="creating-order">
+            <app-loading></app-loading>
+            <section class="desc">Creating Order</section>
+        </section>
+    </Modal>
+</div>

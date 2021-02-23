@@ -1,0 +1,61 @@
+<section class="connect-instagram-section">
+    <div class="header">
+        <div class="header-logo">
+            <img class="panel-image" src="../../assets/svg/brand_logo_2.svg"/>
+        </div>
+        <div class="central"></div>
+        <div class="button logout-button blue" (click)="signOut()">Logout</div>
+    </div>
+
+    <div class="connect-instagram-content">
+        <div class="main-text">
+            <label>Connect your social account</label>
+        </div>
+    </div>
+
+    <div class="instagram">
+        <div class="get-instagram-info" *ngIf="!isConnectionInProgress && !instagramId">
+            <img src="../../assets/svg/instagram_logo.svg">
+
+            <label>Instagram</label>
+
+            <a
+                *ngIf="!instagramId"
+                class="button connect-instagram-button"
+                [href]="getInstagramLink()"
+            >
+                Connect To Instagram
+            </a>
+        </div>
+        <div class="instagram-data" *ngIf="instagramId">
+            <img class="instagram-logo" src="../../assets/svg/instagram_logo.svg" *ngIf="picture">
+
+            <div class="instagram-data-content">
+                <div class="account">
+                    <img class="user-image" [src]="picture || 'assets/svg/instagram_logo.svg'">
+
+                    <label class="account-info">@{{instagramId}}</label>
+                </div>
+                <a
+                    *ngIf="instagramId"
+                    class="switch-account-button"
+                    [href]="getInstagramLink()"
+                >
+                    Switch Account
+                </a>
+            </div>
+        </div>
+
+        <div *ngIf="isConnectionInProgress" class="loading">
+            <i nz-icon nzTheme="outline" nzType="loading"></i>
+        </div>
+    </div>
+
+    <a
+        *ngIf="instagramId"
+        class="next-step-button"
+        (click)="nextStep()"
+    >
+        Next
+    </a>
+</section>

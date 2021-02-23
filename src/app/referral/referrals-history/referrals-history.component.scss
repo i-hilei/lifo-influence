@@ -1,0 +1,204 @@
+.referrals-history {
+    padding: 15px;
+    min-height: 100vh;
+    margin-bottom: 50px;
+
+    .page-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+
+        > div {
+            label {
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 17px;
+                text-align: center;
+                color: #0D053C;
+                margin-left: 5px;
+            }
+        }
+    }
+
+    .referral-message {
+        display: flex;
+        flex-direction: column;
+        margin: 20px 0 20px;
+
+        .message-title {
+            display: flex;
+            flex-direction: row;
+
+            label {
+                font-weight: 600;
+                font-size: 24px;
+                line-height: 30px;
+                text-align: center;
+            }
+        }
+    }
+
+    .description {
+        display: flex;
+        flex-direction: column;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 20px;
+        color: #333333;
+        margin-bottom: 36px;
+
+        .title {
+            font-weight: 700;
+        }
+    }
+
+    .lottery-referral-card {
+        background: #FFFFFF;
+        border: 1px solid #EAEFF4;
+        box-sizing: border-box;
+        box-shadow: 0 2px 6px rgba(217, 227, 243, 0.4);
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        padding: 16px;
+        justify-content: space-between;
+
+        .instagram-id {
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 17px;
+            color: #333333;
+        }
+
+        .general {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+
+            .information {
+                display: flex;
+                flex-direction: row;
+
+                .extra-tickets {
+                    display: flex;
+                    align-items: center;
+                    margin-right: 8px;
+                    font-size: 12px;
+                    line-height: 20px;
+                    color: #219653;
+
+                    img {
+                        width: 14px;
+                        height: 14px;
+                        margin-right: 3px;
+                    }
+                }
+
+                .lottery-status {
+                    padding: 2px;
+                    background: #F2994A;
+                    backdrop-filter: blur(4px);
+                    border-radius: 5px;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    align-items: center;
+
+                    svg path {
+                        fill: #FFFFFF;
+                    }
+
+                    label {
+                        margin-left: 4px;
+                        font-weight: 600;
+                        font-size: 14px;
+                        line-height: 17px;
+                        color: #FFFFFF;
+                        text-transform: capitalize;
+                    }
+                }
+            }
+        }
+
+        .invited-at {
+            display: flex;
+            justify-content: flex-end;
+            font-size: 12px;
+            line-height: 20px;
+            color: #828282;
+            margin-top: 8px;
+        }
+
+        .steps-visualization {
+            display: flex;
+            flex-direction: row;
+            margin-top: 10px;
+
+            .step-visualization {
+                display: flex;
+                flex: 1;
+                height: 4px;
+                background: #ECECF7;
+                margin: 0 1.5px;
+                border-radius: 1px;
+            }
+
+            .step-visualization.filled {
+                background: #414BB2;
+            }
+        }
+    }
+
+    .referral-card {
+        margin-top: 20px;
+        padding: 16px 13px;
+        border: 1px solid #EAEFF4;
+        box-sizing: border-box;
+        box-shadow: 0 2px 6px rgba(217, 227, 243, 0.4);
+        border-radius: 8px;
+
+        .instagram-id {
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 17px;
+            color: #333333;
+        }
+        .steps-visualization {
+             display: flex;
+             flex-direction: row;
+             margin-top: 40px;
+
+             .step-visualization {
+                 display: flex;
+                 flex: 1;
+                 height: 4px;
+                 background: #ECECF7;
+                 margin: 0 1.5px;
+                 border-radius: 1px;
+             }
+
+             .step-visualization.filled {
+                 background: #414BB2;
+             }
+         }
+    }
+
+    .status {
+        margin-top: 8px;
+        margin-left: 15px;
+        font-size: 12px;
+        line-height: 20px;
+        color: #828282;
+        float: left;
+    }
+    .timestamp {
+        margin-top: 8px;
+        margin-left: 15px;
+        font-size: 12px;
+        line-height: 20px;
+        color: #828282;
+        float: right;
+    }
+
+}

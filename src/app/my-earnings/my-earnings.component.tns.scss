@@ -1,0 +1,59 @@
+.my-earnings-container {
+    .payment {
+        height: 200;
+        .desc {
+            color: #828282;
+            font-size: 14;
+        }
+        .count {
+            color: #333;
+            font-size: 16;
+            font-weight: bold;
+        }
+        .remaining-balance {
+            .count {
+                font-size: 36;
+            }
+        }
+        .request-btn {
+            border-radius: 10;
+            border-width: 1;
+            border-color: #333;
+            color: #333;
+            margin: 0;
+        }
+    }
+
+    .transaction-items {
+        .product-img {
+            background: #f4f5fa;
+            border-radius: 4;
+            padding: 0;
+            Image {
+                border-radius: 4;
+                width: 100%;
+                height: 100%;
+            }
+        }
+        .product-name {
+            color: #525069;
+            font-size: 14;
+            font-weight: 500;
+        }
+        .time {
+            color: #a2a4b0;
+            font-size: 12;
+            font-weight: 500;
+        }
+        .amount-box {
+            font-size: 18;
+            font-weight: 600;
+        }
+        .amount-box.in {
+            color: #3fa451;
+        }
+        .amount-box.out {
+            color: #ee7c51;
+        }
+    }
+}

@@ -1,0 +1,139 @@
+<StackLayout>
+  <Label text="SelectProductComponent works" textWrap="true"></Label>
+  <Label text="This is a migrated component" textWrap="true"></Label>
+  <Label text="Update it to provide the UI elements required in your mobile app" textWrap="true"></Label>
+</StackLayout>
+
+<!--
+Original Web template:
+
+<div class="shop-container">
+    <div class="header-container">
+        <div class="internal-store-header">
+            <div class="back" (click)="backToDashboard()">
+                <img src="assets/png/left-arrow.png" class="navigation-icon">
+            </div>
+            <div class="shop-icon">
+                <img src="assets/svg/lifo-shop.svg">
+            </div> ->
+            <div class="admin selected">
+                Lifo Shop
+            </div>
+            <div class="admin unselected" (click)="viewStorereport()">
+                Store Report
+            </div>
+        </div>
+    </div>
+    
+    <app-shop-profile [shopDetail]="shopDetail" [isInternalView]="true"></app-shop-profile>
+    <div class="selected">
+        <div class="title">My Selections ({{shopProductList.length}}/20)</div>
+        <div class="shop-item-container">
+            <div class="shop-item" *ngFor="let product of shopProductList; index as i" (click)="videProductDetail(product)">
+                <div class="product-image">
+                    <img src="{{product.images[0].src}}">
+                </div>
+                <div class="commission">
+                    <div class="commission-value"> 
+                        <img src="assets/png/ic_commission@2x.png" class="commission-icon">
+                        ${{ calculateCommission(product.variants[0].price) }} </div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title"><span class="vendor">{{product.vendor}} </span>{{ displayTitle(product.title) }}</div>
+                    <div class="product-price">
+                        <span class="same-price" *ngIf="!product.variants[0].compareAtPrice">${{product.variants[0].price}}</span>
+                        <span class="discount-price" *ngIf="product.variants[0].compareAtPrice">${{product.variants[0].price}}</span>
+                        <span class="original-price" *ngIf="product.variants[0].compareAtPrice">${{product.variants[0].compareAtPrice}}</span>
+                    </div>
+                </div>
+                <div class="remove-button" (click)="removeProductFromShop(product, i)"> Remove </div>
+            </div>
+        </div>
+        <div class="empty-message" *ngIf="shopProductList.length === 0">
+            <img src="assets/png/empty-shop.png">
+            <div>Add your selections below</div>
+        </div>
+    </div>
+    <div class="selected">
+        <div class="title">Lifo Recommendataion</div>
+        <div class="description">For all the products sold from your store, including your selections and Lifo recommendation below, you will earn the     
+            <img src="assets/png/ic_commission@2x.png" class="commission-icon"> commission for each sale.</div>
+    </div>
+    <div class="tab">
+        <div class="tab-item">Popular</div>
+    </div>
+    <div class="selected">
+        <div class="shop-item-container">
+            <div class="shop-item" *ngFor="let product of remainingProductList; index as i" (click)="videProductDetail(product)">
+                <div class="product-image">
+                    <img src="{{product.images[0].src}}">
+                </div>
+                <div class="commission">
+                    <div class="commission-value"> 
+                        <img src="assets/png/ic_commission@2x.png" class="commission-icon">
+                        ${{ calculateCommission(product.variants[0].price) }} </div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title"><span class="vendor">{{product.vendor}} </span>{{ displayTitle(product.title) }}</div>
+                    <div class="product-price">
+                        <span class="same-price" *ngIf="!product.variants[0].compareAtPrice">${{product.variants[0].price}}</span>
+                        <span class="discount-price" *ngIf="product.variants[0].compareAtPrice">${{product.variants[0].price}}</span>
+                        <span class="original-price" *ngIf="product.variants[0].compareAtPrice">${{product.variants[0].compareAtPrice}}</span>
+                    </div>
+                </div>
+                <div class="buy-button" (click)="addProductToShop(product, i)"> Add To Selection</div>
+            </div>
+        </div>
+        <div class="product-list-item" *ngFor="let product of remainingProductList; index as i">
+            <div class="product-image">
+                <img src="{{product.images[0].src}}">
+            </div>
+            <div class="product-info">
+                <div class="product-title">{{ displayTitle(product.title) }}</div>
+                <div class="product-price" *ngIf="product.variants[0].compareAtPrice">$ {{ product.variants[0].price }} 
+                    <span class="original-price">$ {{product.variants[0].compareAtPrice}}</span></div>
+    
+                <div class="commission">
+                    <div class="commission-name">Commission Per Sale</div>
+                    <div class="commission-value"> $ {{ calculateCommission(product.variants[0].price) }} </div>
+                </div>
+                <div class="add-button" (click)="addProductToShop(product, i)"> Add </div>
+            </div>
+        </div> ->
+    </div>
+
+
+    <Modal
+        (ngModelChange)="removeModalShow = $event"
+        [popup]="true"
+        [closable]="false"
+        [ngModel]="removeModalShow"
+        [transparent]="true"
+        (onClose)="onRemoveModalClose()">
+        
+        <div class="remove-container" *ngIf="selectedProduct">
+            <div class="remove-title">Remove Product</div>
+            <div class="remove-question">Are you sure you want to remove this product from your selections list?</div>
+            <div class="shop-item">
+                <div class="product-image">
+                    <img src="{{selectedProduct.images[0].src}}">
+                </div>
+                <div class="product-info">
+                    <div class="product-title"><span class="vendor">{{selectedProduct.vendor}} </span>{{ displayTitle(selectedProduct.title) }}</div>
+                    <div class="product-price">
+                        <span class="same-price" *ngIf="!selectedProduct.variants[0].compareAtPrice">${{selectedProduct.variants[0].price}}</span>
+                        <span class="discount-price" *ngIf="selectedProduct.variants[0].compareAtPrice">${{selectedProduct.variants[0].price}}</span>
+                        <span class="original-price" *ngIf="selectedProduct.variants[0].compareAtPrice">${{selectedProduct.variants[0].compareAtPrice}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="buttons">
+                <div class="cancel-button" (click)="onRemoveModalClose()"> Cancel </div>
+                <div class="remove-button" (click)="removeProductReal(selectedProduct)"> Remove </div>
+            </div>
+        </div>
+    </Modal>
+</div>
+
+
+-->

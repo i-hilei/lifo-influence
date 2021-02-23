@@ -1,0 +1,157 @@
+<section class="page-container">
+    <section class="page-header">
+        <app-page-header (onBackClick)="back()" [headerConfig]="pageHeaderConfig"></app-page-header>
+    </section>
+
+    <section class="my-earnings">
+        <section class="money">
+            <section class="money-overview">
+                <section class="overview-content">
+                    <section class="total-money">$ {{ accountBalance?.account_balance || 0 }}</section>
+                    <section class="desc">Account Balance</section>
+                </section>
+                <button
+                    (click)="requetCashOutBtnClick()"
+                    [disabled]="!accountBalance?.account_balance || !currentUserProfile"
+                    class="request-btn"
+                    nz-button
+                    nzType="primary"
+                >
+                    Request Payment
+                </button>
+            </section>
+            <section class="money-detail">
+                <section class="money-detail-item">
+                    <section class="count">$ {{ accountBalance?.pending_balance || 0 }}</section>
+                    <section class="desc">Pending Commission</section>
+                </section>
+                <section class="money-detail-item">
+                    <section class="count">$ {{ paidCount }}</section>
+                    <section class="desc">Paid</section>
+                </section>
+                <section class="money-detail-item">
+                    <section class="count">$ {{ accountBalance?.total_earning || 0 }}</section>
+                    <section class="desc">Total Commission</section>
+                </section>
+            </section>
+        </section>
+
+        <section *ngIf="transactionList" class="transaction-list">
+            <section class="title">Transactions</section>
+
+            <section *ngFor="let transaction of transactionList" class="transaction-item">
+                <section class="left-img">
+                    <img
+                        *ngIf="campaignMap[transaction.meta_data?.campaign_id]?.product_image"
+                        [src]="campaignMap[transaction.meta_data?.campaign_id]?.product_image"
+                        class="product-img"
+                    />
+                    <img *ngIf="transaction.transaction_type === 'CASH_OUT' || transaction.transaction_type === 'SHOP_PAYMENT'" class="cash-out"
+                        src="../../assets/svg/Vector.svg"/>
+                </section>
+                <section class="right-info">
+                    <section class="name-time">
+                        <section class="name">
+                            {{ getTransactionName(transaction) }}
+                        </section>
+                        <section class="time">
+                            {{ getFormattedDate(transaction.transaction_time) }}
+                        </section>
+                    </section>
+                    <section class="money-count">
+                        <span>
+                            <i
+                                (click)="openDialog('pendingDialog', transaction)"
+                                *ngIf="transaction.status === 'PENDING'"
+                                nz-icon
+                                nzTheme="outline"
+                                nzType="clock-circle"
+                            ></i>
+                        </span>
+                        <span
+                            [ngClass]="{
+                                out: transaction.transaction_type === 'CASH_OUT' || transaction.transaction_type === 'SHOP_PAYMENT'
+                            }"
+                            class="count-operation"
+                        >
+                        <span *ngIf="transaction.transaction_type === 'CASH_OUT'|| transaction.transaction_type === 'SHOP_PAYMENT'; else content"
+                              class="operation"> - </span>
+                        <ng-template #content>
+                            <span class="operation"> + </span>
+                        </ng-template>
+
+                            <span class="count">${{ transaction.amount }}</span>
+                        </span>
+                    </section>
+                </section>
+            </section>
+        </section>
+
+        <section *ngIf="!transactionList" class="loading">
+            <app-loading></app-loading>
+        </section>
+
+        <section *ngIf="transactionList?.length === 0" class="no-data">
+            <img src="assets/svg/nodata.svg" />
+            <section></section>
+        </section>
+
+        <!-- Dialog -->
+        <!-- Pending -->
+        <Modal
+            (onClose)="closeDialog('pendingDialog')"
+            [(ngModel)]="this.dialogState.pendingDialog.status"
+            [footer]="this.dialogState.pendingDialog.footer"
+            [maskClosable]="false"
+            [popup]="true"
+        >
+            <section class="container">
+                <section class="title">Commission</section>
+                <section class="desc">
+                    This commission will be ready for payment after
+                    {{ getFormattedDate(selectedTransaction?.transaction_time, "MMM D, YYYY", 14) }}
+                </section>
+            </section>
+        </Modal>
+
+        <!-- Cashout confirm -->
+        <Modal
+            (onClose)="closeDialog('cashOutConfirmDialog')"
+            [(ngModel)]="this.dialogState.cashOutConfirmDialog.status"
+            [footer]="this.dialogState.cashOutConfirmDialog.footer"
+            [maskClosable]="false"
+            [popup]="true"
+        >
+            <section class="container">
+                <section class="titl">Request payment</section>
+                <section class="desc">
+                    You are requesting a payment of ${{ accountBalance?.account_balance }} to your PayPal account:
+                    {{ currentUserProfile?.paypal }}
+                </section>
+            </section>
+        </Modal>
+
+        <!-- Paypal Email -->
+        <Modal
+            (onClose)="closeDialog('paypalEmailDialog')"
+            [(ngModel)]="this.dialogState.paypalEmailDialog.status"
+            [footer]="this.dialogState.paypalEmailDialog.footer"
+            [maskClosable]="false"
+            [popup]="true"
+        >
+            <section class="container">
+                <section class="top">
+                    <span class="name">PayPal</span>
+                    <i (click)="closeDialog('paypalEmailDialog')" nz-icon nzTheme="outline" nzType="close"></i>
+                </section>
+                <section class="input">
+                    <input [(ngModel)]="paypal" autofocus nz-input placeholder="Enter PayPal email for payment" />
+                </section>
+            </section>
+        </Modal>
+    </section>
+
+    <section class="download-app">
+        <app-app-download-section></app-app-download-section>
+    </section>
+</section>

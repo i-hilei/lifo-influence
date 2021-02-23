@@ -1,0 +1,350 @@
+.shop-setting-box {
+    color: #000;
+    background-color: #f2f2f2;
+
+    // Common class
+    .title {
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 22px;
+    }
+
+    // Upload shop image
+    .shop-img {
+        padding: 20px;
+        background-color: #fff;
+
+        .img-upload-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            height: 90px;
+            margin-top: 16px;
+
+            .left-no-img {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 50%;
+                height: 100%;
+                border-radius: 4px;
+                border: 1px dashed rgb(171, 171, 171);
+
+                img {
+                    width: 20px;
+                    height: 20px;
+                }
+            }
+
+            .left-exist-img {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 50%;
+                height: 100%;
+                border: 1px solid #eee;
+                border-radius: 4px;
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    border-radius: 4px;
+                }
+            }
+
+            .right {
+                width: 50%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                .re-upload-btn {
+                    width: 100px;
+                    height: 28px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border: 1px solid #e0e0e0;
+                    border-radius: 4px;
+                    background-color: #fff;
+                    color: #000;
+                    font-size: 13px;
+                    font-weight: 500;
+
+                    img {
+                        margin-right: 4px;
+                        width: 14px;
+                        height: 14px;
+                    }
+                }
+            }
+        }
+    }
+
+    // Shop info update
+    .shop-info {
+        padding: 20px;
+        margin: 10px 0;
+        background-color: #fff;
+
+        ::ng-deep .ant-divider-horizontal {
+            margin: 10px 0;
+        }
+
+        .shop-info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+
+            .key {
+                font-size: 16px;
+                font-weight: 500;
+                color: #000;
+                white-space: nowrap;
+                padding-right: 10px;
+            }
+
+            .value {
+                color: #ababab;
+                font-size: 14px;
+                font-weight: 300;
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+                min-width: 0;
+
+                span {
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+
+                img {
+                    vertical-align: middle;
+                    height: 13px;
+                    margin-left: 8px;
+                }
+            }
+        }
+    }
+
+    // Post Control
+    .post-control {
+        background-color: #fff;
+        padding: 20px;
+        margin-bottom: 10px;
+
+        .title-operation {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .desc {
+            margin-top: 15px;
+            font-size: 12px;
+            font-weight: 300;
+            line-height: 16px;
+        }
+    }
+
+    // Bottom blank
+    .bottom-blank {
+        background-color: #fff;
+        height: 1px;
+        width: 100%;
+    }
+
+    // Modal css
+    Modal {
+        ::ng-deep {
+            .am-modal {
+                top: 25%;
+                left: 25px;
+                right: 25px;
+                width: calc(100% - 50px);
+            }
+        }
+    }
+    .customization-container {
+        a {
+            padding: 15px 5px;
+            text-align: left;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 22px;
+            text-transform: capitalize;
+            color: #000000;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        button {
+            background-color: #ffffff;
+        }
+
+        .menu-container {
+            display: flex;
+            flex-direction: column;
+
+            .store-url {
+                text-align: left;
+                font-weight: 300;
+                font-size: 12px;
+                line-height: 15px;
+                color: #ababab;
+                margin: -8px 0px 10px 5px;
+            }
+        }
+
+        .form {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            padding: 5px;
+
+            .title {
+                margin-bottom: 20px;
+                font-weight: 500;
+                font-size: 18px;
+                line-height: 25px;
+                color: #000000;
+                text-align: left;
+            }
+
+            .sub-title {
+                margin-bottom: 20px;
+                text-align: left;
+                font-weight: 300;
+                font-size: 14px;
+                line-height: 14px;
+
+                span.general-url-part {
+                    color: #0071ff;
+                }
+                span:not(.general-url-part) {
+                    color: #e0e0e0;
+                }
+            }
+
+            .input {
+                display: flex;
+                margin-bottom: 20px;
+
+                input {
+                    width: 100%;
+                    background: #ffffff;
+                    border: 0.5px solid #000000;
+                    box-sizing: border-box;
+                    border-radius: 4px;
+                    padding: 10px;
+                }
+
+                .input-message {
+                    display: flex;
+                    text-align: left;
+                    margin-top: 5px;
+                    padding: 0 5px;
+                    font-weight: 300;
+                    font-size: 12px;
+                    line-height: 15px;
+                    letter-spacing: 0.04em;
+                }
+
+                .input-error {
+                    color: #ff0000;
+                }
+
+                .input-success {
+                    color: #000000;
+                }
+            }
+
+            .button-row {
+                display: flex;
+                flex-direction: row;
+                margin-bottom: 10px;
+
+                .button {
+                    flex: 1;
+                    padding: 7px;
+                    text-align: center;
+                    color: #000000;
+                    border: #e0e0e0 1px solid;
+                    border-radius: 4px;
+                    font-weight: 500;
+                    font-size: 14px;
+                    line-height: 18px;
+                }
+
+                .button.save-button {
+                    margin-left: 20px;
+                    background: #e0e0e0;
+                    color: #ffffff;
+                }
+
+                .button.black {
+                    background: #000000;
+                    color: #ffffff;
+                }
+            }
+        }
+
+        .change-image-container {
+            display: flex;
+            flex-direction: column;
+
+            .buttons-block {
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 5px;
+
+                button {
+                    flex: 1;
+                    padding: 8px;
+                    text-align: center;
+                    color: #0071ff;
+                    border: #e0e0e0 1px solid;
+                    font-weight: 500;
+                    font-size: 14px;
+                }
+
+                ::ng-deep section button {
+                    flex: 1;
+                    width: 100%;
+                    padding: 8px;
+                    text-align: center;
+                    color: #0071ff;
+                    border: #e0e0e0 1px solid;
+                    background-color: #ffffff;
+                    font-weight: 500;
+                    font-size: 14px;
+                    border-radius: 4px;
+                    //border-top: none !important;
+                    //border-bottom-left-radius: 4px;
+                    //border-bottom-right-radius: 4px;
+                }
+
+                .make-photo-button {
+                    border-top-left-radius: 4px;
+                    border-top-right-radius: 4px;
+                }
+
+                .cancel-button {
+                    border-radius: 4px;
+                }
+            }
+        }
+    }
+}

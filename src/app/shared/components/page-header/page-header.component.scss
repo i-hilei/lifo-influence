@@ -1,0 +1,43 @@
+.page-header {
+    height: 43px;
+
+    .real-content {
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: flex;
+        width: 100%;
+        height: 43px;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 15px;
+        background-color: #fff;
+        border-bottom: 1px solid #eaeff4;
+        z-index: 9;
+        box-sizing: border-box;
+
+        .back {
+            min-width: 60px;
+            height: 17px;
+            img {
+                height: 100%;
+                object-fit: cover;
+                vertical-align: top;
+            }
+        }
+
+        label {
+            font-weight: 500;
+            font-size: 14px;
+            color: #0d053c;
+        }
+
+        .right-btn {
+            min-width: 60px;
+            height: unset;
+            font-size: 14px;
+            line-height: 1;
+            padding: 0;
+        }
+    }
+}

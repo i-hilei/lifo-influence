@@ -1,0 +1,460 @@
+<app-page-header [headerConfig]="pageHeaderConfig"></app-page-header>
+<section class="campaign-timeline">
+    <div *ngIf="campaign.brand_campaign_id" class="campaign-information">
+        <app-campaing-list-item [campaign]="campaign" [showCampaignDetailsButton]="true"></app-campaing-list-item>
+    </div>
+
+    <section *ngIf="loading" class="loading" [style.margin-top]="'20px'">
+        <app-loading></app-loading>
+    </section>
+
+    <div *ngIf="stepsPresets" class="steps">
+        <!--        SHIPPING STEP        -->
+        <div class="step" *ngIf="!campaign.has_initial_payment">
+            <div class="icon">
+                <div [ngClass]="stepsPresets.steps.shipping.status" class="circle"></div>
+            </div>
+            <div class="line"></div>
+            <div class="step-content">
+                <div class="step-header">
+                    <div class="header-text">
+                        {{ stepsPresets.steps.shipping.title[stepsPresets.steps.shipping.status] }}
+                    </div>
+                    <div *ngIf="stepsPresets.steps.shipping.status === StepStatuses.COMPLETED" class="step-completed-date">
+                        {{ campaign.influencer_info.getFormattedDate("product_received_time") }}
+                    </div>
+                </div>
+
+                <div *ngIf="stepsPresets.steps.draft_under_review.status === StepStatuses.WAITING" class="step-description">
+                    <!-- Shipping / ACTIVE -->
+                    <div *ngIf="stepsPresets.steps.shipping.status === StepStatuses.ACTIVE">
+                        <!-- Not ship -->
+                        <section *ngIf="!campaign.influencer_info.product_ship_time">To be shipped</section>
+                        <!-- Shipped, no shipping info -->
+                        <section *ngIf="campaign.influencer_info.product_ship_time && !shippingInfo">On the way</section>
+                        <section *ngIf="shippingInfo?.est_delivery_date">
+                            Arrive by {{ formatTime(shippingInfo.est_delivery_date) }}
+                        </section>
+
+                        <section *ngIf="shippingInfo?.tracking_details?.length" class="current-shipping">
+                            <i nz-icon nzTheme="fill" nzType="environment"></i>
+                            <span>
+                                {{ trim(shippingInfo.tracking_details[shippingInfo.tracking_details.length - 1].description) }}
+                            </span>
+                        </section>
+
+                        <section *ngIf="shippingInfo?.carrier" class="tracking-carrier">By {{ shippingInfo.carrier }}</section>
+                        <section
+                            (click)="copyShippingCode(shippingInfo.tracking_code)"
+                            *ngIf="shippingInfo?.tracking_code"
+                            class="tracking-number"
+                        >
+                            {{ shippingInfo.tracking_code }}
+                            <i nz-icon nzTheme="fill" nzType="copy"></i>
+                        </section>
+
+                        <div class="buttons-row">
+                            <a (click)="markAsDelivered()" class="button primary"> Mark as Delivered </a>
+                        </div>
+                    </div>
+
+                    <!-- Shipping / Delivered (COMPLETED) -->
+                    <div *ngIf="stepsPresets.steps.shipping.status === StepStatuses.COMPLETED">
+                        <!-- Shipped, no shipping info -->
+                        <section>Arrived on {{ formatTime(campaign.influencer_info.product_received_time * 1000) }}</section>
+                        <section *ngIf="shippingInfo?.carrier" class="tracking-carrier">By {{ shippingInfo.carrier }}</section>
+                        <section
+                            (click)="copyShippingCode(shippingInfo.tracking_code)"
+                            *ngIf="shippingInfo?.tracking_code"
+                            class="tracking-number"
+                        >
+                            {{ shippingInfo.tracking_code }}
+                            <i nz-icon nzTheme="fill" nzType="copy"></i>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Initial Commission Paid -->
+        <div class="step" *ngIf="campaign.has_initial_payment">
+            <div class="icon">
+                <div [ngClass]="stepsPresets.steps.initial_commission_paid.status" class="circle"></div>
+            </div>
+            <div class="line"></div>
+            <div class="step-content">
+                <div class="step-header">
+                    <div class="header-text">
+                        {{ stepsPresets.steps.initial_commission_paid.title[stepsPresets.steps.initial_commission_paid.status] }}
+                    </div>
+                    <div *ngIf="stepsPresets.steps.initial_commission_paid.status === StepStatuses.COMPLETED" class="step-completed-date">
+                        {{ campaign.influencer_info.getFormattedDate("upfront_paid_time") }}
+                    </div>
+                </div>
+                <div *ngIf="stepsPresets.steps.try_out_prodcut.status === StepStatuses.ACTIVE" class="step-description">
+                    <div class="campaign-status-information">
+                        ${{ campaign.influencer_info.upfront_paid_amount }} initial commission issued. You can request payment in 14 days.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Try out the product -->
+        <div class="step" *ngIf="campaign.has_initial_payment">
+            <div class="icon">
+                <div [ngClass]="stepsPresets.steps.try_out_prodcut.status" class="circle"></div>
+            </div>
+            <div class="line"></div>
+            <div class="step-content">
+                <div class="step-header" [ngClass]="{ disabled: stepsPresets.steps.try_out_prodcut.status === StepStatuses.WAITING }">
+                    <div class="header-text">
+                        {{ stepsPresets.steps.try_out_prodcut.title[stepsPresets.steps.try_out_prodcut.status] }}
+                    </div>
+                    <div *ngIf="stepsPresets.steps.try_out_prodcut.status === StepStatuses.COMPLETED" class="step-completed-date">
+                        {{ campaign.influencer_info.getFormattedDate("product_received_time") }}
+                    </div>
+                </div>
+
+                <div class="step-description" *ngIf="stepsPresets.steps.try_out_prodcut.status !== StepStatuses.WAITING">
+                    <ng-container *ngIf="stepsPresets.steps.try_out_prodcut.status === StepStatuses.ACTIVE">
+                        <div class="campaign-status-information">
+                            Please purchase the product on the website below and paste your order number back. Your reimbursement is
+                            included in the campaign commission.
+                        </div>
+                        <section class="web-link">
+                            <a [href]="campaign.product_url" target="_blank">
+                                <i nz-icon nzTheme="outline" nzType="link"></i>
+                                <span>{{ campaign.brand }}</span>
+                            </a>
+                        </section>
+                        <div class="input-block">
+                            <form>
+                                <nz-form-item>
+                                    <nz-form-control>
+                                        <nz-input-group nzAddOnBeforeIcon="shopping-cart">
+                                            <input
+                                                placeholder="Paste order number here"
+                                                [(ngModel)]="productOrderNumber"
+                                                name="order-number"
+                                                nz-input
+                                                required
+                                                type="text"
+                                            />
+                                        </nz-input-group>
+                                        <button
+                                            class="submit-link"
+                                            (click)="addProductOrderNumber()"
+                                            [disabled]="trim(productOrderNumber).length <= 0"
+                                            nz-button
+                                            nzType="link"
+                                        >
+                                            Submit
+                                        </button>
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </form>
+                        </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="stepsPresets.steps.try_out_prodcut.status === StepStatuses.COMPLETED">
+                        <section class="order-number-title">Order Number</section>
+                        <section class="order-number">{{ campaign.influencer_info.order_number }}</section>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+
+        <div class="step">
+            <!--        DRAFT PENDING STEP        -->
+            <div class="icon">
+                <div [ngClass]="stepsPresets.steps.draft_pending.status" class="circle"></div>
+            </div>
+            <div class="line"></div>
+            <div class="step-content">
+                <!--        DRAFT PENDING STEP HEADER        -->
+                <div [ngClass]="{ disabled: stepsPresets.steps.draft_pending.status === StepStatuses.WAITING }" class="step-header">
+                    <div class="header-text">
+                        {{ stepsPresets.steps.draft_pending.title[stepsPresets.steps.draft_pending.status] }}
+                        <span *ngIf="stepsPresets.steps.draft_pending.bonusGetted" class="bonus">
+                            +${{ campaign.influencer_info.accept_bonus }}
+                        </span>
+                    </div>
+                    <div *ngIf="stepsPresets.steps.draft_pending.status === StepStatuses.COMPLETED" class="step-completed-date">
+                        {{ campaign.influencer_info.getFormattedDate("content_submit_time") }}
+                    </div>
+
+                    <!--        STEP STATUS: WAITING        -->
+                    <div *ngIf="stepsPresets.steps.draft_pending.status === StepStatuses.WAITING" class="campaign-status orange">
+                        <div *ngIf="stepsPresets.steps.draft_pending.badge.waiting.text" class="status-content">
+                            <svg
+                                *ngIf="stepsPresets.steps.draft_pending.badge.waiting.hasTimeIcon"
+                                fill="none"
+                                height="15"
+                                viewBox="0 0 15 15"
+                                width="15"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M13.75 3.57461L10.875 1.16211L10.0688 2.11836L12.9438 4.53086L13.75 3.57461ZM4.925 2.11836L4.125 1.16211L1.25 3.56836L2.05625 4.52461L4.925 2.11836ZM7.8125 4.99961H6.875V8.74961L9.84375 10.5309L10.3125 9.76211L7.8125 8.28086V4.99961ZM7.5 2.49961C4.39375 2.49961 1.875 5.01836 1.875 8.12461C1.875 11.2309 4.3875 13.7496 7.5 13.7496C10.6063 13.7496 13.125 11.2309 13.125 8.12461C13.125 5.01836 10.6063 2.49961 7.5 2.49961ZM7.5 12.4996C5.08125 12.4996 3.125 10.5434 3.125 8.12461C3.125 5.70586 5.08125 3.74961 7.5 3.74961C9.91875 3.74961 11.875 5.70586 11.875 8.12461C11.875 10.5434 9.91875 12.4996 7.5 12.4996Z"
+                                    fill="#EB5757"
+                                />
+                            </svg>
+                            {{ stepsPresets.steps.draft_pending.badge.waiting.text }}
+                        </div>
+                    </div>
+
+                    <!--        STEP STATUS: ACTIVE        -->
+                    <div
+                        *ngIf="stepsPresets.steps.draft_pending.status === StepStatuses.ACTIVE"
+                        [ngClass]="stepsPresets.steps.draft_pending.badge.active.colorClass"
+                        class="campaign-status"
+                    >
+                        <div *ngIf="stepsPresets.steps.draft_pending.badge.active.text" class="status-content">
+                            <svg
+                                *ngIf="stepsPresets.steps.draft_pending.badge.active.hasTimeIcon"
+                                fill="none"
+                                height="15"
+                                viewBox="0 0 15 15"
+                                width="15"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M13.75 3.57461L10.875 1.16211L10.0688 2.11836L12.9438 4.53086L13.75 3.57461ZM4.925 2.11836L4.125 1.16211L1.25 3.56836L2.05625 4.52461L4.925 2.11836ZM7.8125 4.99961H6.875V8.74961L9.84375 10.5309L10.3125 9.76211L7.8125 8.28086V4.99961ZM7.5 2.49961C4.39375 2.49961 1.875 5.01836 1.875 8.12461C1.875 11.2309 4.3875 13.7496 7.5 13.7496C10.6063 13.7496 13.125 11.2309 13.125 8.12461C13.125 5.01836 10.6063 2.49961 7.5 2.49961ZM7.5 12.4996C5.08125 12.4996 3.125 10.5434 3.125 8.12461C3.125 5.70586 5.08125 3.74961 7.5 3.74961C9.91875 3.74961 11.875 5.70586 11.875 8.12461C11.875 10.5434 9.91875 12.4996 7.5 12.4996Z"
+                                    fill="#EB5757"
+                                />
+                            </svg>
+
+                            {{ stepsPresets.steps.draft_pending.badge.active.text }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Warning message -->
+                <div
+                    *ngIf="
+                        stepsPresets.steps.draft_pending.status !== StepStatuses.WAITING &&
+                        stepsPresets.steps.draft_reviewed.status === StepStatuses.WAITING &&
+                        stepsPresets.steps.draft_pending.warningMessage[stepsPresets.steps.draft_pending.status].text
+                    "
+                    [ngClass]="stepsPresets.steps.draft_pending.warningMessage[stepsPresets.steps.draft_pending.status].colorClass"
+                    class="warning-message"
+                >
+                    <i
+                        *ngIf="stepsPresets.steps.draft_pending.warningMessage[stepsPresets.steps.draft_pending.status].icon === 'done'"
+                        nz-icon
+                        nzTheme="fill"
+                        nzType="check-circle"
+                    ></i>
+                    {{ stepsPresets.steps.draft_pending.warningMessage[stepsPresets.steps.draft_pending.status].text }}
+                </div>
+
+                <!-- STEP STATUS: ACTIVE | COMPLETED -->
+                <div *ngIf="stepsPresets.steps.draft_pending.status !== StepStatuses.WAITING" class="step-description">
+                    <div
+                        [ngClass]="stepsPresets.steps.draft_pending.description[stepsPresets.steps.draft_pending.status].colorClass"
+                        class="campaign-status-information"
+                        *ngIf="stepsPresets.steps.draft_pending.description[stepsPresets.steps.draft_pending.status].text"
+                    >
+                        <label>
+                            {{ stepsPresets.steps.draft_pending.description[stepsPresets.steps.draft_pending.status].text }}
+                        </label>
+                    </div>
+                    <div *ngIf="campaign.influencer_info.isContentSubmitted">
+                        <a (click)="viewDraft()" class="button view-button">
+                            <i nz-icon nzTheme="fill" nzType="picture"></i>
+                            View Content Draft
+                        </a>
+                    </div>
+                    <div *ngIf="!campaign.influencer_info.isContentSubmitted" class="buttons-row">
+                        <a (click)="uploadFile()" class="button primary"> Upload Content </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--        DRAFT REVIEWING STEP        -->
+        <div class="step">
+            <div class="icon">
+                <div [ngClass]="stepsPresets.steps.draft_under_review.status" class="circle"></div>
+            </div>
+            <div class="line"></div>
+            <div class="step-content">
+                <!--        DRAFT REVIEWING STEP HEADER       -->
+                <div [ngClass]="{ disabled: stepsPresets.steps.draft_under_review.status === StepStatuses.WAITING }" class="step-header">
+                    <div class="header-text">
+                        {{ stepsPresets.steps.draft_under_review.title[stepsPresets.steps.draft_under_review.status] }}
+                    </div>
+                    <div *ngIf="stepsPresets.steps.draft_under_review.status === StepStatuses.COMPLETED" class="step-completed-date">
+                        {{ campaign.influencer_info.getFormattedDate("content_approve_time") }}
+                    </div>
+                </div>
+                <!--        DRAFT REVIEWING STEP DESCRIPTION        -->
+                <div *ngIf="stepsPresets.steps.draft_under_review.status === StepStatuses.ACTIVE" class="step-description">
+                    <div *ngIf="stepsPresets.steps.draft_under_review.status === StepStatuses.ACTIVE" class="campaign-status-information">
+                        {{ stepsPresets.steps.draft_under_review.description.active.text }}
+                    </div>
+                </div>
+                <section class="post-banner" *ngIf="stepsPresets.steps.draft_under_review.status === StepStatuses.ACTIVE">
+                    Reminder: Please don’t post to social media before it’s approved
+                </section>
+            </div>
+        </div>
+
+        <!--        DRAFT REVIEWED STEP        -->
+        <div class="step">
+            <div class="icon">
+                <div [ngClass]="stepsPresets.steps.draft_reviewed.status" class="circle"></div>
+            </div>
+            <div class="line"></div>
+            <div class="step-content">
+                <!--        DRAFT REVIEWED STEP HEADER       -->
+                <div [ngClass]="{ disabled: stepsPresets.steps.draft_reviewed.status === StepStatuses.WAITING }" class="step-header">
+                    <div class="header-text">
+                        {{ stepsPresets.steps.draft_reviewed.title[stepsPresets.steps.draft_reviewed.status] }}
+                    </div>
+                    <div *ngIf="stepsPresets.steps.draft_reviewed.status === StepStatuses.COMPLETED" class="step-completed-date">
+                        {{ campaign.influencer_info.getFormattedDate("submit_post_time") }}
+                    </div>
+                    <div
+                        *ngIf="stepsPresets.steps.draft_reviewed.status === StepStatuses.ACTIVE"
+                        [ngClass]="stepsPresets.steps.draft_reviewed.badge.active.colorClass"
+                        class="campaign-status"
+                    >
+                        <div *ngIf="stepsPresets.steps.draft_reviewed.badge.active.text" class="status-content">
+                            <!-- TODO: Change these svg to img or iconfont -->
+                            <svg fill="none" height="15" viewBox="0 0 15 15" width="15" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M13.75 3.57461L10.875 1.16211L10.0688 2.11836L12.9438 4.53086L13.75 3.57461ZM4.925 2.11836L4.125 1.16211L1.25 3.56836L2.05625 4.52461L4.925 2.11836ZM7.8125 4.99961H6.875V8.74961L9.84375 10.5309L10.3125 9.76211L7.8125 8.28086V4.99961ZM7.5 2.49961C4.39375 2.49961 1.875 5.01836 1.875 8.12461C1.875 11.2309 4.3875 13.7496 7.5 13.7496C10.6063 13.7496 13.125 11.2309 13.125 8.12461C13.125 5.01836 10.6063 2.49961 7.5 2.49961ZM7.5 12.4996C5.08125 12.4996 3.125 10.5434 3.125 8.12461C3.125 5.70586 5.08125 3.74961 7.5 3.74961C9.91875 3.74961 11.875 5.70586 11.875 8.12461C11.875 10.5434 9.91875 12.4996 7.5 12.4996Z"
+                                    fill="#EB5757"
+                                />
+                            </svg>
+                            {{ stepsPresets.steps.draft_reviewed.badge.active.text }}
+                        </div>
+                    </div>
+
+                    <div *ngIf="stepsPresets.steps.draft_reviewed.status === StepStatuses.WAITING" class="campaign-status orange">
+                        <div class="status-content">
+                            <svg fill="none" height="15" viewBox="0 0 15 15" width="15" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M13.75 3.57461L10.875 1.16211L10.0688 2.11836L12.9438 4.53086L13.75 3.57461ZM4.925 2.11836L4.125 1.16211L1.25 3.56836L2.05625 4.52461L4.925 2.11836ZM7.8125 4.99961H6.875V8.74961L9.84375 10.5309L10.3125 9.76211L7.8125 8.28086V4.99961ZM7.5 2.49961C4.39375 2.49961 1.875 5.01836 1.875 8.12461C1.875 11.2309 4.3875 13.7496 7.5 13.7496C10.6063 13.7496 13.125 11.2309 13.125 8.12461C13.125 5.01836 10.6063 2.49961 7.5 2.49961ZM7.5 12.4996C5.08125 12.4996 3.125 10.5434 3.125 8.12461C3.125 5.70586 5.08125 3.74961 7.5 3.74961C9.91875 3.74961 11.875 5.70586 11.875 8.12461C11.875 10.5434 9.91875 12.4996 7.5 12.4996Z"
+                                    fill="#EB5757"
+                                />
+                            </svg>
+                            {{ stepsPresets.steps.draft_reviewed.badge.waiting.text }}
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    *ngIf="
+                        stepsPresets.steps.draft_reviewed.status !== StepStatuses.WAITING &&
+                        stepsPresets.steps.draft_reviewed.warningMessage[stepsPresets.steps.draft_reviewed.status].text
+                    "
+                    [ngClass]="stepsPresets.steps.draft_reviewed.warningMessage[stepsPresets.steps.draft_reviewed.status].colorClass"
+                    class="warning-message"
+                >
+                    {{ stepsPresets.steps.draft_reviewed.warningMessage[stepsPresets.steps.draft_reviewed.status].text }}
+                </div>
+
+                <!-- STEP STATUS: ACTIVE -->
+                <div
+                    *ngIf="stepsPresets.steps.draft_reviewed.status === StepStatuses.ACTIVE && !campaign.influencer_info.isContentPosted"
+                    class="step-description"
+                >
+                    <div class="campaign-status-information">Post content to {{ campaign.platform }} and provide link below.</div>
+                    <div class="post-banner" *ngIf="campaign.start_post_time">
+                        Please post the content between {{ campaign.start_post_time * 1000 | date: "MM/dd" }} -
+                        {{ campaign.post_time * 1000 | date: "MM/dd" }} ONLY
+                    </div>
+                    <div class="input-block">
+                        <form #instagramPostLinkForm="ngForm">
+                            <nz-form-item>
+                                <nz-form-control [nzErrorTip]="linkErrorTpl">
+                                    <nz-input-group nzAddOnBeforeIcon="link">
+                                        <input
+                                            *ngIf="campaign.platform === 'instagram'"
+                                            [(ngModel)]="postLink"
+                                            name="instagram-link"
+                                            nz-input
+                                            pattern="(https?:\/\/(?:www\.)?instagram\.com\/([^/?#&]+)).*"
+                                            required
+                                            type="text"
+                                        />
+                                        <input
+                                            *ngIf="campaign.platform === 'tiktok'"
+                                            [(ngModel)]="postLink"
+                                            name="instagram-link"
+                                            nz-input
+                                            pattern="(https?:\/\/([a-zA-Z0-9.]*)tiktok\.com\/([^/?#&]+)).*"
+                                            required
+                                            type="text"
+                                        />
+                                    </nz-input-group>
+                                    <button
+                                        class="submit-link"
+                                        (click)="addContentLink()"
+                                        [disabled]="!instagramPostLinkForm.valid"
+                                        nz-button
+                                        nzType="link"
+                                    >
+                                        Submit
+                                    </button>
+
+                                    <ng-template #linkErrorTpl let-control>
+                                        <ng-container *ngIf="control.hasError('pattern')">
+                                            <span class="input-tip">Invalid link</span>
+                                        </ng-container>
+                                        <ng-container *ngIf="control.hasError('required')">
+                                            <span class="input-tip">Can not be empty</span>
+                                        </ng-container>
+                                    </ng-template>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- STEP STATUS: COMPLETED -->
+                <div *ngIf="campaign.influencer_info.isContentPosted" class="step-description">
+                    <a [href]="campaign.influencer_info.post_url" class="button view-button" target="_blank">
+                        <i nz-icon nzTheme="outline" nzType="link"></i> Check the Link
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!--        PENDING COMMISSION STEP       -->
+        <div class="step">
+            <div class="icon">
+                <div [ngClass]="stepsPresets.steps.pending_commission.status" class="circle"></div>
+            </div>
+            <div class="step-content">
+                <!--        PENDING COMMISSION STEP HEADER      -->
+                <div [ngClass]="{ disabled: stepsPresets.steps.pending_commission.status === StepStatuses.WAITING }" class="step-header">
+                    <div class="header-text">
+                        {{ stepsPresets.steps.pending_commission.title[stepsPresets.steps.pending_commission.status] }}
+                    </div>
+                    <div *ngIf="stepsPresets.steps.pending_commission.status === StepStatuses.COMPLETED" class="step-completed-date">
+                        {{ campaign.influencer_info.getFormattedDate("commission_paid_time") }}
+                    </div>
+                </div>
+                <!--        PENDING COMMISSION STEP DESCRIPTION      -->
+                <div *ngIf="stepsPresets.steps.pending_commission.status === StepStatuses.ACTIVE" class="step-description">
+                    {{ stepsPresets.steps.pending_commission.description.active.text }}
+                </div>
+
+                <div *ngIf="campaign.influencer_info.isCommissionPaid" class="step-description">
+                    {{ stepsPresets.steps.pending_commission.description.completed.text }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #SuccessToast>
+        <app-copy-message message="Copy Successful" type="success"></app-copy-message>
+    </ng-template>
+
+    <ng-template #FailToast>
+        <app-copy-message message="Copy Failed" type="fail"></app-copy-message>
+    </ng-template>
+</section>

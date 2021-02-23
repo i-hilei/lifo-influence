@@ -1,0 +1,86 @@
+.campaign-review {
+    padding: 20px;
+    min-height: 100%;
+    height: 100%;
+
+    .tab-content {
+        width: 100%;
+        height: 100%;
+        padding: 10px;
+        border-radius: 4px;
+        // box-shadow: 3px 3px 3px #ccc, -3px 3px 3px #ccc;
+
+        .post-banner {
+            margin-top: 10px;
+            background: #FFEBEC;
+            border-radius: 6px;
+            display: inline-block;
+            padding: 5px 15px;
+            font-weight: 600;
+            color: #EB5757;
+            vertical-align: top;
+        }
+
+        .img-preview {
+            height: 180px;
+            width: 100%;
+            border-radius: 4px;
+
+            img,
+            video {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+        }
+
+        .img-tab {
+            width: 100%;
+            margin-top: 5px;
+
+            overflow-x: auto;
+
+            .img-container {
+                display: flex;
+                justify-content: flex-start;
+                align-items: flex-start;
+                width: max-content;
+                height: max-content;
+
+                .img-tab-item {
+                    position: relative;
+                    width: 50px;
+                    height: 50px;
+                    margin-right: 5px;
+                    margin-bottom: 5px;
+                    border-radius: 4px;
+                    background-color: #eee;
+
+                    img {
+                        border-radius: 4px;
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    }
+
+                    .anticon {
+                        position: absolute;
+                        left: 50%;
+                        top: 50%;
+                        transform: translate(-50%, -50%);
+                        font-size: 20px;
+                        color: #fff;
+                    }
+                }
+
+                .selected {
+                    opacity: 0.5;
+                }
+            }
+        }
+
+        .caption {
+            margin-top: 10px;
+        }
+    }
+}

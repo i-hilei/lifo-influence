@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>65044462485-ffaljos6ebs6lnsrr9bs3lsmoqa36ngs.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.65044462485-ffaljos6ebs6lnsrr9bs3lsmoqa36ngs</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAGeHsFJ8yoyVkRXkwFe_uemTqbfc-D4FI</string>
+	<key>GCM_SENDER_ID</key>
+	<string>65044462485</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>ai.lifo.influencer</string>
+	<key>PROJECT_ID</key>
+	<string>influencer-272204</string>
+	<key>STORAGE_BUCKET</key>
+	<string>influencer-272204.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:65044462485:ios:dbf7c9a88256c2c7c2549c</string>
+	<key>DATABASE_URL</key>
+	<string>https://influencer-272204.firebaseio.com</string>
+</dict>
+</plist>
